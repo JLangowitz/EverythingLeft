@@ -1,0 +1,18 @@
+{
+  "name": "EverythingLeft",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "express": "3.1.0",
+    "jade": "*",
+    "mongoose": "~3.6.4",
+    "sessions": "0.0.2-7",
+    "passport-google": "~0.3.0",
+    "passport": "~0.1.16",
+    "connect-mongo": "~0.3.2",
+    "passport-google-oauth": "~0.1.5"
+  }
+}
