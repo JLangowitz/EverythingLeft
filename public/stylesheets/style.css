@@ -6,3 +6,17 @@ body {
 a {
   color: #00B7FF;
 }
+
+.inline-block {
+  display: inline-block;
+}
+
+.btn-google {
+	background: #cc3732;
+	color: white;
+}
+
+.btn-google:hover {
+	background: #dd4843;
+	color: white;
+}

@@ -3,10 +3,17 @@ extends layout
 block scripts
 
 block content
-    div(style="text-align: center; width: 100%; position: absolute")
-        h1#everything_left(style="display: inline-block;")  EverythingLeft
-    //- div.hero-unit.span3.offset5#login(style="text-align: center; max-width: 400px; min-width: 250px;")
-    //-   h1(style="margin-bottom: 10px;") #{title}
-    //-   br
-    //-   a(href='/auth/google')
-    //-     button.btn.btn-success.btn-large() Sign In with Google
+	div(class='container-fluid hero-unit')
+		div(class='row-fluid')
+			div(class='offset3 span6 offset3')
+				h1(class='text-center') Everything Left
+				div(class='text-center') None of the Food you don't want!
+				br
+				div(class='text-center')
+					a(href='/auth/google', class='text-center')
+						button(class='text-center inline-block btn btn-large btn-google') Sign In With Google
+	//- div.hero-unit.span3.offset5#login(style="text-align: center; max-width: 400px; min-width: 250px;")
+	//-   h1(style="margin-bottom: 10px;") #{title}
+	//-   br
+	//-   a(href='/auth/google')
+	//-     button.btn.btn-success.btn-large() Sign In with Google

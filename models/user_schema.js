@@ -5,7 +5,7 @@ var mongoose = require('mongoose');
 
 var user_schema = mongoose.Schema({
 	email: String,
-	activities_done: Array,
+	allergies: Array,
 	preferred_categories: [String],
     accessToken: String
 })
