@@ -1,3 +1,5 @@
+var Models = require('./models/models')
+	, User = Models.user;
 
 /*
  * GET users listing.
@@ -21,3 +23,18 @@ exports.search = function(req, res) {
 		title: "Search for new recipes!"
 	});
 }
+
+exports.settings = function(req, res) {
+    res.render('user', {title: 'Settings', prefs: JSON.stringify(req.user.preferred_categories)})
+};
+
+exports.prefs = function(req, res) {
+	req.user.preferred_categories=req.body.categories;
+	req.user.save(function(err){
+		if (err){
+			res.send(err);
+			return console.log('error', err);
+		}
+		res.send(err);
+	});
+};

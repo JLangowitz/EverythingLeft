@@ -5,11 +5,10 @@ var mongoose = require('mongoose');
 
 var user_schema = mongoose.Schema({
 	email: String,
-	allergies: Array,
-	preferred_categories: [String],
-    accessToken: String
+	username: String,
+	preferences: [String],
 })
 
 var User = mongoose.model('User', user_schema);
 
-module.exports = User;
+exports.user = User;

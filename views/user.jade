@@ -1,0 +1,34 @@
+extends layout
+
+
+block content
+	div#outer(class='container well min400', style='max-width: 800px; min-height: 300px;')
+		form(class='text-center form-horizontal', id='prefs')
+			fieldset
+				legend(class='text-center', style='font-size: 40px;') Select your Category Preferences
+				select.selections(class='span5', data-placeholder="Choose a category...", multiple, class="chzn-select", name='categories', style="margin-right: auto; margin-left: auto; width: 475px; display: block; font-size: 40px; border-radius: 10px;", id='categories', placeholder='Categories...')
+					option(value="physical_exertion") Physical Exertion
+					option(value="meditation") Meditation
+					option(value="education") Education
+					option(value="relaxation") Relaxation
+					option(value="socialization") Socialization
+					option(value="salivation") Salivation
+
+				//- span(class='help-block text-center', style='margin-bottom: 10px; margin-top: 10px;') Please separate categories with a comma.
+				label
+				button(type='submit', class='text-center btn btn-success') Save Changes
+
+
+block scripts
+	link(rel='stylesheet', href='/stylesheets/chosen.css')
+	script(src='javascripts/chosen.jquery.min.js')
+	script(src='javascripts/prefs.js')
+	script
+		var currentPrefs = JSON.parse('!{prefs}');
+		var options = $('#categories option');
+		for (var i=0; i<currentPrefs.length; i++){
+			console.log(currentPrefs[i]);
+			options.filter('[value="'+currentPrefs[i]+'"]').prop('selected',true)
+			//- $("#categories option[value=" + currentPrefs[i] + "]").attr('selected',true);
+			$('option').trigger('liszt:updated');
+		}
