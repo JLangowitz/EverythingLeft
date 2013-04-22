@@ -1,5 +1,6 @@
 var Models = require('../models/models')
-	, User = Models.user;
+	, User = Models.user
+	, Tags = Models.tags;
 
 /*
  * GET users listing.
@@ -17,7 +18,15 @@ exports.login = function(req, res) {
 };
 
 exports.profile = function(req, res){
-	res.render('profile', {title: "My Profile"});
+	var prefs = req.user.preferences
+		, favs = req.user.favorites;
+	if (prefs.length == 0){
+		prefs = ["You do not have any preferences yet!"];
+	}
+	if (favs.length == 0){
+		favs = ["You do not have any favorites yet!"];
+	}
+	res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
 };
 
 exports.search = function(req, res) {
@@ -26,9 +35,9 @@ exports.search = function(req, res) {
 	});
 }
 
-exports.settings = function(req, res) {
-    res.render('user', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
-};
+/*exports.settings = function(req, res) {
+    res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
+};*/
 
 exports.prefs = function(req, res) {
 	req.user.preferred_categories=req.body.categories;
@@ -38,5 +47,28 @@ exports.prefs = function(req, res) {
 			return console.log('error', err);
 		}
 		res.send(err);
+	});
+};
+
+exports.username = function(req, res) {
+	res.render('username', {title: '', error: ''});
+};
+
+exports.setname = function(req, res) {
+	console.log(req.body);
+	User.findOne({username:req.body.username}).exec(function(err,user){
+		console.log('user');
+		console.log(user);
+		if (user){
+			res.send('This username is taken. Please enter a unique username')
+		}
+		req.user.username=req.body.username;
+		req.user.save(function(err){
+			if (err){
+				console.log(err);
+				res.send(err);
+			}
+			res.send('');
+		});
 	});
 };
