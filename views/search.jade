@@ -1,7 +1,9 @@
 extends layout
 
 block scripts
-	script(src='/javascripts/chosen.jquery.min.js', type='text/javascript')
+	link(rel='stylesheet', href='/stylesheets/chosen.css')
+	script(src='/javascripts/chosen.jquery.min.js', type='text/javascript');
+	script(src='/javascripts/chosenHandle.js', type='text/javascript');
 
 block content
 	div(class='hero-unit container')
@@ -14,8 +16,22 @@ block content
 								div(class='controls')
 									input(type='text', placeholder='What do you want to make?')
 						div.control-group
-							label.control-label Dietary Restrictions
-								div.controls
+							label.control-label Tags
+								div.controls(style='')
+									select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
+										option(value="")
+										optgroup(label='Flavors')
+											option Salty
+											option Sour
+											option Sweet
+											option Bitter
+											option Meaty
+											option Piquant
+									//- div(id='selHQM_chzn', class='chzn-container chzn-container-multi', style='width: 350px;')
+									//- 	ul(class='chzn-choices')
+									//- 		li(class='search-field')
+									//- 			input(type='text', value='Your search tags', class='default', autocomnplete='off', style='width:195px;',tabindex='6')
+									//- 	div(class='chzn-drop', style='left:-9000px;width=348px;top:29px')
 						div(class='control-group')	
 							label.control-label Flavors
 								div(class='controls')
@@ -29,3 +45,16 @@ block content
 						div(class='control-group')
 							div.controls
 								button.btn.btn-large.disabled Search
+
+//- |<script>
+//- 	| var config = {
+//- 	|  '.chzn-select'           : {},
+//- 	|  '.chzn-select-deselect'  : {allow_single_deselect:true},
+//- 	|  '.chzn-select-no-single' : {disable_search_threshold:10},
+//- 	|  '.chzn-select-no-results': {no_results_text:'Oops, nothing found!'},
+//- 	|  '.chzn-select-width'     : {width:"95%"}
+//- 	|}
+//- 	|for (var selector in config) {
+//- 	|  $(selector).chosen(config[selector]);
+//- 	|}
+//- |</script>

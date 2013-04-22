@@ -22,7 +22,7 @@ exports.profile = function(req, res){
 
 exports.search = function(req, res) {
 	res.render('search', {
-		title: "Search for new recipes!"
+		title: "Everything Left"
 	});
 }
 
