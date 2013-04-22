@@ -1,6 +1,7 @@
 extends layout
 
 block scripts
+	script(src='/javascripts/chosen.jquery.min.js', type='text/javascript')
 
 block content
 	div(class='hero-unit container')
@@ -13,7 +14,8 @@ block content
 								div(class='controls')
 									input(type='text', placeholder='What do you want to make?')
 						div.control-group
-							label
+							label.control-label Dietary Restrictions
+								div.controls
 						div(class='control-group')	
 							label.control-label Flavors
 								div(class='controls')

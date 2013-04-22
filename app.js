@@ -11,7 +11,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , MongoStore = require('connect-mongo')(express)
   , GoogleStrategy = require('passport-google').Strategy
-  , Models = require('./models/models')
+  , Models = require('./models/models.js')
   , User = Models.user;
 
 var app = express();
