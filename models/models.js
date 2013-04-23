@@ -3,12 +3,39 @@
 
 var mongoose = require('mongoose');
 
-var user_schema = mongoose.Schema({
+// Has email for googleAuth, username can be set, prefs are user settings
+// which ref tags, which are global. Favorites are refs to specific recips
+// the user likes
+var userSchema = mongoose.Schema({
 	email: String,
 	username: String,
-	preferences: [String],
-})
+	preferences: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+	favorites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Recipe'}]
+});
 
-var User = mongoose.model('User', user_schema);
+var User = mongoose.model('User', userSchema);
 
 exports.user = User;
+
+// Recipes are user inputted or taken from Yummly, and they have a ref 
+// list of tags and likes
+var recipeSchema = mongoose.Schema({
+	name: String,
+	Yummly: Object,
+	tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+	likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+});
+
+var Recipe = mongoose.model('Recipe', recipeSchema);
+
+exports.recipe = Recipe;
+
+// Tags are objects that specify a certain kind of food
+var tagSchema = mongoose.Schema({
+	name: String,
+	category: String
+});
+
+var Tag = mongoose.model('Tag', tagSchema);
+
+exports.tag = Tag;

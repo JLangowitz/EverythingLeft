@@ -1,4 +1,4 @@
-var Models = require('./models/models')
+var Models = require('../models/models')
 	, User = Models.user;
 
 /*
@@ -15,7 +15,7 @@ exports.login = function(req, res) {
 };
 
 exports.settings = function(req, res) {
-    res.render('user', {title: 'Settings', prefs: JSON.stringify(req.user.preferred_categories)})
+    res.render('user', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
 };
 
 exports.prefs = function(req, res) {
