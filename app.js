@@ -11,7 +11,7 @@ var express = require('express')
   , mongoose = require('mongoose')
   , MongoStore = require('connect-mongo')(express)
   , GoogleStrategy = require('passport-google').Strategy
-  , Models = require('./models/models')
+  , Models = require('./models/models.js')
   , User = Models.user;
 
 var app = express();
@@ -86,6 +86,10 @@ app.configure(function () {
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
+// GET requests.
+app.get('/', loginRequired, routes.index);
+app.get('/login', user.login); // Logging in, creating a user.
+app.get('/search', user.search);
 
 
 

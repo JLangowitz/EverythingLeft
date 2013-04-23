@@ -1,0 +1,31 @@
+extends layout
+
+block scripts
+	script(src='/javascripts/chosen.jquery.min.js', type='text/javascript')
+
+block content
+	div(class='hero-unit container')
+		div(class='fluid-row')
+			form(class='form-horizontal')
+				fieldset
+					legend Search Yummly for Recipes
+						div(class='control-group')
+							label.control-label Name
+								div(class='controls')
+									input(type='text', placeholder='What do you want to make?')
+						div.control-group
+							label.control-label Dietary Restrictions
+								div.controls
+						div(class='control-group')	
+							label.control-label Flavors
+								div(class='controls')
+									select(multiple='multiple')
+										option Salty
+										option Sour
+										option Sweet
+										option Bitter
+										option Meaty
+										option Piquant
+						div(class='control-group')
+							div.controls
+								button.btn.btn-large.disabled Search
