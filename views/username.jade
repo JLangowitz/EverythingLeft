@@ -1,0 +1,17 @@
+extends layout
+
+block content
+	div(class='hero-unit text-center')
+		form(class='form-horizontal', id='setuser')
+			div(class='inline-block')
+				legend Please Enter a Username
+				div(class="control-group")
+					label(class="control-label", for='username') Username
+					div(class="controls")
+						input(type="text", id="username", placeholder="username", name='username')
+						span(class='help-inline', id='error')
+				//- div(class="form-actions")
+				input(type="submit", class='btn ', value="Submit")
+
+block scripts
+	script(src='javascripts/username.js')
