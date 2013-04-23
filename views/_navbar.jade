@@ -3,14 +3,12 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 		div(class='container-fluid')
 			a(class="brand", href="#") Everything Left
 			ul(class='nav')
-				li(class='divider-vertical')
 				li
 					a(href='/') Home
-				li(class='divider-vertical')
 				li
 					a(href='/profile') Profile
-				li(class='divider-vertical')
+			ul.nav.pull-right
 				li
-					a(href='#myModal', data-toggle='modal') New Tag
+					a#modalOpen(href='#myModal', data-toggle='modal') New Tag
 
-include _newtag.jade	
+include _newtag.jade

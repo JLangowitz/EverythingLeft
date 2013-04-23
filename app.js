@@ -124,6 +124,7 @@ app.get('/username', loginRequired, user.username);
 // POST requests.
 app.post('/prefs', loginRequired, user.prefs);//Set user preferences
 app.post('/username', loginRequired, user.setname);
+app.post('/new/tag', loginRequired, user.newtag)
 
 
 http.createServer(app).listen(app.get('port'), function(){

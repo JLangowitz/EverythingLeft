@@ -72,3 +72,8 @@ exports.setname = function(req, res) {
 		});
 	});
 };
+
+exports.newtag = function(req, res) {
+	console.log(req.body);
+	res.send('');
+}
