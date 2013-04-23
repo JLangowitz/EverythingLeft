@@ -111,20 +111,27 @@ app.get('/', loginRequired, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
- /* if(!req.user.username){
-    req.session.url= '/settings'
-  }*/
-  console.log(req.session.url)
+  console.log(req.user.username);
+  if(!req.user.username){
+    console.log('no username found');
+    res.redirect('/username');
+    return;
+  }
   res.redirect(req.session.url);
 });
 app.get('/settings', loginRequired, user.settings);
 app.get('/profile', loginRequired, user.profile);
 app.get('/search', loginRequired, user.search);
+<<<<<<< HEAD
 app.get('/add_tag', loginRequired, user.addcat);
+=======
+app.get('/username', loginRequired, user.username);
+>>>>>>> b8844661caa253f1934ed9b4263ed3189e4e64d2
 
 
 // POST requests.
 app.post('/prefs', loginRequired, user.prefs);//Set user preferences
+app.post('/username', loginRequired, user.setname);
 
 
 http.createServer(app).listen(app.get('port'), function(){
@@ -139,12 +146,15 @@ function loginRequired(req, res, next){
     //Automatically lead the user to the auth page
     res.redirect('/auth/google');
   } 
+<<<<<<< HEAD
   /*else if(!req.user.username&&req.url!='/settings'){
     res.redirect('/settings');
   }*/
+=======
+>>>>>>> b8844661caa253f1934ed9b4263ed3189e4e64d2
   else {
-    console.log("User already logged in.");
-    console.log(req.user);
+    // console.log("User already logged in.");
+    // console.log(req.user);
     next();
   }
 }

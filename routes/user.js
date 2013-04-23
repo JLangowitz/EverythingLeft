@@ -40,7 +40,7 @@ exports.search = function(req, res) {
 }
 
 exports.settings = function(req, res) {
-    res.render('user', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
+    res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
 };
 
 exports.prefs = function(req, res) {
@@ -54,7 +54,25 @@ exports.prefs = function(req, res) {
 	});
 };
 
-//Adding a category/tag
-exports.addcat = function(req, res){
-	res.render('tags', {title: 'Everything Left'});
+exports.username = function(req, res) {
+	res.render('username', {title: '', error: ''});
+};
+
+exports.setname = function(req, res) {
+	console.log(req.body);
+	User.findOne({username:req.body.username}).exec(function(err,user){
+		console.log('user');
+		console.log(user);
+		if (user){
+			res.send('This username is taken. Please enter a unique username')
+		}
+		req.user.username=req.body.username;
+		req.user.save(function(err){
+			if (err){
+				console.log(err);
+				res.send(err);
+			}
+			res.send('');
+		});
+	});
 };
