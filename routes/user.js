@@ -17,7 +17,7 @@ exports.login = function(req, res) {
 	res.render('login', 
 		{title: "Sign In", 
 		dietary: req.session.dietary, 
-		cuisine: req.session.cuisines, 
+		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors});
 };
 
@@ -35,7 +35,7 @@ exports.profile = function(req, res){
 		preferences: prefs, 
 		favorites: favs, 
 		dietary: req.session.dietary, 
-		cuisine: req.session.cuisines, 
+		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors});
 };
 
@@ -43,7 +43,7 @@ exports.search = function(req, res) {
 	res.render('search', {
 		title: "Everything Left", 
 		dietary: req.session.dietary, 
-		cuisine: req.session.cuisines, 
+		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors
 	});
 }
@@ -64,7 +64,7 @@ exports.username = function(req, res) {
 		{title: '', 
 		error: '', 
 		dietary: req.session.dietary, 
-		cuisine: req.session.cuisines, 
+		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors});
 };
 
@@ -88,13 +88,15 @@ exports.setname = function(req, res) {
 };
 
 exports.newtag = function(req, res) {
+	console.log(req.body);
 	Tag.findOne({name:req.body.name}).exec(function(err,tag){
 		if (err){
 			res.send(err);
 			return console.log(err);
 		}
 		if (!tag){
-			var dbTag = new Tag({name:req.body.name, category:req.body.categories});
+			var dbTag = new Tag({name:req.body.name, category:req.body.category});
+			console.log(dbTag);
 			dbTag.save(function(err){
 				if (err){
 					res.send(err);
@@ -128,6 +130,13 @@ exports.newtag = function(req, res) {
 			res.send('');
 		}
 	});
+};
+
+exports.index = function(req, res){
+  	res.render('_multiselect', 
+  		{ dietary: req.session.dietary, 
+		cuisines: req.session.cuisines, 
+		flavors: req.session.flavors });
 };
 
 function pullTags(req, res){

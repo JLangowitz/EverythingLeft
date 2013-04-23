@@ -10,7 +10,8 @@ $(document).ready(function() {
 	});
 
 	$('.tagPost').click(function() {
-		console.log($('#tagName').val());
+
+		$('.alert').remove();
 
 		if ($('#tagName').val().length > 0) {
 
@@ -20,35 +21,38 @@ $(document).ready(function() {
 			$.post('/new/tag', {
 				name: name,
 				category: category
-			}, function(err) {
+			}, function(err){
 				if (err) {
+
 					$('.modal-body').append("<div class='alert alert-error'>"+
-						"<button type='button' class='close' data-dismiss='alert'>&times;"+
-						"</button><strong>Try Again </strong>"+
-						"Looks like you didn't enter anything</div>");
+					"<button type='button' class='close' data-dismiss='alert'>&times;"+
+					"</button><strong>Try Again </strong>"+
+					"Looks like you didn't enter anything</div>");
+					console.log('here')
 				}
-				else {
+				else{
+
 					$('.modal-body').append("<div class='alert alert-success'>"+
-						"<button type='button' class='close' data-dismiss='alert'>&times;"+
-						"</button><strong>Success! </strong>"+
-						'New Tag: '+name+
-						"</div>");
+					"<button type='button' class='close' data-dismiss='alert'>&times;"+
+					"</button><strong>Success! </strong>"+
+					'New Tag: '+name+
+					"</div>");
+					
 					setTimeout(function(){$('.modal').modal('toggle')}, 2000);
 
+					// $.get('/user/multiselect/update', function(data){
+					// 	$('#multiselect').html(data);
+					// })
 				}
 			});
 		}
 		else {
-
-			$('.alert').remove();
-
 			$('.modal-body').append("<div class='alert alert-error'>"+
 									"<button type='button' class='close' data-dismiss='alert'>&times;"+
 									"</button><strong>Try Again </strong>"+
 									"Looks like you didn't enter anything</div>");
 
 			setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
-
 		}
 	});
 

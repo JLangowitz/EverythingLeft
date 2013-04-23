@@ -1,13 +1,16 @@
-select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
+select(id='multiselect', data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
 	option(value="")
 	optgroup(label='Dietary Restrictions')
-		each tag in dietary
-			option(value=tag.name)
+		if dietary
+			each tag in dietary
+				option(value=tag.name)
 	optgroup(label='Favorite Flavors')
-		each tag in flavors
-			option(value=tag.name)
+		if flavors
+			each tag in flavors
+				option(value=tag.name)
 	optgroup(label='Preferred Cuisines')
-		each tag in cuisines
-			option(value=tag.name)
+		if cuisines
+			each tag in cuisines
+				option(value=tag.name)
 
 
