@@ -111,8 +111,11 @@ app.get('/', loginRequired, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
+  console.log(req.user.username);
   if(!req.user.username){
+    console.log('no username found');
     res.redirect('/username');
+    return;
   }
   res.redirect(req.session.url);
 });
