@@ -49,3 +49,13 @@ ol li {
 .form-horizontal {
 	padding-top: 50px;
 }
+
+.success-alert {
+	background-color: #4CBB17;
+	color: #003300;
+}
+
+.bad-alert {
+	background-color: #FF3333;
+	color: #660000; /*BLOODRED*/
+}

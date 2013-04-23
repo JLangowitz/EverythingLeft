@@ -20,15 +20,35 @@ $(document).ready(function() {
 			$.post('/new/tag', {
 				name: name,
 				category: category
+			}, function(err) {
+				if (err) {
+					$('.modal-body').append("<div class='alert alert-error'>"+
+						"<button type='button' class='close' data-dismiss='alert'>&times;"+
+						"</button><strong>Try Again </strong>"+
+						"Looks like you didn't enter anything</div>");
+				}
+				else {
+					$('.modal-body').append("<div class='alert alert-success'>"+
+						"<button type='button' class='close' data-dismiss='alert'>&times;"+
+						"</button><strong>Success! </strong>"+
+						'New Tag: '+name+
+						"</div>");
+					setTimeout(function(){$('.modal').modal('toggle')}, 2000);
+
+				}
 			});
-
-			$('.modal-body').append("<div class='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> Best check yo self, you're not looking too good.</div>");
-
-			setTimeout(function(){$('.modal').modal('toggle')}, 2000)
-
 		}
 		else {
-			console.log('done goofed')
+
+			$('.alert').remove();
+
+			$('.modal-body').append("<div class='alert alert-error'>"+
+									"<button type='button' class='close' data-dismiss='alert'>&times;"+
+									"</button><strong>Try Again </strong>"+
+									"Looks like you didn't enter anything</div>");
+
+			setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+
 		}
 	});
 
