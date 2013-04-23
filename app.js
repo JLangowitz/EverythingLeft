@@ -88,6 +88,7 @@ app.configure(function () {
 // GET requests.
 app.get('/', loginRequired, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
+app.get('/profile', user.profile);
 
 
 

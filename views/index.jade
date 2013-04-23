@@ -1,5 +1,18 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p Search for stuff here, cant vs. want to
+	div(id="def_box")
+		input(type="text")
+		input(type="button", value="search")
+		p free range if not set (enter in yo-stuff), option to save?
+	div(id="container")
+		div(id="rightmain") 
+			include _top
+		div(id="centermain")
+			p list of all relevant recipes
+			include _parrecipe
+			p click on recipes page(1 view)
+		div(id="leftmain")
+			p display newest relevant recommendations

@@ -20,3 +20,13 @@ a {
 	background: #dd4843;
 	color: white;
 }
+
+#def_box, #container{
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#rightmain, #centermain, #leftmain{
+	display: inline-block;
+	vertical-align: top;
+}
