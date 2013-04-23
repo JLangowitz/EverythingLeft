@@ -40,3 +40,7 @@ ol li {
 	display: inline-block;
 	vertical-align: top;
 }
+
+#rightmain {
+	text-align: right;
+}
