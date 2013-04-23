@@ -1,5 +1,6 @@
 var Models = require('../models/models')
-	, User = Models.user;
+	, User = Models.user
+	, Tags = Models.tags;
 
 /*
  * GET users listing.
@@ -17,7 +18,19 @@ exports.login = function(req, res) {
 };
 
 exports.profile = function(req, res){
-	res.render('profile', {title: "My Profile"});
+	User.find({email:req.user.email}).sort().exec(function (err, docs){
+		if (err)
+			return console.log("Cannot find user")
+		var prefs = docs[0].preferences
+			, favs = docs[0].favorites;
+		if (prefs.length == 0){
+			prefs = ["You do not have any preferences yet!"];
+		}
+		if (favs.length == 0){
+			favs = ["You do not have any favorites yet!"];
+		}
+		res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
+	});
 };
 
 exports.search = function(req, res) {
@@ -39,4 +52,9 @@ exports.prefs = function(req, res) {
 		}
 		res.send(err);
 	});
+};
+
+//Adding a category/tag
+exports.addcat = function(req, res){
+	res.render('tags', {title: 'Everything Left'});
 };

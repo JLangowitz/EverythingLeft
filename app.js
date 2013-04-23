@@ -111,15 +111,16 @@ app.get('/', loginRequired, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
-  if(!req.user.username){
+ /* if(!req.user.username){
     req.session.url= '/settings'
-  }
+  }*/
   console.log(req.session.url)
   res.redirect(req.session.url);
 });
 app.get('/settings', loginRequired, user.settings);
 app.get('/profile', loginRequired, user.profile);
 app.get('/search', loginRequired, user.search);
+app.get('/add_tag', loginRequired, user.addcat);
 
 
 // POST requests.
@@ -133,14 +134,14 @@ http.createServer(app).listen(app.get('port'), function(){
 function loginRequired(req, res, next){
   if (!req.user) {
     //Set the url the user was trying to get to in req.session
-    req.session.url = req.url
+    req.session.url = req.url;
     console.log("User not authenticated.");
     //Automatically lead the user to the auth page
     res.redirect('/auth/google');
   } 
-  else if(!req.user.username&&req.url!='/settings'){
+  /*else if(!req.user.username&&req.url!='/settings'){
     res.redirect('/settings');
-  }
+  }*/
   else {
     console.log("User already logged in.");
     console.log(req.user);
