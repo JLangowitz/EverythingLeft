@@ -18,19 +18,15 @@ exports.login = function(req, res) {
 };
 
 exports.profile = function(req, res){
-	User.find({email:req.user.email}).sort().exec(function (err, docs){
-		if (err)
-			return console.log("Cannot find user")
-		var prefs = docs[0].preferences
-			, favs = docs[0].favorites;
-		if (prefs.length == 0){
-			prefs = ["You do not have any preferences yet!"];
-		}
-		if (favs.length == 0){
-			favs = ["You do not have any favorites yet!"];
-		}
-		res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
-	});
+	var prefs = req.user.preferences
+		, favs = req.user.favorites;
+	if (prefs.length == 0){
+		prefs = ["You do not have any preferences yet!"];
+	}
+	if (favs.length == 0){
+		favs = ["You do not have any favorites yet!"];
+	}
+	res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
 };
 
 exports.search = function(req, res) {
@@ -39,9 +35,9 @@ exports.search = function(req, res) {
 	});
 }
 
-exports.settings = function(req, res) {
+/*exports.settings = function(req, res) {
     res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
-};
+};*/
 
 exports.prefs = function(req, res) {
 	req.user.preferred_categories=req.body.categories;
