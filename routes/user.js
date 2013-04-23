@@ -27,7 +27,7 @@ exports.search = function(req, res) {
 }
 
 exports.settings = function(req, res) {
-    res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferred_categories)})
+    res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferrences)})
 };
 
 exports.prefs = function(req, res) {
