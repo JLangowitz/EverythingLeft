@@ -13,7 +13,6 @@ exports.list = function(req, res){
 };
 
 exports.login = function(req, res) {
-    req.session.url = '/';
 	res.render('login', {title: "Sign In"});
 };
 
@@ -22,7 +21,6 @@ exports.profile = function(req, res){
 };
 
 exports.search = function(req, res) {
-	req.session.url = '/search';
 	res.render('search', {
 		title: "Search for new recipes!"
 	});
