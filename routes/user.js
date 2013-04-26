@@ -1,6 +1,6 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tags = Models.tags;
+	, Tag = Models.tag;
 
 /*
  * GET users listing.
@@ -14,24 +14,37 @@ exports.list = function(req, res){
 };
 
 exports.login = function(req, res) {
-	res.render('login', {title: "Sign In"});
+	res.render('login', 
+		{title: "Sign In", 
+		dietary: req.session.dietary, 
+		cuisine: req.session.cuisines, 
+		flavors: req.session.flavors});
 };
 
 exports.profile = function(req, res){
 	var prefs = req.user.preferences
-		, favs = req.user.favorites;
+		,favs = req.user.favorites;
 	if (prefs.length == 0){
 		prefs = ["You do not have any preferences yet!"];
 	}
 	if (favs.length == 0){
 		favs = ["You do not have any favorites yet!"];
 	}
-	res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
+	res.render('profile', 
+		{title: "My Profile", 
+		preferences: prefs, 
+		favorites: favs, 
+		dietary: req.session.dietary, 
+		cuisine: req.session.cuisines, 
+		flavors: req.session.flavors});
 };
 
 exports.search = function(req, res) {
 	res.render('search', {
-		title: "Everything Left"
+		title: "Everything Left", 
+		dietary: req.session.dietary, 
+		cuisine: req.session.cuisines, 
+		flavors: req.session.flavors
 	});
 }
 
@@ -47,7 +60,12 @@ exports.prefs = function(req, res) {
 };
 
 exports.username = function(req, res) {
-	res.render('username', {title: '', error: ''});
+	res.render('username', 
+		{title: '', 
+		error: '', 
+		dietary: req.session.dietary, 
+		cuisine: req.session.cuisines, 
+		flavors: req.session.flavors});
 };
 
 exports.setname = function(req, res) {
@@ -68,3 +86,65 @@ exports.setname = function(req, res) {
 		});
 	});
 };
+
+exports.newtag = function(req, res) {
+	Tag.findOne({name:req.body.name}).exec(function(err,tag){
+		if (err){
+			res.send(err);
+			return console.log(err);
+		}
+		if (!tag){
+			var dbTag = new Tag({name:req.body.name, category:req.body.categories});
+			dbTag.save(function(err){
+				if (err){
+					res.send(err);
+					return console.log(err);
+				}
+				else{
+					if (dbTag.category='Dietary Restrictions'){	
+						req.session.dietary.push(dbTag);
+						req.session.dietary.sort(function(a,b){
+							return a.name>b.name;
+						});
+					}
+					if (dbTag.category='Favorite Flavors'){	
+						req.session.flavors.push(dbTag)
+						req.session.flavors.sort(function(a,b){
+							return a.name>b.name;
+						});
+					}
+					if (dbTag.category='Preferred Cuisines'){	
+						req.session.cuisines.push(dbTag)
+						req.session.cuisines.sort(function(a,b){
+							return a.name>b.name;
+						});
+					}	
+					res.send('');
+				}
+			});
+		}
+		else{
+			pullTags(req,res);
+			res.send('');
+		}
+	});
+};
+
+function pullTags(req, res){
+	req.session.dietary=[];
+	req.session.flavors=[];
+	req.session.cuisines=[];
+	Tag.find().sort({name:1}).exec(function(err, tags){
+		for (var i = 0; i < tags.length; i++) {
+			if (tags[i].category='Dietary Restrictions'){	
+				req.session.dietary.push(tags[i])
+			}
+			if (tags[i].category='Favorite Flavors'){	
+				req.session.flavors.push(tags[i])
+			}
+			if (tags[i].category='Preferred Cuisines'){	
+				req.session.cuisines.push(tags[i])
+			}
+		};
+	});
+}

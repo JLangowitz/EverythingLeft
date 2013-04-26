@@ -1,23 +1,13 @@
-fieldset
-	legend
-		div(class='control-group inline-block')
-			label.control-label Name
-				div(class='controls')
-					input(type='text', class='search-query', placeholder='What do you want to make?')
-		div.control-group.inline-block
-			label.control-label Tags
-				div.controls(style='')
-					select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
-						option(value="")
-						optgroup(label='Flavors')
-							option Salty
-							option Sour
-							option Sweet
-							option Bitter
-							option Meaty
-							option Piquant
-					//- div(id='selHQM_chzn', class='chzn-container chzn-container-multi', style='width: 350px;')
-					//- 	ul(class='chzn-choices')
-					//- 		li(class='search-field')
-					//- 			input(type='text', value='Your search tags', class='default', autocomnplete='off', style='width:195px;',tabindex='6')
-					//- 	div(class='chzn-drop', style='left:-9000px;width=348px;top:29px')
+select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
+	option(value="")
+	optgroup(label='Dietary Restrictions')
+		each tag in dietary
+			option(value=tag.name)
+	optgroup(label='Favorite Flavors')
+		each tag in flavors
+			option(value=tag.name)
+	optgroup(label='Preferred Cuisines')
+		each tag in cuisines
+			option(value=tag.name)
+
+

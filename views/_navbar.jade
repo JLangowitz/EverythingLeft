@@ -3,15 +3,19 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 		div(class='container-fluid')
 			a(class="brand", href="#") Everything Left
 			ul(class='nav')
-				li(class='divider-vertical')
+				//- li(class='divider-vertical')
 				li
 					a(href='/') Home
-				li(class='divider-vertical')
+				//- li(class='divider-vertical')
 				li
 					a(href='/profile') Profile
-				li(class-'divider-vertical')
+				//- li(class-'divider-vertical')
 				li
 					form(class='navbar-search pull-right')
 						include _multiselect
 						button(type='submit', class='btn, btn-success') Search
-						
+				//- li(class='divider-vertical')
+				li
+					a(href='#myModal', data-toggle='modal') New Tag
+include _newtag.jade	
+

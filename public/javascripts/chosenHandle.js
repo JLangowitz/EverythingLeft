@@ -1,5 +1,9 @@
 //chosenHandle.js
 
 $(document).ready(function() {
-	$('.chzn-select').chosen()
+	$('.chzn-select').chosen();
+
+	$('.modalToggle').onClick(function() {
+		$('.modal').toggle();
+	})
 });
