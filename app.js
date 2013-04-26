@@ -104,7 +104,7 @@ passport.deserializeUser(function(email, done) {
 });
 
 // GET requests.
-app.get('/', loginRequired, routes.index);
+app.get('/', loginRequired, pullTags, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
@@ -149,6 +149,7 @@ function loginRequired(req, res, next){
 }
 
 function pullTags(req, res, next){
+	console.log('in this thing');
 	req.session.dietary=[];
 	req.session.flavors=[];
 	req.session.cuisines=[];
@@ -165,4 +166,5 @@ function pullTags(req, res, next){
 			}
 		};
 	});
+	next();
 }

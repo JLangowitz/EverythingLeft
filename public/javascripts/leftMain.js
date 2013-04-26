@@ -20,7 +20,17 @@ $(document).ready(function() {
 			$.post('/new/tag', {
 				name: name,
 				category: category
-			});
+			},
+				function(err){
+					if (err){
+						// do shit
+					}
+					else{
+						$.get('/user/multiselect/update', function(data){
+							$('#multiselect').html(data);
+						})
+					}
+				});
 
 			$('.modal-body').append("<div class='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> Best check yo self, you're not looking too good.</div>");
 
