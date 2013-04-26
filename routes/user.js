@@ -1,5 +1,6 @@
 var Models = require('../models/models')
-	, User = Models.user;
+	, User = Models.user
+	, Tags = Models.tags;
 
 /*
  * GET users listing.
@@ -17,7 +18,15 @@ exports.login = function(req, res) {
 };
 
 exports.profile = function(req, res){
-	res.render('profile', {title: "My Profile"});
+	var prefs = req.user.preferences
+		, favs = req.user.favorites;
+	if (prefs.length == 0){
+		prefs = ["You do not have any preferences yet!"];
+	}
+	if (favs.length == 0){
+		favs = ["You do not have any favorites yet!"];
+	}
+	res.render('profile', {title: "My Profile", preferences: prefs, favorites: favs});
 };
 
 exports.search = function(req, res) {
@@ -25,10 +34,6 @@ exports.search = function(req, res) {
 		title: "Search for new recipes!"
 	});
 }
-
-exports.settings = function(req, res) {
-    res.render('profile', {title: 'Profile', prefs: JSON.stringify(req.user.preferrences)})
-};
 
 exports.prefs = function(req, res) {
 	req.user.preferred_categories=req.body.categories;

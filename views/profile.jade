@@ -5,14 +5,11 @@ block content
 	p Welcome to #{title}
 
 	div(id="my_ops")
-		div(id="preferences")
-			p Preferences
-		div(id="allergins")		
-			p Avoid  
+		div(value=preferences, id="preferences")
+			each pref, i in preferences
+				| #{pref}
 		input(type="button", value="Change Settings")
-		div(id="op_form")
-			p this opens up when change preferences is clicked, displays hwat is currently selected
-			input(type="button", value="Update Settings")
 
 	div(id="liked")
-		| Things I have liked/favorites
+		each fav, i in favorites
+			| #{fav}

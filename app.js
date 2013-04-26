@@ -119,7 +119,7 @@ app.get('/auth/google/return', passport.authenticate('google', {failureRedirect:
   }
   res.redirect(req.session.url);
 });
-app.get('/settings', loginRequired, user.settings);
+app.get('/settings', loginRequired, user.profile);
 app.get('/profile', loginRequired, user.profile);
 app.get('/search', loginRequired, user.search);
 app.get('/username', loginRequired, user.username);
