@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -58,4 +58,15 @@ ol li {
 .bad-alert {
 	background-color: #FF3333;
 	color: #660000; /*BLOODRED*/
+}
+
+.nav-search {
+	margin-left: 30px;
+	margin-right: 20px;
+}
+
+.btn-nav {
+	padding: 4.5px;
+	border-radius: 5px;
+	border-width: 0px;
 }

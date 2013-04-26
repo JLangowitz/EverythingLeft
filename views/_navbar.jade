@@ -9,14 +9,19 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 				//- li(class='divider-vertical')
 				li
 					a(href='/profile') Profile
-				//- li(class-'divider-vertical')
 				li
-					form(class='navbar-search pull-right')
+					a(href='/search') Search
+				//- li(class-'divider-vertical')
+				//- li(class='navbar-text nav-search')
+				//- 	p Quick Search:
+			ul.nav
+				form(class='navbar-search form-inline')
+					div(class='input-append')
 						include _multiselect
-						button(type='submit', class='btn, btn-success') Search
+						button(type='submit', class='btn btn-inverse btn-nav') Search
 				//- li(class='divider-vertical')
 			ul.nav.pull-right
-				li
-					a#modalOpen(href='#myModal', data-toggle='modal') New Tag
+				div
+					a#modalOpen(href='#myModal', class='btn btn-nav btn-inverse btn-small', data-toggle='modal') New Tag
 include _newtag.jade
 

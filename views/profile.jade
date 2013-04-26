@@ -4,6 +4,10 @@ block content
 	h1 Your Profile
 	p Welcome to #{title}
 
+	div()
+		form(id='settings', class='form-inline')
+			include _multiselect
+
 	div(id="my_ops")
 		div(value=preferences, id="preferences")
 			each pref, i in preferences

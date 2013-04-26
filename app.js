@@ -124,7 +124,7 @@ app.get('/multiselect/update', loginRequired, pullTags, user.update);
 
 
 // POST requests.
-app.post('/prefs', loginRequired, pullTags, user.prefs);//Set user preferences
+app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
 
@@ -163,10 +163,10 @@ function pullTags(req, res, next){
 				req.session.dietary.push(tags[i]);
 				// console.log(req.session.dietary);
 			}
-			if (tags[i].category=='Favorite Flavors'){	
+			if (tags[i].category=='Favorite Flavor'){	
 				req.session.flavors.push(tags[i]);
 			}
-			if (tags[i].category=='Preferred Cuisines'){	
+			if (tags[i].category=='Preferred Cuisine'){	
 				req.session.cuisines.push(tags[i]);
 			}
 		};

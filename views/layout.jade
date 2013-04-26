@@ -13,5 +13,6 @@ html
     script(src='/javascripts/chosen.jquery.min.js', type='text/javascript')
     block scripts
   body
-    include _navbar.jade
-    block content
+    div(class='container-fluid')
+        include _navbar.jade
+        block content

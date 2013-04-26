@@ -152,10 +152,10 @@ function pullTags(req, res){
 				req.session.dietary.push(tags[i]);
 				// console.log(req.session.dietary);
 			}
-			if (tags[i].category=='Favorite Flavors'){	
+			if (tags[i].category=='Favorite Flavor'){	
 				req.session.flavors.push(tags[i]);
 			}
-			if (tags[i].category=='Preferred Cuisines'){	
+			if (tags[i].category=='Preferred Cuisine'){	
 				req.session.cuisines.push(tags[i]);
 			}
 		};

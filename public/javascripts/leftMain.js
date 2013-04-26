@@ -42,8 +42,8 @@ $(document).ready(function() {
 
 					$.get('/multiselect/update', function(data){
 							$('#multiselect').html(data);
-							console.log($('#multiselect'));
-							$('#multiselect').chosen().trigger('liszt:updated');
+							// console.log($('#multiselect'));
+							$('#multiselect').trigger('liszt:updated');
 						});
 				}
 			});
