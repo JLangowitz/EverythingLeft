@@ -2,7 +2,9 @@
 
 $(document).ready(function() {
 
-	$('.chzn-select').chosen();
+	$('.chzn-select').each(function(index,Element){
+		$(this).chosen();
+	});
 
 	$('#modalOpen').click(function() {
 		$('div.alert').remove();
@@ -41,9 +43,9 @@ $(document).ready(function() {
 					setTimeout(function(){$('.modal').modal('toggle')}, 2000);
 
 					$.get('/multiselect/update', function(data){
-							$('#multiselect').html(data);
+							$('.multiselect').html(data);
 							// console.log($('#multiselect'));
-							$('#multiselect').trigger('liszt:updated');
+							$('.multiselect').trigger('liszt:updated');
 						});
 				}
 			});

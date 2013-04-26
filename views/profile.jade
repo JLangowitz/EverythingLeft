@@ -6,8 +6,15 @@ block content
 
 	div()
 		form(id='settings', class='form-inline')
-			include _multiselect
-
+			div(class='input-append')
+				include _multiselect
+				button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
+			span(class='help-block') Selected tags will become your default search parameters.
+		form(class='form-inline', id='setuser')
+			div(class="input-append", id='error-append')
+				input(type="text", id="username", placeholder="username", name='username')
+				button(type="submit", class='btn btn-inverse') Change Username
+				//- div(class="form-actions")
 	div(id="my_ops")
 		div(value=preferences, id="preferences")
 			each pref, i in preferences
@@ -17,3 +24,6 @@ block content
 	div(id="liked")
 		each fav, i in favorites
 			| #{fav}
+
+block scripts
+	script(src='javascripts/username.js')
