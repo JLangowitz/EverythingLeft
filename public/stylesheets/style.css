@@ -41,6 +41,11 @@ ol li {
 	vertical-align: top;
 }
 
-#rightmain {
-	text-align: right;
+.modal-body {
+	min-height: 250px;
+	padding: 50px;
+}
+
+.form-horizontal {
+	padding-top: 50px;
 }

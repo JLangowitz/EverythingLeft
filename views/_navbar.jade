@@ -15,7 +15,8 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 						include _multiselect
 						button(type='submit', class='btn, btn-success') Search
 				//- li(class='divider-vertical')
+			ul.nav.pull-right
 				li
-					a(href='#myModal', data-toggle='modal') New Tag
-include _newtag.jade	
+					a#modalOpen(href='#myModal', data-toggle='modal') New Tag
+include _newtag.jade
 
