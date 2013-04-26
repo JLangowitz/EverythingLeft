@@ -26,8 +26,10 @@ $(document).ready(function() {
 						// do shit
 					}
 					else{
-						$.get('/user/multiselect/update', function(data){
+						$.get('/multiselect/update', function(data){
 							$('#multiselect').html(data);
+							console.log($('#multiselect'));
+							$('#multiselect').chosen().trigger('liszt:updated');
 						})
 					}
 				});

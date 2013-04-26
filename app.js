@@ -120,6 +120,7 @@ app.get('/settings', loginRequired, pullTags, user.profile);
 app.get('/profile', loginRequired, pullTags, user.profile);
 app.get('/search', loginRequired, pullTags, user.search);
 app.get('/username', loginRequired, pullTags, user.username);
+app.get('/multiselect/update', loginRequired, pullTags, user.update);
 
 
 // POST requests.
@@ -149,22 +150,27 @@ function loginRequired(req, res, next){
 }
 
 function pullTags(req, res, next){
-	console.log('in this thing');
+	// console.log('in this thing');
 	req.session.dietary=[];
 	req.session.flavors=[];
 	req.session.cuisines=[];
 	Tag.find().sort({name:1}).exec(function(err, tags){
+		// console.log(tags);
 		for (var i = 0; i < tags.length; i++) {
-			if (tags[i].category='Dietary Restrictions'){	
-				req.session.dietary.push(tags[i])
+			// console.log(tags[i].category);
+			if (tags[i].category=='Dietary Restriction'){
+				// console.log('in if');	
+				req.session.dietary.push(tags[i]);
+				// console.log(req.session.dietary);
 			}
-			if (tags[i].category='Favorite Flavors'){	
-				req.session.flavors.push(tags[i])
+			if (tags[i].category=='Favorite Flavors'){	
+				req.session.flavors.push(tags[i]);
 			}
-			if (tags[i].category='Preferred Cuisines'){	
-				req.session.cuisines.push(tags[i])
+			if (tags[i].category=='Preferred Cuisines'){	
+				req.session.cuisines.push(tags[i]);
 			}
 		};
+		// console.log(req.session);
+		next();
 	});
-	next();
 }

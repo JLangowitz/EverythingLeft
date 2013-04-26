@@ -88,7 +88,7 @@ exports.setname = function(req, res) {
 };
 
 exports.newtag = function(req, res) {
-	console.log(req.body);
+	// console.log(req.body);
 	Tag.findOne({name:req.body.name}).exec(function(err,tag){
 		if (err){
 			res.send(err);
@@ -96,7 +96,7 @@ exports.newtag = function(req, res) {
 		}
 		if (!tag){
 			var dbTag = new Tag({name:req.body.name, category:req.body.category});
-			console.log(dbTag);
+			// console.log(dbTag);
 			dbTag.save(function(err){
 				if (err){
 					res.send(err);
@@ -132,7 +132,7 @@ exports.newtag = function(req, res) {
 	});
 };
 
-exports.index = function(req, res){
+exports.update = function(req, res){
   	res.render('_multiselect', 
   		{ dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
@@ -144,15 +144,19 @@ function pullTags(req, res){
 	req.session.flavors=[];
 	req.session.cuisines=[];
 	Tag.find().sort({name:1}).exec(function(err, tags){
+		// console.log(tags);
 		for (var i = 0; i < tags.length; i++) {
-			if (tags[i].category='Dietary Restrictions'){	
-				req.session.dietary.push(tags[i])
+			// console.log(tags[i].category);
+			if (tags[i].category=='Dietary Restriction'){
+				// console.log('in if');	
+				req.session.dietary.push(tags[i]);
+				// console.log(req.session.dietary);
 			}
-			if (tags[i].category='Favorite Flavors'){	
-				req.session.flavors.push(tags[i])
+			if (tags[i].category=='Favorite Flavors'){	
+				req.session.flavors.push(tags[i]);
 			}
-			if (tags[i].category='Preferred Cuisines'){	
-				req.session.cuisines.push(tags[i])
+			if (tags[i].category=='Preferred Cuisines'){	
+				req.session.cuisines.push(tags[i]);
 			}
 		};
 	});

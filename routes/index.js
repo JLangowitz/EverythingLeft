@@ -4,7 +4,7 @@
  */
 
 exports.index = function(req, res){
-	console.log(req.session);
+	// console.log(req.session);
   	res.render('index', 
   		{ title: 'Express', 
 		dietary: req.session.dietary, 
