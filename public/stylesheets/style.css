@@ -7,6 +7,16 @@ a {
   color: #00B7FF;
 }
 
+ul li { 
+	list-style: disc;
+	margin-left: 1em;
+	text-align: left;
+}
+
+ol li { 
+	margin-left: 1.25em;
+}
+
 .inline-block {
   display: inline-block;
 }

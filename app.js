@@ -86,10 +86,6 @@ app.configure(function () {
   app.use(express.static(path.join(__dirname, 'public')));
 });
 
-
-
-
-
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
 //   serialize users into and deserialize users out of the session.  Typically,
