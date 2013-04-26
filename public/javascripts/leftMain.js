@@ -10,7 +10,8 @@ $(document).ready(function() {
 	});
 
 	$('.tagPost').click(function() {
-		console.log($('#tagName').val());
+
+		$('.alert').remove();
 
 		if ($('#tagName').val().length > 0) {
 
@@ -20,27 +21,40 @@ $(document).ready(function() {
 			$.post('/new/tag', {
 				name: name,
 				category: category
-			},
-				function(err){
-					if (err){
-						// do shit
-					}
-					else{
-						$.get('/multiselect/update', function(data){
+			}, function(err){
+				if (err) {
+
+					$('.modal-body').append("<div class='alert alert-error'>"+
+					"<button type='button' class='close' data-dismiss='alert'>&times;"+
+					"</button><strong>Try Again </strong>"+
+					"Looks like you didn't enter anything</div>");
+					console.log('here')
+				}
+				else{
+
+					$('.modal-body').append("<div class='alert alert-success'>"+
+					"<button type='button' class='close' data-dismiss='alert'>&times;"+
+					"</button><strong>Success! </strong>"+
+					'New Tag: '+name+
+					"</div>");
+					
+					setTimeout(function(){$('.modal').modal('toggle')}, 2000);
+
+					$.get('/multiselect/update', function(data){
 							$('#multiselect').html(data);
 							console.log($('#multiselect'));
 							$('#multiselect').chosen().trigger('liszt:updated');
-						})
-					}
-				});
-
-			$('.modal-body').append("<div class='alert'><button type='button' class='close' data-dismiss='alert'>&times;</button><strong>Warning!</strong> Best check yo self, you're not looking too good.</div>");
-
-			setTimeout(function(){$('.modal').modal('toggle')}, 2000)
-
+						});
+				}
+			});
 		}
 		else {
-			console.log('done goofed')
+			$('.modal-body').append("<div class='alert alert-error'>"+
+									"<button type='button' class='close' data-dismiss='alert'>&times;"+
+									"</button><strong>Try Again </strong>"+
+									"Looks like you didn't enter anything</div>");
+
+			setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 		}
 	});
 
