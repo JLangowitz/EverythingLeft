@@ -13,15 +13,7 @@ block content
 						div.control-group
 							label.control-label Tags
 							div.controls(style='')
-									select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
-										option(value="")
-										optgroup(label='Flavors')
-											option Salty
-											option Sour
-											option Sweet
-											option Bitter
-											option Meaty
-											option Piquant
+								include _multiselect
 						div.control-group
 							div.controls
 								button.btn.btn-large.disabled Search
