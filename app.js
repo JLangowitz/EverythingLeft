@@ -23,7 +23,7 @@ var passport = require('passport')
 
 app.configure('development', function(){
 	app.use(express.errorHandler());
-	app.set('host', process.env.PRODUCTION_URL || 'http://localhost:5000')
+	app.set('host', process.env.PRODUCTION_URL || 'http://localhost:3000')
 });
 
 console.log(app.get('host'));
@@ -143,6 +143,10 @@ function loginRequired(req, res, next){
 		//Automatically lead the user to the auth page
 		res.redirect('/auth/google');
 	} 
+	else if(!req.user.username){
+		console.log('no username found');
+		res.redirect('/username');
+	}
 	else {
 		// console.log("User already logged in.");
 		// console.log(req.user);
