@@ -66,7 +66,9 @@ exports.search = function(req, res) {
 
 exports.prefs = function(req, res) {
 	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
-		if (err){
+		console.log(tags);
+		console.log(err);
+		if (err&&tags){
 			res.send(err);
 			return console.log('error', err);
 		}
