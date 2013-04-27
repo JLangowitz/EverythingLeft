@@ -121,6 +121,7 @@ app.get('/profile', loginRequired, pullTags, user.profile);
 app.get('/search', loginRequired, pullTags, user.search);
 app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
+app.get('/preselect', loginRequired, pullTags, user.preselect);
 
 
 // POST requests.
