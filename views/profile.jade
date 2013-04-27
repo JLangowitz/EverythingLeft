@@ -5,10 +5,10 @@ block scripts
 	script(src='javascripts/profile.js')
 
 block content
-	h1 Your Profile
-	p Welcome to #{title}
+	h1(class='text-center') Profile
+	//- p Welcome to #{title}
 
-	div()
+	div(class='text-center hero-unit')
 		form(id='settings', class='form-inline')
 			div(class='input-append')
 				include _multiselect
@@ -19,12 +19,12 @@ block content
 				input(type="text", id="username", placeholder="username", name='username')
 				button(type="submit", class='btn btn-inverse') Change Username
 				//- div(class="form-actions")
-	div(id="my_ops")
-		div(value=preferences, id="preferences")
-			each pref, i in preferences
-				| #{pref}
-		input(type="button", value="Change Settings")
+	//- div(id="my_ops")
+	//- 	div(value=preferences, id="preferences")
+	//- 		each pref, i in preferences
+	//- 			| #{pref}
+	//- 	input(type="button", value="Change Settings")
 
-	div(id="liked")
-		each fav, i in favorites
-			| #{fav}
+	//- div(id="liked")
+	//- 	each fav, i in favorites
+	//- 		| #{fav}

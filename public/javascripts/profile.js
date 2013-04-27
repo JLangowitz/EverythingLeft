@@ -18,6 +18,24 @@ $(document).ready(function(){
 		        }
 		        else{
 		           	console.log('Updates Saved');
+		           	$.get('/preselect', function(res){
+		           		console.log(res.preferences);
+		           		$('option').each(function(index,Element){
+		           			for (var i = 0; i < res.preferences.length; i++) {
+		           				if (res.preferences[i]==$(this).val()){
+		           					$(this).attr('selected', 'selected');
+		           					break;
+		           				}
+	           					$(this).attr('selected', false);
+		           			};
+		           		});
+
+
+		           		$('.chzn-select').each(function(index,Element){
+		           			// $(this).chosen();
+		           			$(this).trigger('liszt:updated');
+		           		});
+		           	});
 				}
 		    });
 		return false;
