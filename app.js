@@ -143,11 +143,11 @@ function loginRequired(req, res, next){
 		//Automatically lead the user to the auth page
 		res.redirect('/auth/google');
 	} 
-	else if(!req.user.username){
-		console.log('no username found');
-		res.redirect('/username');
-	}
 	else {
+		if(!req.user.username&&req.url!='/username'){
+			console.log('no username found');
+			res.redirect('/username');
+		}
 		// console.log("User already logged in.");
 		// console.log(req.user);
 		next();
