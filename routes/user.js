@@ -29,6 +29,7 @@ exports.preselect = function(req, res) {
 			return console.log('error', err);
 		}
 		var preferences = [];
+		console.log(preferences.length);
 		for (var i = 0; i < user.preferences.length; i++) {
 			preferences.push(user.preferences[i].name);
 		};

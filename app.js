@@ -44,7 +44,7 @@ passport.use(new GoogleStrategy({
 				return done(err);
 			}
 			if (user==null){
-				user = new User({email:email});
+				user = new User({email:email,preferences:[];favorites:[]});
 				console.log('User created.');
 				user.save(function(err){
 					if (err) {
