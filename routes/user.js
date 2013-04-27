@@ -21,6 +21,22 @@ exports.login = function(req, res) {
 		flavors: req.session.flavors});
 };
 
+exports.preselect = function(req, res) {
+	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
+		console.log(user.preferences);
+		if (err){
+			res.send({'error':err});
+			return console.log('error', err);
+		}
+		var preferences = [];
+		for (var i = 0; i < user.preferences.length; i++) {
+			preferences.push(user.preferences[i].name);
+		};
+		res.send({'error':'', 'preferences':preferences});
+	});
+};
+
+
 exports.profile = function(req, res){
 	var prefs = req.user.preferences
 		,favs = req.user.favorites;
@@ -49,14 +65,21 @@ exports.search = function(req, res) {
 }
 
 exports.prefs = function(req, res) {
-	req.user.preferred_categories=req.body.categories;
-	req.user.save(function(err){
+	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
 		if (err){
 			res.send(err);
 			return console.log('error', err);
 		}
-		res.send(err);
-	});
+		console.log(req.user);
+		req.user.preferences = tags;
+		req.user.save(function(err){
+			if (err){
+				res.send(err);
+				return console.log('error', err);
+			}
+			res.send(err);
+		});
+	})
 };
 
 exports.username = function(req, res) {

@@ -1,5 +1,9 @@
 extends layout
 
+block scripts
+	script(src='javascripts/username.js')
+	script(src='javascripts/profile.js')
+
 block content
 	h1 Your Profile
 	p Welcome to #{title}
@@ -24,6 +28,3 @@ block content
 	div(id="liked")
 		each fav, i in favorites
 			| #{fav}
-
-block scripts
-	script(src='javascripts/username.js')
