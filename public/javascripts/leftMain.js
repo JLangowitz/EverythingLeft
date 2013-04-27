@@ -4,11 +4,13 @@ $(document).ready(function() {
 
 	$('.chzn-select').chosen();
 
+	//clears new modal
 	$('#modalOpen').click(function() {
 		$('div.alert').remove();
 		$('#tagName').val('');
 	});
 
+	//posts new tag
 	$('.tagPost').click(function() {
 
 		$('.alert').remove();
@@ -42,7 +44,6 @@ $(document).ready(function() {
 
 					$.get('/multiselect/update', function(data){
 							$('#multiselect').html(data);
-							// console.log($('#multiselect'));
 							$('#multiselect').trigger('liszt:updated');
 						});
 				}
@@ -57,5 +58,12 @@ $(document).ready(function() {
 			setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 		}
 	});
+
+	// $('#searchButton').click(function() {
+	// 	var dietRest = $('span'),
+	// 	$.get('/search/yummly', {
+	// 		dietRest: 
+	// 	})
+	// });
 
 });
