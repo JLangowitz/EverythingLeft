@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -75,6 +75,8 @@ ol li {
 .btn-chosen {
 	padding-top: 5px;
 	padding-bottom: 5px;
+	vertical-align: top;
+	margin-left: 10px;
 }
 
 .navbar {

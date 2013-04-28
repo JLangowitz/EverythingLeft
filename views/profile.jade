@@ -10,9 +10,8 @@ block content
 
 	div(class='text-center hero-unit')
 		form(id='settings', class='form-inline')
-			div(class='input-append')
-				include _multiselect
-				button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
+			include _multiselect
+			button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
 			span(class='help-block') Selected tags will become your default search parameters.
 		form(class='form-inline', id='setuser')
 			div(class="input-append", id='error-append')

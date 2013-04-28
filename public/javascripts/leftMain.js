@@ -18,6 +18,8 @@ $(document).ready(function() {
 			$(this).chosen();
 		});
 
+		$('div.navbar ul.chzn-choices').attr('id', 'chzn-nav');
+
 		$('#modalOpen').click(function() {
 			$('div.alert').remove();
 			$('#tagName').val('');

@@ -144,6 +144,12 @@
   height: 1%;
   position: relative;
 }
+
+#chzn-nav{ 
+  white-space: nowrap;
+  overflow: auto;
+  height: 27px!important;
+}
 .chzn-container-multi .chzn-choices li {
   float: left;
   list-style: none;
