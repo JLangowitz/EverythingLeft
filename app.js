@@ -6,6 +6,7 @@
 var express = require('express')
 	, routes = require('./routes')
 	, user = require('./routes/user')
+	, recipe = require('./routes/recipe')
 	, http = require('http')
 	, path = require('path')
 	, mongoose = require('mongoose')
@@ -105,6 +106,7 @@ passport.deserializeUser(function(email, done) {
 
 // GET requests.
 app.get('/', loginRequired, pullTags, routes.index);
+app.post('/disp', recipe.list);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
@@ -123,11 +125,13 @@ app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
 app.get('/preselect', loginRequired, pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
+app.get('/tempdisp', recipe.tempdisp);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
+app.post('/list', loginRequired, recipe.list);
 
 
 
