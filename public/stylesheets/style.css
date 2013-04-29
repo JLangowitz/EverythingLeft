@@ -86,12 +86,13 @@ ol li {
 	border-style: solid;
 	padding: 10px;
 	margin-top: 5px;
+	border-radius: 3px;
 }
 
 .leftBorder {
 	border-left-style: solid;
 	border-left-width: 2px;
-	padding: 5px;
+	padding: 10px;
 }
 
 .inline {

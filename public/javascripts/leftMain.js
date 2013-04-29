@@ -6,6 +6,7 @@ var readyFired = false,
 $(document).ready(function() {
 	if (readyFired) return;
 	readyFired = true;
+
 	$.get('/preselect', function(res){
 		$('option').each(function(index,Element){
 			for (var i = 0; i < res.preferences.length; i++) {
@@ -14,7 +15,6 @@ $(document).ready(function() {
 				}
 			};
 		});
-
 
 		//initialize chzn
 		$('.chzn-select').each(function(index,Element){
@@ -96,6 +96,9 @@ $(document).ready(function() {
 	    		console.log('yummly results:', data);
 	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
 	    			$('.yummly').html(data);
+	    			$('.btn-info, .popover').popover({trigger: 'click'});
+
+
 	    		});
 	    	}
 	    });
@@ -166,5 +169,7 @@ $(document).ready(function() {
 			return ''
 		}
 	}
+
+	$('btn-info').popover({trigger: 'click'})
 
 });
