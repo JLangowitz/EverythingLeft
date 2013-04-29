@@ -6,6 +6,7 @@
 var express = require('express')
 	, routes = require('./routes')
 	, user = require('./routes/user')
+	, recipe = require('./routes/recipe')
 	, http = require('http')
 	, path = require('path')
 	, mongoose = require('mongoose')
@@ -105,6 +106,7 @@ passport.deserializeUser(function(email, done) {
 
 // GET requests.
 app.get('/', loginRequired, pullTags, routes.index);
+app.post('/disp', recipe.list);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
