@@ -80,3 +80,20 @@ ol li {
 .navbar {
 	min-width: 1000px;
 }
+
+.outlined {
+	border-width: 5px;
+	border-style: solid;
+	padding: 10px;
+	margin-top: 5px;
+}
+
+.leftBorder {
+	border-left-style: solid;
+	border-left-width: 2px;
+	padding: 5px;
+}
+
+.inline {
+	display: inline;
+}
