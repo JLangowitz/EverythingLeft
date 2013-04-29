@@ -1,7 +1,7 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tag = Models.tag
-	, request = require('request');
+	, Tag = Models.tag;
+	//, request = require('request');
 
 /*
  * GET users listing.

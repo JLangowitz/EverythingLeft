@@ -13,5 +13,7 @@ exports.tempdisp = function(req, res){
 };
 
 exports.list = function(req, res){
-	recipe = req.data;
+	recipe = req.body.results;
+	console.log(req.results);
+	res.redirect('/tempdisp');
 };

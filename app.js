@@ -125,11 +125,13 @@ app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
 app.get('/preselect', loginRequired, pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
+app.get('/tempdisp', recipe.tempdisp);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
+app.post('/list', loginRequired, recipe.list);
 
 
 
