@@ -1,6 +1,7 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tag = Models.tag;
+	, Tag = Models.tag
+	, request = require('request');
 
 /*
  * GET users listing.
@@ -13,6 +14,22 @@ exports.login = function(req, res) {
 		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors});
 };
+
+exports.preselect = function(req, res) {
+	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
+		console.log(user.preferences);
+		if (err){
+			res.send({'error':err});
+			return console.log('error', err);
+		}
+		var preferences = [];
+		for (var i = 0; i < user.preferences.length; i++) {
+			preferences.push(user.preferences[i].name);
+		};
+		res.send({'error':'', 'preferences':preferences});
+	});
+};
+
 
 exports.profile = function(req, res){
 	var prefs = req.user.preferences
@@ -37,19 +54,27 @@ exports.search = function(req, res) {
 		title: "Everything Left", 
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
-		flavors: req.session.flavors
+		flavors: req.session.flavors,
+		yummly: []
 	});
 }
 
 exports.prefs = function(req, res) {
-	req.user.preferred_categories=req.body.categories;
-	req.user.save(function(err){
+	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
 		if (err){
 			res.send(err);
 			return console.log('error', err);
 		}
-		res.send(err);
-	});
+		console.log(req.user);
+		req.user.preferences = tags;
+		req.user.save(function(err){
+			if (err){
+				res.send(err);
+				return console.log('error', err);
+			}
+			res.send(err);
+		});
+	})
 };
 
 exports.username = function(req, res) {
@@ -153,4 +178,24 @@ function pullTags(req, res){
 			}
 		};
 	});
+}
+
+exports.yummly_update = function(req, res) {
+
+	res.render('_yummly', {
+		yummly: req.query.recipes
+	});
+
+	console.log('recipes')
+
+	// request(req.query.host+req.query.path, function (error, response, body) {
+	//   if (!error && response.statusCode == 200) {
+	//   	var yummlyResults = JSON.parse(body);
+	//   	console.log('matches', yummlyResults.matches);
+
+	//   }
+	//   else {
+	//   	console.log(error)
+	//   }
+	// });
 }

@@ -1,9 +1,9 @@
 extends layout
 
 block content
-	div(class='hero-unit container')
+	div(class='container')
 		div(class='fluid-row')
-			form(class='form-horizontal')
+			form(class='form-horizontal', id='searchpage-search')
 				fieldset
 					legend Search Yummly for Recipes
 						div.control-group
@@ -13,15 +13,13 @@ block content
 						div.control-group
 							label.control-label Tags
 							div.controls(style='')
-									select(data-placebolder='Your tags here', style='width: 350px', multiple, class='chzn-select')
-										option(value="")
-										optgroup(label='Flavors')
-											option Salty
-											option Sour
-											option Sweet
-											option Bitter
-											option Meaty
-											option Piquant
+								include _multiselect.jade
 						div.control-group
 							div.controls
-								button.btn.btn-large.disabled Search
+								button.btn.btn-large.searchButton Search
+	div.container.span5.fluid-row.yummly
+		p Yummly Recipes
+		include _yummly.jade
+	div.container.span5.fluid-row
+		p Everything Left Recipes
+		include _recipes.jade

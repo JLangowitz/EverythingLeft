@@ -1,4 +1,4 @@
-select(id='multiselect', data-placebolder='Your tags here', style='width: 350px', multiple, class='multiselect chzn-select')
+select(class='multiselect', data-placeholder='Tags', style='width: 350px', multiple, class='multiselect chzn-select')
 	option(value="")
 	optgroup(label='Dietary Restrictions')
 		if dietary
@@ -12,5 +12,3 @@ select(id='multiselect', data-placebolder='Your tags here', style='width: 350px'
 		if cuisines
 			each tag in cuisines
 				option(value=tag.name) #{tag.name}
-
-

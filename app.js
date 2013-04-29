@@ -123,7 +123,8 @@ app.get('/profile', loginRequired, pullTags, user.profile);
 app.get('/search', loginRequired, pullTags, user.search);
 app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
-
+app.get('/preselect', loginRequired, pullTags, user.preselect);
+app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
