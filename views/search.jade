@@ -17,9 +17,15 @@ block content
 						div.control-group
 							div.controls
 								button.btn.btn-large.searchButton Search
-	div.container.span5.fluid-row.yummly
-		p Yummly Recipes
-		include _yummly.jade
-	div.container.span5.fluid-row
-		p Everything Left Recipes
-		include _recipes.jade
+	div.row-fluid
+		div.container.span5.yummly.padded
+			div.row-fluid.outlined
+				div.span3
+					h4 O Rly foodstuff
+					img.img-circle(src='http://api.ning.com/files/Xn6RV5Y50pbFK-4nfM7GdDho7NF3Lm7FDmT9YQonKh4_/orly.jpg',style='height: 120px; width:120px')
+				div.span9.leftBorder
+					p Here's a description of the food
+					button.pull-right.btn.btn-info See More
+			include _yummly.jade
+		div.container.span5
+			include _recipes.jade

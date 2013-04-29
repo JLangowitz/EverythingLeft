@@ -64,7 +64,6 @@ $(document).ready(function() {
 						$.get('/multiselect/update', function(data){
 								console.log('html data', data);
 								$('.multiselect').html(data);
-								// console.log($('#multiselect'));
 								$('.multiselect').trigger('liszt:updated');
 							});
 					}
@@ -89,6 +88,7 @@ $(document).ready(function() {
 		    categTags = categorizeTags(tags),
 		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
 		    yummlyURL = urlForm(yummlyURL, categTags);
+		    console.log(yummlyURL);
 	    $.ajax({
 	    	url: yummlyURL,
 	    	dataType: 'jsonp',
@@ -97,17 +97,6 @@ $(document).ready(function() {
 	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
 	    			$('.yummly').html(data);
 	    		});
-	    		// $.ajax({
-	    		// 	type: "GET",
-	    		// 	url: '/yummly/update',
-	    		// 	data: {
-	    		// 		recipes: data.matches
-	    		// 	},
-	    		// 	dataType: 'json',
-	    		// 	success: function(innerData) {
-	    		// 		console.log('successful get @ /yummly/search');
-	    		// 	}
-	    		// });
 	    	}
 	    });
 		return false
@@ -127,7 +116,29 @@ $(document).ready(function() {
 		for (i=0;i<flavors.length;i++) {
 			url = url + '&flavor.'+flavors[i]+'.min=0.5';
 		}
-		var restrictions = getCategory('Dietary Restrictions', tags);
+		var restrictions = getCategory('Dietary Restrictions', tags),
+			allowedDiet = [],
+			allowedAllergy = [],
+			excludedIngredient = [],
+			allergies = ['lactose'],
+			diets = ['vegetarian', 'vegan'];
+		for (j=0;j<restrictions.length;j++) {
+			var cur = restrictions[j];
+			if (allergies.indexOf(cur) > -1) {
+				allowedAllergy.push(cur)
+			} else if (diets.indexOf(cur) > -1) {
+				allowedDiet.push(cur)
+			} else {
+				excludedIngredient.push(cur);
+			}
+		}
+		url = url + addParameter(allowedAllergy, '&allowedAllergy[]=');
+		url = url + addParameter(allowedDiet, '&allowedDiet[]=');
+		url = url + addParameter(excludedIngredient, '&excludedIngredient[]=');
+		var cuisines = getCategory('Preferred Cuisine', tags);
+		for (k=0;k<cuisines;k++) {
+			url = url + '&excludedCuisine[]=cuisine^cuisine-' + cuisines[k]
+		}
 		return url
 	}
 
@@ -140,6 +151,20 @@ $(document).ready(function() {
 			}
 		}
 		return filteredList
+	}
+
+	//add parameter to url
+	var addParameter = function(array, paramBase) {
+		if (array.length > 0) {
+			var paramVals = '';
+			for (i=0;i<array.length;i++) {
+				paramVals = paramVals + array[i] + ' ';
+			}
+			return paramBase + paramVals
+		}
+		else {
+			return ''
+		}
 	}
 
 });
