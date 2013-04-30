@@ -200,9 +200,12 @@ $(document).ready(function() {
 
 	//form yummly search url
 	var urlForm = function(url, tags) {
-		var flavors = getCategory('Favorite Flavors', tags);
+		var flavors = getCategory('Favorite Flavors', tags),
+			allowedFlavors = ['sweet','meaty','sour','bitter','sweet','piquant']
 		for (i=0;i<flavors.length;i++) {
-			url = url + '&flavor.'+flavors[i]+'.min=0.5';
+			if (allowedFlavors.indexOf(flavors[i].toLowerCase()) > -1) {
+				url = url + '&flavor.'+flavors[i]+'.min=0.5';
+			}
 		}
 		var restrictions = getCategory('Dietary Restrictions', tags),
 			allowedDiet = [],
