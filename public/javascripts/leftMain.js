@@ -100,7 +100,7 @@ $(document).ready(function() {
 	    	success: function(data) {
 	    		console.log('yummly results:', data);
 	    		//call server get that updates yummly div
-	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
+	    		$.get('/yummly/update', {recipes: data.matches[0]}, function(data) {
 	    			$('.yummly').html(data);
 	    			$('.btn-info').popover({trigger: 'click', html: true});
 	    			console.log(tags);
