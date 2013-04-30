@@ -10,6 +10,19 @@ exports.addform = function(req, res){
 		flavors: req.session.flavors });
 };
 
+exports.recipepage = function (req, res){
+	Recipe.find({'_id':req.params.recipe}).sort().exec(function (err, docs){
+		res.render('recipe', 
+			{title: 'Everything Left', 
+			dietary: req.session.dietary, 
+			cuisines: req.session.cuisines, 
+			flavors: req.session.flavors,
+			recipe: docs[0],
+			ingredients: docs[0].ingredients});
+	});
+};
+
+//POST functions
 exports.makenew = function(req, res){
 	var new_name = req.body.name
 		, new_image = req.body.image
@@ -18,7 +31,6 @@ exports.makenew = function(req, res){
 		, new_des = req.body.description;
 
 	Tag.find({"name":{$in:new_tags}}).exec(function (err, tags){
-		console.log(tags);
 
 		var newRecipe = Recipe({
 			name: new_name,
