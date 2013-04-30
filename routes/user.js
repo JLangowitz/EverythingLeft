@@ -19,17 +19,17 @@ exports.preselect = function(req, res) {
 	req.session.search=[];
 	req.session.databaseSearch=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
-		console.log(user.preferences);
+		// console.log(user.preferences);
 		if (err){
 			res.send({'error':err});
 			return console.log('error', err);
 		}
 		var preferences = [];
-		console.log(preferences.length);
+		// console.log(preferences.length);
 		for (var i = 0; i < user.preferences.length; i++) {
 			preferences.push(user.preferences[i].name);
 		};
-		console.log(preferences);
+		// console.log(preferences);
 		res.send({'error':'', 'preferences':preferences});
 	});
 };
