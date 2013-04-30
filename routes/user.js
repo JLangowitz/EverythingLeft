@@ -1,6 +1,7 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tag = Models.tag;
+	, Tag = Models.tag
+	, request = require('request');
 
 /*
  * GET users listing.
@@ -22,6 +23,7 @@ exports.login = function(req, res) {
 };
 
 exports.preselect = function(req, res) {
+	req.session.search=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
 		console.log(user.preferences);
 		if (err){
@@ -62,7 +64,8 @@ exports.search = function(req, res) {
 		title: "Everything Left", 
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
-		flavors: req.session.flavors
+		flavors: req.session.flavors,
+		yummly: req.session.search
 	});
 }
 
@@ -187,4 +190,29 @@ function pullTags(req, res){
 			}
 		};
 	});
+}
+
+exports.navbarSearch = function(req, res) {
+	req.session.search=req.query.recipes
+	res.send();
+}
+
+exports.yummly_update = function(req, res) {
+
+	res.render('_yummly', {
+		yummly: req.query.recipes
+	});
+
+	console.log('recipes')
+
+	// request(req.query.host+req.query.path, function (error, response, body) {
+	//   if (!error && response.statusCode == 200) {
+	//   	var yummlyResults = JSON.parse(body);
+	//   	console.log('matches', yummlyResults.matches);
+
+	//   }
+	//   else {
+	//   	console.log(error)
+	//   }
+	// });
 }

@@ -82,3 +82,10 @@ ol li {
 .navbar {
 	min-width: 1000px;
 }
+
+.search-query {
+	margin-right: 10px;
+	color: #000000!important;
+	background-color: #FFFFFF!important;
+	vertical-align: top!important;
+}

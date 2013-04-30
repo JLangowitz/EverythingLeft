@@ -1,0 +1,10 @@
+//- _yummly.jade
+
+if (yummly.length > 0)
+	each recipe in yummly
+		div
+			if (recipe.smallImageUrls)
+				img(src=recipe.smallImageUrls[0])
+			h4 #{recipe.recipeName}
+else
+	p Yummly recipes go here
