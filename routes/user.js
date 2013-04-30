@@ -193,6 +193,7 @@ exports.navbarSearch = function(req, res) {
 }
 
 exports.yummly_update = function(req, res) {
+	console.log('Things are breaking so I will put in a bit log so that I can find where the hell I am');
 	console.log(req);
 	console.log(req.query);
 	res.render('_yummly', {
