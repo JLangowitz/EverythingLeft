@@ -133,6 +133,7 @@ app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user prefere
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
 app.post('/addrecipe/new', loginRequired, recipe.makenew);
+app.post('/addfav', loginRequired, recipe.addfav);
 
 
 

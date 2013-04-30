@@ -1,13 +1,14 @@
 extends layout
 
 block content
-
+	script(src='/javascripts/newrecipe.js', type="text/javascript")
 	div(id="container")
+		h1(style='padding-left: 100px;') #{recipe.name}
 		div(id="float-one")
-			h1 #{recipe.name}
 			image(src="#{recipe.image_url}")
 			p Popularity: #{recipe.counter}
-		div(id="float-two")
+			input(type="button", id="fav", class="#{recipe._id}", value="Favorite")
+		div(id="float-one")
 			.container.row-fluid
 				.container.span8.padded
 					table.table.table-striped(style='min-width: 300px; overflow: auto')
@@ -17,5 +18,6 @@ block content
 						each ingredient in ingredients
 							tr
 								td #{ingredient}
+		div(id="float-one")
 			h2 Description
 			p #{recipe.description}

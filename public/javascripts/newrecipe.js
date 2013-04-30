@@ -15,4 +15,10 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$('#fav').click(function (){
+		$.post('/addfav', {id: $(this).attr('class')}, function(){
+			location.refresh();
+		});
+	});
+
 });
