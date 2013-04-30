@@ -1,22 +1,23 @@
 extends layout
 
 block content
-	div(id="container")
-		div(id="rightmain") 
-			h3 Top Recipes
-			if (top_recipes.length > 0)
-				each recipe in top_recipes
-					include _parrecipe
-			else
-				p There are no top recipes yet!
-		div(id="centermain")
-			h2 Search for Recipes 
-			h2 or 
-			h2 Add Your Own!
-		div(id="leftmain")
-			h3 Newest Editions
-			if (newest_recipes.length > 0)
-				each recipe in top_recipes
-					include _parrecipe
-			else
-				p There are no new recipes yet!
+	div(id="container", class='container-fluid')
+		div(class='row-fluid')
+			div(id="rightmain", class='span4') 
+				h3 Top Recipes
+				if (top_recipes.length > 0)
+					each recipe in top_recipes
+						include _parrecipe
+				else
+					p There are no top recipes yet!
+			div(id="centermain", class='span4')
+				h2 Search for Recipes 
+				h2 or 
+				h2 Add Your Own!
+			div(id="leftmain", class='span4')
+				h3 Newest Editions
+				if (newest_recipes.length > 0)
+					each recipe in top_recipes
+						include _parrecipe
+				else
+					p There are no new recipes yet!
