@@ -89,16 +89,37 @@ $(document).ready(function() {
 		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
 		    yummlyURL = urlForm(yummlyURL, categTags);
 		    console.log(yummlyURL);
+	    //call ajax get @ yummly for recipes
 	    $.ajax({
 	    	url: yummlyURL,
 	    	dataType: 'jsonp',
 	    	success: function(data) {
 	    		console.log('yummly results:', data);
+	    		//call server get that updates yummly div
 	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
 	    			$('.yummly').html(data);
-	    			$('.btn-info, .popover').popover({trigger: 'click'});
+	    			$('.btn-info').popover({trigger: 'click', html: true});
 
-
+	    				//get recipe object from yummly using recipe id
+	    				$('.btn-info').click(function(){
+	    					$('.btn-info').not(this).popover('hide');
+	    					var name = $(this).parents('.outlined').attr('name');
+							var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
+							$.ajax({
+								url: recipeURL,
+								dataType: 'jsonp',
+								success: function(data) {
+									console.log('recipe data', data);
+									console.log('data type', typeof data);
+									$.get('/yummly/popover/update', {
+										recipe: data
+									}, function(htmlData) {
+										$('.popover-content').html(htmlData);
+										$('.popover-title').text(data.name)
+									});
+								}
+							});
+						})
 	    		});
 	    	}
 	    });
@@ -169,7 +190,5 @@ $(document).ready(function() {
 			return ''
 		}
 	}
-
-	$('btn-info').popover({trigger: 'click'})
 
 });
