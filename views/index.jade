@@ -4,9 +4,19 @@ block content
 	div(id="container")
 		div(id="rightmain") 
 			h3 Top Recipes
-			include _parrecipe
+			if (top_recipes.length > 0)
+				each recipe in top_recipes
+					include _parrecipe
+			else
+				p There are no top recipes yet!
 		div(id="centermain")
-			h4 Search for Recipes or Add Your Own!
+			h3 Search for Recipes 
+			h3 or 
+			h3 Add Your Own!
 		div(id="leftmain")
 			h3 Newest Editions
-			include _parrecipe
+			if (newest_recipes.length > 0)
+				each recipe in top_recipes
+					include _parrecipe
+			else
+				p There are no new recipes yet!

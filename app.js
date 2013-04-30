@@ -132,7 +132,7 @@ app.get('/addrecipe', recipe.addform);
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
-app.post('/addrecipe/new', loginRequired, recipe.make_new);
+app.post('/addrecipe/new', loginRequired, recipe.makenew);
 
 
 
