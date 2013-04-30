@@ -102,6 +102,7 @@ $(document).ready(function() {
 
 	    				//get recipe object from yummly using recipe id
 	    				$('.btn-info').click(function(){
+	    					$(this).addClass('activeYummly');
 	    					$('.btn-info').not(this).popover('hide');
 	    					var name = $(this).parents('.outlined').attr('name');
 							var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
@@ -115,7 +116,7 @@ $(document).ready(function() {
 										recipe: data
 									}, function(htmlData) {
 										$('.popover-content').html(htmlData);
-										$('.popover-title').text(data.name)
+										$('.popover-title').text(data.name);
 									});
 								}
 							});
@@ -190,5 +191,8 @@ $(document).ready(function() {
 			return ''
 		}
 	}
+
+	$(document).trigger('click').find('.activeYummly').popover('hide').removeClass('activeYummly');
+
 
 });

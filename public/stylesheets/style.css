@@ -119,6 +119,5 @@ ol li {
 }
 
 table.table {
-	height: 200px !important;
 	overflow: scroll;
 }
