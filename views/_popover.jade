@@ -1,0 +1,23 @@
+//- _popover.jade
+
+.container.row-fluid
+	.container.span4.padded
+		if image
+			img.img-rounded(src=image)
+		else
+			img.img-rounded(src='http://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png')
+	.container.span8.padded
+		table.table.table-striped(style='height: 200px !important; overflow: auto')
+			tr
+				th Ingredients
+			each ingredient in ingredients
+				tr
+					td #{ingredient}
+.row-fluid.container.padded
+	.row-fluid.container
+		.span6
+			p
+				| This recipe is from:
+				a(href=source.sourceRecipeUrl) #{source.sourceDisplayName}
+		.offset3.span3
+			button.btn Save Recipe

@@ -188,14 +188,22 @@ exports.yummly_update = function(req, res) {
 
 	console.log('recipes')
 
-	// request(req.query.host+req.query.path, function (error, response, body) {
-	//   if (!error && response.statusCode == 200) {
-	//   	var yummlyResults = JSON.parse(body);
-	//   	console.log('matches', yummlyResults.matches);
+}
 
-	//   }
-	//   else {
-	//   	console.log(error)
-	//   }
-	// });
+exports.popover_update = function(req, res) {
+
+	console.log(req.query);
+
+	var recipe = req.query.recipe;
+
+	if (recipe.images !== undefined && recipe.images.length > 0) {
+		var image = recipe.images[0].hostedLargeUrl
+	}
+
+	res.render('_popover', {
+		image: image,
+		name: recipe.name,
+		source: recipe.source,
+		ingredients: recipe.ingredientLines
+	})
 }

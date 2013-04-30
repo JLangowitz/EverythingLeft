@@ -112,3 +112,13 @@ ol li {
 .inline {
 	display: inline;
 }
+
+.popover {
+	min-width: 500px;
+	min-height: 300px;	
+}
+
+table.table {
+	height: 200px !important;
+	overflow: scroll;
+}
