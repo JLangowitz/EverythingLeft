@@ -193,7 +193,8 @@ exports.navbarSearch = function(req, res) {
 }
 
 exports.yummly_update = function(req, res) {
-	console.log req.query
+	console.log(req);
+	console.log(req.query);
 	res.render('_yummly', {
 		yummly: req.query.recipes
 	});
