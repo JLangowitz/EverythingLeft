@@ -120,6 +120,30 @@ $(document).ready(function() {
 									}, function(htmlData) {
 										$('.popover-content').html(htmlData);
 										$('.popover-title').text(data.name)
+										$('#saveRecipe').click(function(){
+											$.post('/addrecipe/new',
+												{name:data.name
+												, image:data.images[0].hostedLargeUrl
+												, url:data.source.sourceRecipeUrl
+												, description:''
+												, tags:[]
+												, ingredients:data.ingredientLines},
+											function(err){
+												if (err){
+													console.log(err);
+													$('#saveRecipe').append("<div class='alert alert-error'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Try Again </strong>"+
+																			"There was an error saving this recipe. Please try again.</div>");
+												}
+												else{
+													$('#saveRecipe').append("<div class='alert alert-success'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Try Again </strong>"+
+																			"recipeSaved</div>");
+												}
+											});
+										});
 									});
 								}
 							});

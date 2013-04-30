@@ -126,13 +126,13 @@ app.get('/preselect', loginRequired, pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
 app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
 app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
-app.get('/addrecipe', recipe.addform);
+app.get('/addrecipe', loginRequired, pullTags, recipe.addform);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
-app.post('/addrecipe/new', loginRequired, recipe.makenew);
+app.post('/addrecipe/new', loginRequired, pullTags, recipe.makenew);
 
 
 

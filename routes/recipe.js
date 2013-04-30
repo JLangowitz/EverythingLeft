@@ -11,10 +11,12 @@ exports.addform = function(req, res){
 };
 
 exports.makenew = function(req, res){
+	console.log(req.body);
 	var new_name = req.body.name
 		, new_image = req.body.image
 		, new_tags = req.body.tags
 		, new_ing = req.body.ingredients
+		, new_url = req.body.url
 		, new_des = req.body.description;
 
 	Tag.find({"name":{$in:new_tags}}).exec(function (err, tags){
@@ -27,12 +29,15 @@ exports.makenew = function(req, res){
 			description: new_des,
 			counter: 0,
 			tags: tags,
+			url: new_url,
 			timestamp: new Date().getTime()
 			});
 		newRecipe.save(function(err) {
-			if (err)
+			if (err){	
+				res.send(err);
 				return console.log("Unable to save New Recipe", err);
-			res.redirect('/');
+			}
+			res.send();
 		});
 	});
 };
