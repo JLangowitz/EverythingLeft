@@ -11,10 +11,24 @@ exports.addform = function(req, res){
 
 exports.make_new = function(req, res){
 	var new_name = req.body.name
-		, image = req.body.image
-		, tags = req.body.tags
-		, ing = req.body.ingredients
-		, des = req.body.description;
+		, new_image = req.body.image
+		, new_tags = req.body.tags
+		, new_ing = req.body.ingredients
+		, new_des = req.body.description;
 	console.log(recipe);
-	res.redirect('/');
+
+	var newRecipe = Recipe({
+		name: new_name,
+		image_url: new_image,
+		ingredients: new_ing,
+		description: new_des,
+		counter: 0,
+		tags: new_tags
+		timestamp: new Date().getTime()
+		});
+	newRecipe.save(function(err) {
+		if (err)
+			return console.log("Unable to save New Recipe", err);
+		res.redirect('/');
+	});
 };

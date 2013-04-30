@@ -25,7 +25,8 @@ var recipeSchema = mongoose.Schema({
 	ingredients: Array,
 	description: String,
 	counter: Number,
-	tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}]
+	tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
+	timestamp: Number
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
