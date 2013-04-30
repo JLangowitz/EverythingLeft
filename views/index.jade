@@ -1,19 +1,12 @@
 extends layout
 
 block content
-	script(src='/javascripts/handler.js', type='text/javascript')
-	h1= title
-	p Search for stuff here, cant vs. want to
-	div(id="def_box")
-		input(type="text")
-		input(type="button", value="search")
-		p free range if not set (enter in yo-stuff), option to save?
 	div(id="container")
 		div(id="rightmain") 
-			include _top
-		div(id="centermain")
-			p list of all relevant recipes
+			h3 Top Recipes
 			include _parrecipe
-			p click on recipes page(1 view)
+		div(id="centermain")
+			h4 Search for Recipes or Add Your Own!
 		div(id="leftmain")
-			p display newest relevant recommendations
+			h3 Newest Editions
+			include _parrecipe

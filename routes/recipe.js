@@ -1,19 +1,20 @@
 var Models = require('../models/models')
 	, Recipe = Models.recipe;
 
-//http://api.yummly.com/v1/api/metadata/ingredient?_app_id=45928695&_app_key=32e141669097e9e4be73c86737f3bd3d
-
-var yummlyID = '45928695'
-	, yummlyKEY = '32e141669097e9e4be73c86737f3bd3d'
-	, yummlyURL = 'http://api.yummly.com/v1/api/metadata/recipes?app_id='+yummlyID+'_app_key='+yummlyKEY
-	, recipe = 'mwahaha global variable';
-
-exports.tempdisp = function(req, res){
-	res.send(recipe)
+exports.addform = function(req, res){
+	res.render('add_new', 
+  		{ title: 'Everything Left', 
+		dietary: req.session.dietary, 
+		cuisines: req.session.cuisines, 
+		flavors: req.session.flavors });
 };
 
-exports.list = function(req, res){
-	recipe = req.body.results;
-	console.log(req.results);
-	res.redirect('/tempdisp');
+exports.make_new = function(req, res){
+	var new_name = req.body.name
+		, image = req.body.image
+		, tags = req.body.tags
+		, ing = req.body.ingredients
+		, des = req.body.description;
+	console.log(recipe);
+	res.redirect('/');
 };

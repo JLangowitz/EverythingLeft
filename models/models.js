@@ -21,9 +21,11 @@ exports.user = User;
 // list of tags and likes
 var recipeSchema = mongoose.Schema({
 	name: String,
-	Yummly: Object,
-	tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}],
-	likes: [{type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+	image_url: String,
+	ingredients: Array,
+	description: String,
+	counter: Number,
+	tags: [{type: mongoose.Schema.Types.ObjectId, ref: 'Tag'}]
 });
 
 var Recipe = mongoose.model('Recipe', recipeSchema);
