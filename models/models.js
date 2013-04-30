@@ -21,7 +21,8 @@ exports.user = User;
 // list of tags and likes
 var recipeSchema = mongoose.Schema({
 	name: String,
-	image_url: String,
+	image_small: String,
+	image_large: String,
 	ingredients: Array,
 	description: String,
 	counter: Number,

@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+	div(id="container")
+		div(id="float-one")
+			h1 #{recipe.name}
+			image(src="#{recipe.image_large}")
+			p Popularity: #{recipe.counter}
+			a(href='#{recipe.url}') Original Website
+		div(id="float-two")
+			.container.row-fluid
+				.container.span8.padded
+					table.table.table-striped(style='min-width: 300px; overflow: auto')
+						tr
+							th 
+								h4 Ingredients
+						each ingredient in ingredients
+							tr
+								td #{ingredient}
+			h2 Description
+			p #{recipe.description}

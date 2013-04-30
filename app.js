@@ -127,6 +127,9 @@ app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
 app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
 app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
 app.get('/addrecipe', loginRequired, pullTags, recipe.addform);
+app.get('/recipe/:recipe', loginRequired, pullTags, recipe.recipepage);
+app.get('/database/search', loginRequired, pullTags, recipe.search);
+
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences

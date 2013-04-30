@@ -4,11 +4,12 @@ div.row-fluid.outlined(name=recipe._id)
 	div.span3
 		h5 #{recipe.name}
 		if recipe.smallImageUrls
-			img.img-rounded(src=#{recipe.img_url})
+			img.img-rounded(src="#{recipe.img_url}")
 		else
 			img.img-rounded(src='http://2.media.collegehumor.cvcdn.com/61/99/a76136ca5bc269b973579f793a63d00c.jpg',style='width: 150px; height:100px')
 	div.span9.leftBorder
 		h6 Ingredients: 
 				each ingredient in recipe.ingredients
 					p.inline #{ingredient}, 
-		button.pull-right.btn.btn-info(data-toggle='popover', title data-content='Some ol bullshit', data-original-title='The Tittle') See More
+		a(href='/recipe/#{recipe._id}')
+			button.pull-right.btn.btn-info See Recipe

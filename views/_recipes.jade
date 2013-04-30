@@ -1,3 +1,17 @@
 //- _recipes.jade
 
 h2 Everything Left Recipes
+if (recipes)
+	each recipe in recipes
+		div.row-fluid.outlined(name=recipe._id)
+			div.span3
+				h5 #{recipe.name}
+				if recipe.image_small
+					img.img-rounded(src=recipe.image_small)
+				else
+					img.img-rounded(src='http://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png',style='width: 150px; height:100px')
+			div.span9.leftBorder
+				h6 Ingredients: 
+						each ingredient in recipe.ingredients
+							p.inline #{ingredient}, 
+				button.pull-right.btn.btn-info(data-toggle='popover', title data-content='<div class="progress progress-striped active"><div class="bar" style="width: 100%></div></div>', data-original-title='Loading Recipe...') See More

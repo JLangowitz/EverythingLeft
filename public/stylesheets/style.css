@@ -49,6 +49,16 @@ ol li {
 	margin-left: 2px;
 }
 
+#centermain {
+	text-align: center;
+}
+
+#float-one, #float-two {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 100px;
+}
+
 /*_parrecipe.jade*/
 .img_display, .name_display{
 	float:left;
@@ -128,6 +138,5 @@ ol li {
 }
 
 table.table {
-	height: 200px !important;
 	overflow: scroll;
 }

@@ -58,7 +58,8 @@ exports.search = function(req, res) {
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors,
-		yummly: req.session.search
+		yummly: req.session.search,
+		recipes: req.session.databaseSearch
 	});
 }
 

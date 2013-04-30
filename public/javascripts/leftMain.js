@@ -103,6 +103,13 @@ $(document).ready(function() {
 	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
 	    			$('.yummly').html(data);
 	    			$('.btn-info').popover({trigger: 'click', html: true});
+	    			console.log(tags);
+	    			console.log(recipeName);
+	    			$.get('/database/search',
+	    				{tags:$('#searchpage-search .multiselect').val(),
+	    				recipeName:recipeName},
+	    			function(data){
+	    				$('#databaseRecipes').html(data);
 
 	    				//get recipe object from yummly using recipe id
 	    				$('.btn-info').click(function(){
@@ -123,17 +130,18 @@ $(document).ready(function() {
 										$('#saveRecipe').click(function(){
 											$.post('/addrecipe/new',
 												{name:data.name
-												, image:data.images[0].hostedLargeUrl
+												, imageLarge:data.images[0].hostedLargeUrl
+												, imageSmall:data.images[0].hostedSmallUrl
 												, url:data.source.sourceRecipeUrl
 												, description:''
 												, tags:[]
 												, ingredients:data.ingredientLines},
-											function(err){
-												if (err){
-													console.log(err);
+											function(res){
+												if (res.err){
+													console.log(res.err);
 													$('#errorAppendDiv').append("<div class='alert alert-error'>"+
 																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																			"</button><strong>Try Again </strong>"+ err +
+																			"</button><strong>Try Again </strong>"+ res.err +
 																			"</div>");
 
 													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
@@ -147,6 +155,8 @@ $(document).ready(function() {
 
 													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 
+													window.location='/recipe/'+res.id;
+
 												}
 											});
 										});
@@ -154,6 +164,7 @@ $(document).ready(function() {
 								}
 							});
 						})
+	    			});
 	    		});
 	    	}
 	    });
