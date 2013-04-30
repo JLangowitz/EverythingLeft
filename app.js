@@ -156,7 +156,6 @@ function loginRequired(req, res, next){
 }
 
 function pullTags(req, res, next){
-	// console.log('in this thing');
 	req.session.dietary=[];
 	req.session.flavors=[];
 	req.session.cuisines=[];
