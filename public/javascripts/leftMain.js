@@ -131,16 +131,22 @@ $(document).ready(function() {
 											function(err){
 												if (err){
 													console.log(err);
-													$('#saveRecipe').append("<div class='alert alert-error'>"+
+													$('#errorAppendDiv').append("<div class='alert alert-error'>"+
 																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																			"</button><strong>Try Again </strong>"+
-																			"There was an error saving this recipe. Please try again.</div>");
+																			"</button><strong>Try Again </strong>"+ err +
+																			"</div>");
+
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+
 												}
 												else{
-													$('#saveRecipe').append("<div class='alert alert-success'>"+
+													$('#errorAppendDiv').append("<div class='alert alert-success'>"+
 																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																			"</button><strong>Try Again </strong>"+
-																			"recipeSaved</div>");
+																			"</button><strong>Success </strong>"+
+																			"Recipe saved</div>");
+
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+
 												}
 											});
 										});
