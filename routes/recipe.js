@@ -23,7 +23,7 @@ exports.make_new = function(req, res){
 		ingredients: new_ing,
 		description: new_des,
 		counter: 0,
-		tags: new_tags
+		tags: new_tags,
 		timestamp: new Date().getTime()
 		});
 	newRecipe.save(function(err) {
