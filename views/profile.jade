@@ -18,6 +18,14 @@ block content
 				input(type="text", id="username", placeholder="username", name='username')
 				button(type="submit", class='btn btn-inverse') Change Username
 				//- div(class="form-actions")
+	div(class="favs")
+		h2 Favorites
+		if (favorites.length > 0)
+				each recipe in favorites
+					include _parrecipe
+			else
+				p You have no favorites yet!
+
 	//- div(id="my_ops")
 	//- 	div(value=preferences, id="preferences")
 	//- 		each pref, i in preferences

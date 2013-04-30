@@ -40,9 +40,7 @@ exports.profile = function(req, res){
 	if (prefs.length == 0){
 		prefs = ["You do not have any preferences yet!"];
 	}
-	if (favs.length == 0){
-		favs = ["You do not have any favorites yet!"];
-	}
+	console.log(favs);
 	res.render('profile', 
 		{title: "My Profile", 
 		preferences: prefs, 

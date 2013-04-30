@@ -1,6 +1,7 @@
 var Models = require('../models/models')
 	, Tag = Models.tag
-	, Recipe = Models.recipe;
+	, Recipe = Models.recipe
+	, User = Models.user;
 
 exports.addform = function(req, res){
 	res.render('add_new', 
@@ -86,3 +87,41 @@ exports.search = function(req, res){
 		});
 	});
 }
+
+exports.addfav = function (req, res){
+	Recipe.find({'_id': req.body.id}).exec(function (err, docs){
+		User.find({username:req.user.username}).sort().exec(function (err, mem){
+			var fav_list = mem[0].favorites
+				, add = true;
+
+			if (fav_list){
+				if (fav_list.length > 0){
+					for (var i=0; i<fav_list.length; i++){
+						if (req.body.id == fav_list[i]._id){
+							add = false;
+							break;
+						};
+					};
+				};
+
+				if (add == true){
+					var new_fav = fav_list.push(docs[0])
+						, up_score = docs[0].counter + 1;
+					console.log(new_fav);
+					console.log(docs[0]);
+					console.log(fav_list);
+					User.update({username:req.user.username}, {favorites: fav_list.push(docs[0])}, function(){
+						Recipe.update({'_id': req.body.id}, {counter: up_score}, function() {
+							User.find({username:req.user.username}).exec(function (err, newuse){
+								console.log(newuse);
+								req.user = newuse[0];
+								console.log('Favorite Added');
+								res.redirect('/profile');
+						});
+						});
+					});
+				};
+			};
+		});
+	});
+};
