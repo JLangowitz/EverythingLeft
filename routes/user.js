@@ -17,6 +17,7 @@ exports.login = function(req, res) {
 
 exports.preselect = function(req, res) {
 	req.session.search=[];
+	req.session.databaseSearch=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
 		console.log(user.preferences);
 		if (err){
@@ -51,13 +52,15 @@ exports.profile = function(req, res){
 };
 
 exports.search = function(req, res) {
+	var recipes = req.session.databaseSearch;
+	req.session.databaseSearch=[];
 	res.render('search', {
 		title: "Everything Left", 
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors,
 		yummly: req.session.search,
-		recipes: req.session.databaseSearch
+		recipes: recipes
 	});
 }
 
@@ -190,7 +193,7 @@ exports.navbarSearch = function(req, res) {
 }
 
 exports.yummly_update = function(req, res) {
-
+	console.log req.query
 	res.render('_yummly', {
 		yummly: req.query.recipes
 	});
