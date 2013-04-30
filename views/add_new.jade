@@ -1,0 +1,35 @@
+extends layout
+
+block scripts
+	script(src='javascripts/newrecipe.js')
+
+block content
+	h1(class='text-center') Create Recipe
+	div(class='container')
+		div(class='fluid-row')
+			form(class='form-horizontal', id='makenew')
+				fieldset
+					legend Create New Recipe
+						div.control-group
+							label.control-label Name
+							div(class='controls')
+									input(type='text', placeholder='What is your recipe called?', id='name')
+						div.control-group
+							label.control-label Image
+							div(class='controls')
+									input(type='text', placeholder='URL', id='url')
+						div.control-group
+							label.control-label Tags
+							div.controls(style='', id='new-recipe-multiselect')
+								include _multiselect.jade
+						div.control-group
+							label.control-label Ingredients
+							div.controls(style='')
+								textarea(placeholder='Seperate each type with a comma.', rows="5", id='ingred')
+						div.control-group
+							label.control-label Description
+							div.controls(style='')
+								textarea(placeholder='How do you make it?', class='input-xxlarge', rows="5", id='descript')
+						div.control-group
+							div.controls
+								button.btn.btn-large.searchButton Search
