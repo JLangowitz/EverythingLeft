@@ -1,18 +1,11 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tag = Models.tag
-	, request = require('request');
+	, Tag = Models.tag;
+	//, request = require('request');
 
 /*
  * GET users listing.
  */
-
-var yummlyID = '45928695',
-    yummlyKEY = '32e141669097e9e4be73c86737f3bd3d';
-
-exports.list = function(req, res){
-  res.send("respond with a resource");
-};
 
 exports.login = function(req, res) {
 	res.render('login', 
@@ -205,14 +198,22 @@ exports.yummly_update = function(req, res) {
 
 	console.log('recipes')
 
-	// request(req.query.host+req.query.path, function (error, response, body) {
-	//   if (!error && response.statusCode == 200) {
-	//   	var yummlyResults = JSON.parse(body);
-	//   	console.log('matches', yummlyResults.matches);
+}
 
-	//   }
-	//   else {
-	//   	console.log(error)
-	//   }
-	// });
+exports.popover_update = function(req, res) {
+
+	console.log(req.query);
+
+	var recipe = req.query.recipe;
+
+	if (recipe.images !== undefined && recipe.images.length > 0) {
+		var image = recipe.images[0].hostedLargeUrl
+	}
+
+	res.render('_popover', {
+		image: image,
+		name: recipe.name,
+		source: recipe.source,
+		ingredients: recipe.ingredientLines
+	})
 }

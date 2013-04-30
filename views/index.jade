@@ -1,18 +1,22 @@
 extends layout
 
 block content
-	h1= title
-	p Search for stuff here, cant vs. want to
-	div(id="def_box")
-		input(type="text")
-		input(type="button", value="search")
-		p free range if not set (enter in yo-stuff), option to save?
 	div(id="container")
 		div(id="rightmain") 
-			include _top
+			h3 Top Recipes
+			if (top_recipes.length > 0)
+				each recipe in top_recipes
+					include _parrecipe
+			else
+				p There are no top recipes yet!
 		div(id="centermain")
-			p list of all relevant recipes
-			include _parrecipe
-			p click on recipes page(1 view)
+			h3 Search for Recipes 
+			h3 or 
+			h3 Add Your Own!
 		div(id="leftmain")
-			p display newest relevant recommendations
+			h3 Newest Editions
+			if (newest_recipes.length > 0)
+				each recipe in top_recipes
+					include _parrecipe
+			else
+				p There are no new recipes yet!

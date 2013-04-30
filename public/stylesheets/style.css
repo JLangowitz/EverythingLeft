@@ -31,14 +31,28 @@ ol li {
 	color: white;
 }
 
-#def_box, #container{
+/*index.jade*/
+#container{
+	margin-top: 100px;
 	margin-left: auto;
 	margin-right: auto;
+	min-width: 900px;
+	width:100%;
 }
 
 #rightmain, #centermain, #leftmain{
 	display: inline-block;
 	vertical-align: top;
+	width:30%;
+	padding: 0px 20px 20px 20px;
+	margin-right: 2px;
+	margin-left: 2px;
+}
+
+/*_parrecipe.jade*/
+.img_display, .name_display{
+	float:left;
+	padding-right: 20px;
 }
 
 .modal-body {
@@ -88,4 +102,32 @@ ol li {
 	color: #000000!important;
 	background-color: #FFFFFF!important;
 	vertical-align: top!important;
+}
+
+.outlined {
+	border-width: 5px;
+	border-style: solid;
+	padding: 10px;
+	margin-top: 5px;
+	border-radius: 3px;
+}
+
+.leftBorder {
+	border-left-style: solid;
+	border-left-width: 2px;
+	padding: 10px;
+}
+
+.inline {
+	display: inline;
+}
+
+.popover {
+	min-width: 500px;
+	min-height: 300px;	
+}
+
+table.table {
+	height: 200px !important;
+	overflow: scroll;
 }

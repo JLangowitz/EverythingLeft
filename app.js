@@ -6,6 +6,7 @@
 var express = require('express')
 	, routes = require('./routes')
 	, user = require('./routes/user')
+	, recipe = require('./routes/recipe')
 	, http = require('http')
 	, path = require('path')
 	, mongoose = require('mongoose')
@@ -124,11 +125,14 @@ app.get('/multiselect/update', loginRequired, pullTags, user.update);
 app.get('/preselect', loginRequired, pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
 app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
+app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
+app.get('/addrecipe', recipe.addform);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
+app.post('/addrecipe/new', loginRequired, recipe.makenew);
 
 
 
@@ -156,7 +160,6 @@ function loginRequired(req, res, next){
 }
 
 function pullTags(req, res, next){
-	// console.log('in this thing');
 	req.session.dietary=[];
 	req.session.flavors=[];
 	req.session.cuisines=[];

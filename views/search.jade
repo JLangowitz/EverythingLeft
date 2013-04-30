@@ -17,9 +17,8 @@ block content
 						div.control-group
 							div.controls
 								button.btn.btn-large.searchButton Search
-	div.container.span5.fluid-row.yummly
-		p Yummly Recipes
-		include _yummly.jade
-	div.container.span5.fluid-row
-		p Everything Left Recipes
-		include _recipes.jade
+	div.row-fluid
+		div.container.span5.yummly.padded
+			include _yummly.jade
+		div.container.span5
+			include _recipes.jade
