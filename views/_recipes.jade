@@ -12,6 +12,8 @@ if (recipes)
 					img.img-rounded(src='http://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png',style='width: 150px; height:100px')
 			div.span9.leftBorder
 				h6 Ingredients: 
+					if recipe.ingredients
 						each ingredient in recipe.ingredients
 							p.inline #{ingredient}, 
-				button.pull-right.btn.btn-info(data-toggle='popover', title data-content='<div class="progress progress-striped active"><div class="bar" style="width: 100%></div></div>', data-original-title='Loading Recipe...') See More
+				a(href='/recipe/#{recipe._id}')
+					button.pull-right.btn.btn-info See Full Recipe

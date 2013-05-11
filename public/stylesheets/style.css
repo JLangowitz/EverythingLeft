@@ -96,6 +96,9 @@ ol li {
 	border-width: 0px;
 }
 
+.btn-nav-search {
+	margin-top: 0px!important;
+}
 .btn-chosen {
 	padding-top: 5px;
 	padding-bottom: 5px;
@@ -139,4 +142,8 @@ ol li {
 
 table.table {
 	overflow: scroll;
+}
+
+.hidden {
+	display: none;
 }

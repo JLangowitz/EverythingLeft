@@ -1,4 +1,4 @@
-//chosenHandle.js
+// Ready function that runs on all pages, makes sure the ready functions only run once.
 var readyFired = false,
 	yummlyID = '45928695',
     yummlyKEY = '32e141669097e9e4be73c86737f3bd3d';
@@ -8,6 +8,8 @@ $(document).ready(function() {
 	readyFired = true;
 	// initialize selects
 
+
+	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
 		$('option').each(function(index,Element){
 			for (var i = 0; i < res.preferences.length; i++) {
@@ -170,6 +172,7 @@ $(document).ready(function() {
 	    });
 		return false
 	})
+
 
 	$('#navbar-search').submit(function() {
 		var tags = $('#navbar-search .multiselect').val(),

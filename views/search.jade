@@ -1,3 +1,5 @@
+//- Search page
+
 extends layout
 
 block content
@@ -7,11 +9,11 @@ block content
 				fieldset
 					legend Search Yummly for Recipes
 						div.control-group
-							label.control-label Name
+							label.control-label Specific Food
 							div(class='controls')
 									input(type='text', placeholder='What do you want to make?')
 						div.control-group
-							label.control-label Tags
+							label.control-label Categories
 							div.controls(style='')
 								include _multiselect
 						div.control-group

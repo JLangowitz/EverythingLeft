@@ -29,6 +29,8 @@ app.configure('development', function(){
 
 console.log(app.get('host'));
 
+
+// Creates the user on successful auth
 passport.use(new GoogleStrategy({
 		returnURL: app.get('host') + '/auth/google/return',
 		realm: app.get('host')
@@ -68,20 +70,11 @@ app.configure(function () {
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.set('secret', process.env.SESSION_SECRET || 'terrible, terrible secret')
-	// app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser(app.get('secret')));
 	app.use(express.session({ secret: 'keyboard cat' }))
-	// app.use(express.session({
-	//   maxAge: new Date(Date.now() + 3600000),
-	//   store: new MongoStore(
-	//     {db:mongoose.connection.db},
-	//     function(err){
-	//         console.log(err || 'connect-mongodb setup ok');
-	//       })
-	// }));
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
@@ -90,9 +83,7 @@ app.configure(function () {
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.
+//   serialize users into and deserialize users out of the session.  We store based on emails
 
 passport.serializeUser(function(user, done) {
 		done(null, user.email);
