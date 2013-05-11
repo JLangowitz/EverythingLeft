@@ -53,10 +53,12 @@ ol li {
 	text-align: center;
 }
 
-#float-one, #float-two {
+.float-one {
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 100px;
+	max-width: 30%;
+	min-width: 250px;
 }
 
 /*_parrecipe.jade*/

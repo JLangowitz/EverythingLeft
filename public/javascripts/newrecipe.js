@@ -17,7 +17,7 @@ $(document).ready(function(){
 
 	$('#fav').click(function (){
 		$.post('/addfav', {id: $(this).attr('class')}, function(){
-			location.refresh();
+			window.location.refresh();
 		});
 	});
 

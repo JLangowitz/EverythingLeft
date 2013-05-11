@@ -4,14 +4,13 @@ block content
 	script(src='/javascripts/newrecipe.js', type="text/javascript")
 	div(id="container")
 		h1(style='padding-left: 100px;') #{recipe.name}
-		div(id="float-one")
-			h1 #{recipe.name}
+		div(class="float-one")
 			image(src="#{recipe.image_large}")
 			p Popularity: #{recipe.counter}
 			div
 				input(type="button", id="fav", class="#{recipe._id}", value="Favorite")
 			a(href='#{recipe.url}') Original Website
-		div(id="float-one")
+		div(class="float-one")
 			.container.row-fluid
 				.container.span8.padded
 					table.table.table-striped(style='min-width: 300px; overflow: auto')
@@ -21,6 +20,6 @@ block content
 						each ingredient in ingredients
 							tr
 								td #{ingredient}
-		div(id="float-one")
+		div(class="float-one")
 			h2 Description
 			p #{recipe.description}
