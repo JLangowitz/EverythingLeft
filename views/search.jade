@@ -13,12 +13,12 @@ block content
 						div.control-group
 							label.control-label Tags
 							div.controls(style='')
-								include _multiselect.jade
+								include _multiselect
 						div.control-group
 							div.controls
 								button.btn.btn-large.searchButton Search
 	div.row-fluid
 		div.container.span5.yummly.padded
-			include _yummly.jade
-		div.container.span5
 			include _recipes.jade
+		div.container.span5(id='databaseRecipes')
+			include _yummly.jade

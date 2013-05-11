@@ -6,6 +6,7 @@ var readyFired = false,
 $(document).ready(function() {
 	if (readyFired) return;
 	readyFired = true;
+	// initialize selects
 
 	$.get('/preselect', function(res){
 		$('option').each(function(index,Element){
@@ -22,6 +23,9 @@ $(document).ready(function() {
 				include_group_label_in_selected: true
 			});
 		});
+
+		$('div.navbar ul.chzn-choices').attr('id', 'chzn-nav');
+
 
 		//clears new modal
 		$('#modalOpen').click(function() {
@@ -99,6 +103,13 @@ $(document).ready(function() {
 	    		$.get('/yummly/update', {recipes: data.matches}, function(data) {
 	    			$('.yummly').html(data);
 	    			$('.btn-info').popover({trigger: 'click', html: true});
+	    			console.log(tags);
+	    			console.log(recipeName);
+	    			$.get('/database/search',
+	    				{tags:$('#searchpage-search .multiselect').val(),
+	    				recipeName:recipeName},
+	    			function(data){
+	    				$('#databaseRecipes').html(data);
 
 	    				//get recipe object from yummly using recipe id
 	    				$('.btn-info').click(function(){
@@ -116,11 +127,64 @@ $(document).ready(function() {
 										recipe: data
 									}, function(htmlData) {
 										$('.popover-content').html(htmlData);
-										$('.popover-title').text(data.name);
+										$('.popover-title').text(data.name)
+										$('#saveRecipe').click(function(){
+											$.post('/addrecipe/new',
+												{name:data.name
+												, imageLarge:data.images[0].hostedLargeUrl
+												, imageSmall:data.images[0].hostedSmallUrl
+												, url:data.source.sourceRecipeUrl
+												, description:''
+												, tags:[]
+												, ingredients:data.ingredientLines},
+											function(res){
+												if (res.err){
+													console.log(res.err);
+													$('#errorAppendDiv').append("<div class='alert alert-error'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Try Again </strong>"+ res.err +
+																			"</div>");
+
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+
+												}
+												else{
+													$('#errorAppendDiv').append("<div class='alert alert-success'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Success </strong>"+
+																			"Recipe saved</div>");
+
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+
+													window.location='/recipe/'+res.id;
+
+												}
+											});
+										});
 									});
 								}
 							});
 						})
+	    			});
+	    		});
+	    	}
+	    });
+		return false
+	})
+
+	$('#navbar-search').submit(function() {
+		var tags = $('#navbar-search .multiselect').val(),
+		    recipeName = $('#navbar-search input').val().toLowerCase(),
+		    categTags = categorizeTags(tags),
+		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
+		    yummlyURL = urlForm(yummlyURL, categTags);
+	    $.ajax({
+	    	url: yummlyURL,
+	    	dataType: 'jsonp',
+	    	success: function(data) {
+	    		console.log('yummly results:', data);
+	    		$.get('/navbar/search', {recipes: data.matches}, function(data) {
+	    			window.location='/search';
 	    		});
 	    	}
 	    });
@@ -137,9 +201,12 @@ $(document).ready(function() {
 
 	//form yummly search url
 	var urlForm = function(url, tags) {
-		var flavors = getCategory('Favorite Flavors', tags);
+		var flavors = getCategory('Favorite Flavors', tags),
+			allowedFlavors = ['sweet','meaty','sour','bitter','sweet','piquant']
 		for (i=0;i<flavors.length;i++) {
-			url = url + '&flavor.'+flavors[i]+'.min=0.5';
+			if (allowedFlavors.indexOf(flavors[i].toLowerCase()) > -1) {
+				url = url + '&flavor.'+flavors[i]+'.min=0.5';
+			}
 		}
 		var restrictions = getCategory('Dietary Restrictions', tags),
 			allowedDiet = [],

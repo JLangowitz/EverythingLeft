@@ -45,7 +45,7 @@ passport.use(new GoogleStrategy({
 				return done(err);
 			}
 			if (user==null){
-				user = new User({email:email});
+				user = new User({email:email,preferences:[],favorites:[]});
 				console.log('User created.');
 				user.save(function(err){
 					if (err) {
@@ -124,14 +124,18 @@ app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
 app.get('/preselect', loginRequired, pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
+app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
 app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
 app.get('/addrecipe', loginRequired, pullTags, recipe.addform);
+app.get('/recipe/:recipe', loginRequired, pullTags, recipe.recipepage);
+app.get('/database/search', loginRequired, pullTags, recipe.search);
 
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
-app.post('/addrecipe/new', loginRequired, recipe.makenew);
+app.post('/addrecipe/new', loginRequired, pullTags, recipe.makenew);
+app.post('/addfav', loginRequired, recipe.addfav);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));
@@ -146,6 +150,10 @@ function loginRequired(req, res, next){
 		res.redirect('/auth/google');
 	} 
 	else {
+		if(!req.user.username&&req.url!='/username'){
+			console.log('no username found');
+			res.redirect('/username');
+		}
 		// console.log("User already logged in.");
 		// console.log(req.user);
 		next();

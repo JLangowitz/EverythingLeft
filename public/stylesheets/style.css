@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  padding: 70px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -49,6 +49,16 @@ ol li {
 	margin-left: 2px;
 }
 
+#centermain {
+	text-align: center;
+}
+
+#float-one, #float-two {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 100px;
+}
+
 /*_parrecipe.jade*/
 .img_display, .name_display{
 	float:left;
@@ -89,10 +99,19 @@ ol li {
 .btn-chosen {
 	padding-top: 5px;
 	padding-bottom: 5px;
+	vertical-align: top;
+	margin-left: 10px;
 }
 
 .navbar {
 	min-width: 1000px;
+}
+
+.search-query {
+	margin-right: 10px;
+	color: #000000!important;
+	background-color: #FFFFFF!important;
+	vertical-align: top!important;
 }
 
 .outlined {

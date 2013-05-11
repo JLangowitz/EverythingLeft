@@ -17,13 +17,13 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 				//- li(class='navbar-text nav-search')
 				//- 	p Quick Search:
 			ul.nav
-				form(class='navbar-search form-inline')
+				form(class='navbar-search form-inline', id='navbar-search')
+					input(type='text', class='inline-block search-query', placeholder='What do you want to make?')
 					div(class='input-append')
-						include _multiselect.jade
+						include _multiselect
 						button(type='submit', class='btn btn-inverse btn-nav') Search
 				//- li(class='divider-vertical')
 			ul.nav.pull-right
 				div
-					a#modalOpen(href='#myModal', class='btn btn-nav btn-inverse btn-small', data-toggle='modal') New Tag
+					a#modalOpen(href='#myModal', class='btn btn-nav btn-inverse', data-toggle='modal') New Tag
 include _newtag.jade
-

@@ -1,7 +1,7 @@
 //- _yummly.jade
 
-h2 Yummly Recipes
-if (yummly !== undefined && yummly.length > 0)
+h2 Recipes Powered by Yummly
+if (yummly != undefined && yummly.length > 0)
 	each recipe in yummly
 		div.row-fluid.outlined(name=recipe.id)
 			div.span3

@@ -16,6 +16,7 @@ exports.login = function(req, res) {
 };
 
 exports.preselect = function(req, res) {
+	req.session.search=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
 		console.log(user.preferences);
 		if (err){
@@ -23,9 +24,11 @@ exports.preselect = function(req, res) {
 			return console.log('error', err);
 		}
 		var preferences = [];
+		console.log(preferences.length);
 		for (var i = 0; i < user.preferences.length; i++) {
 			preferences.push(user.preferences[i].name);
 		};
+		console.log(preferences);
 		res.send({'error':'', 'preferences':preferences});
 	});
 };
@@ -37,9 +40,7 @@ exports.profile = function(req, res){
 	if (prefs.length == 0){
 		prefs = ["You do not have any preferences yet!"];
 	}
-	if (favs.length == 0){
-		favs = ["You do not have any favorites yet!"];
-	}
+	console.log(favs);
 	res.render('profile', 
 		{title: "My Profile", 
 		preferences: prefs, 
@@ -55,13 +56,16 @@ exports.search = function(req, res) {
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors,
-		yummly: []
+		yummly: req.session.search,
+		recipes: req.session.databaseSearch
 	});
 }
 
 exports.prefs = function(req, res) {
 	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
-		if (err){
+		console.log(tags);
+		console.log(err);
+		if (err&&tags){
 			res.send(err);
 			return console.log('error', err);
 		}
@@ -178,6 +182,11 @@ function pullTags(req, res){
 			}
 		};
 	});
+}
+
+exports.navbarSearch = function(req, res) {
+	req.session.search=req.query.recipes
+	res.send();
 }
 
 exports.yummly_update = function(req, res) {

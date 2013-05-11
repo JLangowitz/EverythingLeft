@@ -10,15 +10,22 @@ block content
 
 	div(class='text-center hero-unit')
 		form(id='settings', class='form-inline')
-			div(class='input-append')
-				include _multiselect
-				button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
+			include _multiselect
+			button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
 			span(class='help-block') Selected tags will become your default search parameters.
 		form(class='form-inline', id='setuser')
 			div(class="input-append", id='error-append')
 				input(type="text", id="username", placeholder="username", name='username')
 				button(type="submit", class='btn btn-inverse') Change Username
 				//- div(class="form-actions")
+	div(class="favs")
+		h2 Favorites
+		if (favorites.length > 0)
+				each recipe in favorites
+					include _parrecipe
+			else
+				p You have no favorites yet!
+
 	//- div(id="my_ops")
 	//- 	div(value=preferences, id="preferences")
 	//- 		each pref, i in preferences

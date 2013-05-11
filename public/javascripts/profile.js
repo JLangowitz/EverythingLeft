@@ -21,12 +21,11 @@ $(document).ready(function(){
 		           	$.get('/preselect', function(res){
 		           		console.log(res.preferences);
 		           		$('option').each(function(index,Element){
+	           				$(this).attr('selected', false);
 		           			for (var i = 0; i < res.preferences.length; i++) {
 		           				if (res.preferences[i]==$(this).val()){
 		           					$(this).attr('selected', 'selected');
-		           					break;
 		           				}
-	           					$(this).attr('selected', false);
 		           			};
 		           		});
 
