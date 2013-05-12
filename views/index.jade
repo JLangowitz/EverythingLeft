@@ -15,7 +15,7 @@ block content
 				div(class='row-fluid')
 					div(class='span6') 
 						h3 Top Recipes
-						div(id='topCarousel', class='carousel slide')
+						div(id='topCarousel', class='carousel slide well well-dark')
 							//- ol(class='carousel-indicators')
 							div(class='carousel-inner')
 								if (top_recipes.length > 0)
@@ -26,14 +26,14 @@ block content
 												div(class='carousel-caption')
 													h4 #{recipe.name}
 													a(href='/recipe/#{recipe._id}')
-														button.text-center.btn.btn-inverse See Recipe
+														button.text-center.btn.btn-info See Recipe
 							a(class='carousel-control left', href='#topCarousel', data-slide='prev') &lsaquo;
 							a(class='carousel-control right', href='#topCarousel', data-slide='next') &rsaquo;
 						//- else
 						//- 	p There are no top recipes yet!
 					div(class='span6')
 						h3 Newest Additions
-						div(id='newCarousel', class='carousel slide')
+						div(id='newCarousel', class='carousel slide well well-dark')
 							//- ol(class='carousel-indicators')
 							div(class='carousel-inner')
 								if (newest_recipes.length > 0)

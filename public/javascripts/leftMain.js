@@ -8,7 +8,23 @@ $(document).ready(function() {
 	readyFired = true;
 	// initialize selects
 
-	$('.btn-primary').popover({trigger: 'click', html: true, placement: 'left'});
+	// initialize description popover
+	$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
+
+	// handle rendering description popover
+	$(document).on('click', '.update-recipe',function() {
+		var recipeID = $('.id-holder').attr('name'),
+			description = $('textarea').val();
+		console.log('recipeID', recipeID);
+		$.post('/recipe/update/desc', {
+			id: recipeID,
+			description: description
+		}, function(HTMLdata) {
+			$('.description').html(HTMLdata).fadeIn('slow');
+			$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
+		});
+	});
+
 
 	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
@@ -28,7 +44,6 @@ $(document).ready(function() {
 		});
 
 		$('div.navbar ul.chzn-choices').attr('id', 'chzn-nav');
-
 
 		//clears new modal
 		$('#modalOpen').click(function() {
@@ -113,7 +128,7 @@ $(document).ready(function() {
     				$('.btn-yummly').click(function(){
     					$(this).addClass('activeYummly');
     					$('.btn-yummly').not(this).popover('hide');
-    					var name = $(this).parents('.outlined').attr('name');
+    					var name = $(this).parents('.well').attr('name');
 						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
 						$.ajax({
 							url: recipeURL,

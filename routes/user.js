@@ -39,7 +39,6 @@ exports.profile = function(req, res){
 		if (prefs.length == 0){
 			prefs = ["You do not have any preferences yet!"];
 		}
-		console.log(user.favorites);
 		res.render('profile', 
 			{title: "My Profile", 
 			preferences: prefs, 
@@ -182,16 +181,12 @@ exports.navbarSearch = function(req, res) {
 
 exports.yummly_update = function(req, res) {
 
-	console.log('query', req.query);
-
 	var output = '';
 
 	//get recipes from yummly
 	http.get(req.query.host+req.query.path, function(response) {
-		console.log('response: ', response);
   		response.setEncoding('utf8');
 		response.on('data', function(chunk) {
-			console.log('chunk', chunk);
 			output += chunk;
 		});
 		response.on('end', function() {
