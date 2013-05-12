@@ -3,7 +3,7 @@
 h2 Recipes Powered by Yummly
 if (yummly != undefined && yummly.length > 0)
 	each recipe in yummly
-		div.row-fluid.outlined(name=recipe.id)
+		div.row-fluid.well(name=recipe.id)
 			div.span3
 				h5 #{recipe.recipeName}
 				if recipe.smallImageUrls
