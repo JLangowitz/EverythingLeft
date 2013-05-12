@@ -3,6 +3,7 @@
 extends layoutNoNav
 
 block scripts
+	script(src='javascripts/newrecipe.js')
 
 block content
 	div(class='container-fluid hero-unit')
@@ -17,19 +18,28 @@ block content
 						li(data-target='#introCarousel', data-slide-to=0, class='active')
 						li(data-target='#introCarousel', data-slide-to=1)
 						li(data-target='#introCarousel', data-slide-to=2)
+						li(data-target='#introCarousel', data-slide-to=3)
+						li(data-target='#introCarousel', data-slide-to=4)
 					div(class='carousel-inner')
-						div(class='item')
-							img(class='carousel-img', src='https://lh4.googleusercontent.com/-OWvHsWdhLYA/AAAAAAAAAAI/AAAAAAAAAAA/EFxMdY6VxU4/photo.jpg')
+						div(class='item active')
+							img(src="/images/home.png", alt="")
 							div(class='carousel-caption')
-								h4 Searching Powered by Yummly
+								p Everything Left: A site where you can find food based on what you CAN'T eat!
 						div(class='item')
-							img(class='carousel-img', src='http://wpmu.org/wp-content/uploads/2012/08/tags.jpg')
-							div(class='carousel-caption')
-								h4 Tag-based Recipe Searching
+							img(src="/images/search.png")
+								p Find recipes by specifying a name, prefered cuisine or flavor, and any dietary restrictions you might have.
 						div(class='item')
-							img(class='carousel-img', src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQTpbzrp-TQZUpi2pHlGwpIORfKbPdT6xcJ-8i9on6kaUUgJIIu')
+							img(src="/images/tag.png", alt='')
 							div(class='carousel-caption')
-								h4 Find delicious, delicious food.
+								p Add your own tags if not already avalible
+						div(class='item')
+							img(src="/images/recipe.png", alt='')
+							div(class='carousel-caption')
+								p See recipes and what they contain
+						div(class='item')
+							img(src="/images/new.png", alt='')
+							div(class='carousel-caption')
+								p Or add your own!
 					a(class='carousel-control left', href='#introCarousel', data-slide='prev') &lsaquo;
 					a(class='carousel-control right', href='#introCarousel', data-slide='next') &rsaquo;
 				br
