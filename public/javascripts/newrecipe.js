@@ -20,8 +20,18 @@ $(document).ready(function(){
 
 	$('#fav').click(function (){
 		var adj = $(this).attr('recipeId')
-		$.post('/addfav', {id: adj}, function(){
-			window.location.reload();
+		$.post('/addfav', {id: adj}, function(res){
+			if (res.err){
+				$('#errorAppendDiv').append("<div class='alert alert-error'>"+
+										"<button type='button' class='close' data-dismiss='alert'>&times;"+
+										"</button><strong>Sorry </strong>"+ res.err +
+										"</div>");
+
+				setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+			}
+			else {
+				$('#favBadge').html(res);
+			}
 		});
 	});
 
