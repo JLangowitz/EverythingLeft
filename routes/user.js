@@ -42,9 +42,9 @@ exports.profile = function(req, res){
 		console.log(user.favorites, req.session.dietary);
 		res.render('profile', 
 			{title: "My Profile",
-			name: user.username,
+			name: req.user.username,
 			preferences: user.preferences, 
-			favorites: user.favorites, 
+			recipes: user.favorites, 
 			dietary: req.session.dietary, 
 			cuisines: req.session.cuisines, 
 			flavors: req.session.flavors});

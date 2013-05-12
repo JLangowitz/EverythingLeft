@@ -1,7 +1,7 @@
 //- _recipes.jade- search results from database
 
 if (recipes != undefined && recipes.length>0)
-	h2 User Submitted Recipes
+	h2(class='recipe-header') User Submitted Recipes
 	each recipe in recipes
 		div.row-fluid.well(name=recipe._id)
 			div.span3

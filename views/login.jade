@@ -8,8 +8,23 @@ block content
 	div(class='container-fluid hero-unit')
 		div(class='row-fluid')
 			div(class='offset3 span6')
-				h1(class='text-center') Everything Left
-				div(class='text-center') None of the Food you don't want!
+				h1(class='text-center') Welcome to Everything Left
+				div(class='text-center') Find the recipes you want for the food you can eat!
+				div(id='introCarousel', class='carousel slide well well-dark')
+					//- ol(class='carousel-indicators')
+					div(class='carousel-inner')
+						if (newest_recipes.length > 0)
+							each recipe in newest_recipes
+								if recipe.image_large
+									div(class='item')
+										img(class='carousel-img', src='#{recipe.image_large}')
+										div(class='carousel-caption')
+											h4 #{recipe.name}
+											a(href='/recipe/#{recipe._id}')
+												button.text-center.btn.btn-info See Recipe
+					a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
+					a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
+
 				br
 				div(class='text-center')
 					a(href='/auth/google', class='text-center')

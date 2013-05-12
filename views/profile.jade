@@ -10,10 +10,10 @@ block content
 	h1(class='text-center') Profile
 			h1 #{name}
 		h3 Dietary Restrictions
-		| #{dietary}
+		| #{dietary[0].name}
 		h3 Cuisines
-		each cuis, i in cuisines
-			#{cuis.name}
+		each cuis in cuisines
+			|#{cuis.name}
 		h3 Flavors
 		each flav, i in flavors
 			#{flav.name}
@@ -28,19 +28,7 @@ block content
 				button(type="submit", class='btn btn-inverse') Change Username
 				//- div(class="form-actions")
 	div(class="favs")
-		h2 Favorites
-		if (favorites.length > 0)
-				each recipe in favorites
-					include _parrecipe
-			else
-				p You have no favorites yet!
-
-	//- div(id="my_ops")
-	//- 	div(value=preferences, id="preferences")
-	//- 		each pref, i in preferences
-	//- 			| #{pref}
-	//- 	input(type="button", value="Change Settings")
-
-	//- div(id="liked")
-	//- 	each fav, i in favorites
-	//- 		| #{fav}
+		h2.text-center Favorites
+			include _recipes
+			script(type='text/javascript')
+				$('.recipe-header').hide();
