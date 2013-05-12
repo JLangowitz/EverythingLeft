@@ -1,9 +1,11 @@
 //- description for recipe
 
-h2 Description
-if (recipe.url)
-	div
-		a(href='#{recipe.url}') See Recipe on Original Website
+div.row-fluid
+	div.span4
+		h2 Description
+	div.offset4.span4
+	if (recipe.url)
+		a.btn.btn-info.pull-right.original-link(href='#{recipe.url}') See Recipe on Original Website
 if (recipe.description.length > 0)
 	p #{recipe.description}
 else

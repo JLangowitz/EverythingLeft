@@ -69,19 +69,23 @@ $(document).ready(function() {
 		//handles new tag creation
 		$('.tagPost').click(function() {
 
+			// remove pre-existing alert
 			$('.alert').remove();
 
+			// proceed only if there is text in input
 			if ($('#tagName').val().length > 0) {
 
 				var name = $('#tagName').val(),
 					category = $('#tagCategory').val();
 
+				// post tag to server
 				$.post('/new/tag', {
 					name: name,
 					category: category
 				}, function(err){
 					if (err) {
 
+						// add error alert to modal
 						$('.modal-body').append("<div class='alert alert-error'>"+
 						"<button type='button' class='close' data-dismiss='alert'>&times;"+
 						"</button><strong>Try Again </strong>"+
@@ -90,14 +94,17 @@ $(document).ready(function() {
 					}
 					else{
 
+						// add success notification to div
 						$('.modal-body').append("<div class='alert alert-success'>"+
 						"<button type='button' class='close' data-dismiss='alert'>&times;"+
 						"</button><strong>Success! </strong>"+
 						'New Tag: '+name+
 						"</div>");
 						
+						// set timer to close modal
 						setTimeout(function(){$('.modal').modal('toggle')}, 2000);
 
+						// after adding tag, update all multiselect
 						$.get('/multiselect/update', function(data){
 								console.log('html data', data);
 								$('.multiselect').html(data);
@@ -107,11 +114,14 @@ $(document).ready(function() {
 				});
 			}
 			else {
+
+				// if no text in input, throw error
 				$('.modal-body').append("<div class='alert alert-error'>"+
 										"<button type='button' class='close' data-dismiss='alert'>&times;"+
 										"</button><strong>Try Again </strong>"+
 										"Looks like you didn't enter anything</div>");
 
+				// set timer to remove alert
 				setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 			}
 		});
@@ -128,23 +138,26 @@ $(document).ready(function() {
 		    yummlyURL = urlForm(yummlyURL, categTags);
 		    console.log('base', yummlyBase);
 		    console.log('path', yummlyURL);
+
+		    // search yummly recipes
     		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
     			$('.yummly').html(data);
     			$('.btn-yummly').popover({trigger: 'click', html: true});
-    			console.log(tags);
-    			console.log(recipeName);
+
+    			// search database recipes
     			$.get('/database/search',
     				{tags:$('#searchpage-search .multiselect').val(),
     				recipeName:recipeName},
     			function(data){
     				$('#databaseRecipes').html(data);
 
-    				//get recipe object from yummly using recipe id
     				$('.btn-yummly').click(function(){
     					$(this).addClass('activeYummly');
     					$('.btn-yummly').not(this).popover('hide');
     					var name = $(this).parents('.well').attr('name');
 						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
+						
+						// if user clicks "see more", get recipe object from yummly using recipe id
 						$.ajax({
 							url: recipeURL,
 							dataType: 'jsonp',
@@ -160,6 +173,7 @@ $(document).ready(function() {
 									var image = '';
 								}
 
+								// get new html for yummly info popover
 								$.get('/yummly/popover/update', {
 									image: image,
 									name: data.name,
@@ -169,6 +183,8 @@ $(document).ready(function() {
 									$('.popover-content').html(htmlData);
 									$('.popover-title').text(data.name)
 									$('#saveRecipe').click(function(){
+
+										// save yummly recipe to database
 										$.post('/addrecipe/new',
 											{name:data.name
 											, imageLarge:data.images[0].hostedLargeUrl
@@ -180,6 +196,8 @@ $(document).ready(function() {
 										function(res){
 											if (res.err){
 												console.log(res.err);
+
+												// Send error alert
 												$('#errorAppendDiv').append("<div class='alert alert-error'>"+
 																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
 																		"</button><strong>Try Again </strong>"+ res.err +
@@ -189,6 +207,8 @@ $(document).ready(function() {
 
 											}
 											else{
+
+												// Send success notification
 												$('#errorAppendDiv').append("<div class='alert alert-success'>"+
 																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
 																		"</button><strong>Success </strong>"+

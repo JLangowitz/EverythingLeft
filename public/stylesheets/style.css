@@ -216,3 +216,9 @@ textarea {
 	border-width: 1px;
 	border-color: #e3e3e3;
 }
+
+.original-link {
+	position: relative;
+	top: 50%;
+	margin-top: -15px;
+}
