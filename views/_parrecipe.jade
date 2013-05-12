@@ -3,7 +3,10 @@
 div.row-fluid.outlined(name="#{recipe._id}")
 	div.span3
 		h5 #{recipe.name}
-		img.img-rounded(src="#{recipe.image_small}", alt="Not image Avalible")
+		if recipe.image_small
+			img.img-rounded(src="#{recipe.image_small}")
+		else
+			img.img-rounded(src='http://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png',style='width: 150px; height:100px')
 	div.span9.leftBorder
 		h6 Ingredients: 
 				each ingredient in recipe.ingredients

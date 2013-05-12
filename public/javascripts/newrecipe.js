@@ -1,4 +1,7 @@
+// Called from recipe add page to create a recipe
+
 $(document).ready(function(){
+	if (readyFired) return;
 
 	$('#makenew').submit(function() {
 		var name = $('#name').val()

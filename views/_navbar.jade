@@ -3,26 +3,21 @@ div(class="navbar navbar-inverse navbar-fixed-top")
 		div(class='container-fluid')
 			a(class="brand", href="/") Everything Left
 			ul(class='nav')
-				//- li(class='divider-vertical')
 				li
 					a(href='/') Home
-				//- li(class='divider-vertical')
 				li
 					a(href='/profile') Profile
 				li
-					a(href='/addrecipe') Add
+					a(href='/addrecipe') Add Recipe
 				li
-					a(href='/search') Search
-				//- li(class-'divider-vertical')
-				//- li(class='navbar-text nav-search')
-				//- 	p Quick Search:
-			ul.nav
-				form(class='navbar-search form-inline', id='navbar-search')
-					input(type='text', class='inline-block search-query', placeholder='What do you want to make?')
-					div(class='input-append')
-						include _multiselect
-						button(type='submit', class='btn btn-inverse btn-nav') Search
-				//- li(class='divider-vertical')
+					a(href='/search') Search Recipes
+			//- ul.nav
+			//- 	form(class='navbar-search form-inline', id='navbar-search')
+			//- 		div(class='hidden')
+			//- 			include _multiselect
+			//- 		div
+			//- 			input(type='text', class='inline-block search-query', placeholder='Find a Recipe Fast')
+			//- 			button(type='submit', class='btn btn-inverse btn-nav btn-nav-search') Quick Search
 			ul.nav.pull-right
 				div
 					a#modalOpen(href='#myModal', class='btn btn-nav btn-inverse', data-toggle='modal') New Tag

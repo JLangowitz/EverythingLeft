@@ -1,22 +1,55 @@
+//- homepage with top and recent recipes
+
 extends layout
 
 block content
-	div(id="container")
-		div(id="rightmain") 
-			h3 Top Recipes
-			if (top_recipes.length > 0)
-				each recipe in top_recipes
-					include _parrecipe
-			else
-				p There are no top recipes yet!
-		div(id="centermain")
-			h2 Search for Recipes 
-			h2 or 
-			h2 Add Your Own!
-		div(id="leftmain")
-			h3 Newest Editions
-			if (newest_recipes.length > 0)
-				each recipe in top_recipes
-					include _parrecipe
-			else
-				p There are no new recipes yet!
+	div(id="container", class='container-fluid')
+		div(class='row-fluid')
+			div(class='span12 text-center')
+				div(id='splash', class='hero-unit')
+					h1 Welcome to Everything Left
+					h3 
+					//- h2 Search for Recipes 
+					//- h2 or 
+					//- h2 Add Your Own!
+				div(class='row-fluid')
+					div(class='span6') 
+						h3 Top Recipes
+						div(id='topCarousel', class='carousel slide')
+							//- ol(class='carousel-indicators')
+							div(class='carousel-inner')
+								if (top_recipes.length > 0)
+									each recipe in top_recipes
+										if recipe.image_large
+											div(class='item')
+												img(class='carousel-img', src='#{recipe.image_large}')
+												div(class='carousel-caption')
+													h4 #{recipe.name}
+													a(href='/recipe/#{recipe._id}')
+														button.text-center.btn.btn-inverse See Recipe
+							a(class='carousel-control left', href='#topCarousel', data-slide='prev') &lsaquo;
+							a(class='carousel-control right', href='#topCarousel', data-slide='next') &rsaquo;
+						//- else
+						//- 	p There are no top recipes yet!
+					div(class='span6')
+						h3 Newest Additions
+						div(id='newCarousel', class='carousel slide')
+							//- ol(class='carousel-indicators')
+							div(class='carousel-inner')
+								if (newest_recipes.length > 0)
+									each recipe in newest_recipes
+										if recipe.image_large
+											div(class='item')
+												img(class='carousel-img', src='#{recipe.image_large}')
+												div(class='carousel-caption')
+													h4 #{recipe.name}
+													a(href='/recipe/#{recipe._id}')
+														button.text-center.btn.btn-inverse See Recipe
+							a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
+							a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
+
+	script(type='text/javascript')
+		$('#topCarousel').carousel('next');
+		$('#topCarousel').carousel('cycle');
+		$('#newCarousel').carousel('next');
+		$('#newCarousel').carousel('cycle');

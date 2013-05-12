@@ -1,6 +1,7 @@
 var Models = require('../models/models')
 	, User = Models.user
-	, Tag = Models.tag;
+	, Tag = Models.tag
+	, http = require('http');
 	//, request = require('request');
 
 /*
@@ -17,18 +18,16 @@ exports.login = function(req, res) {
 
 exports.preselect = function(req, res) {
 	req.session.search=[];
+	req.session.databaseSearch=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
-		console.log(user.preferences);
 		if (err){
 			res.send({'error':err});
 			return console.log('error', err);
 		}
 		var preferences = [];
-		console.log(preferences.length);
 		for (var i = 0; i < user.preferences.length; i++) {
 			preferences.push(user.preferences[i].name);
 		};
-		console.log(preferences);
 		res.send({'error':'', 'preferences':preferences});
 	});
 };
@@ -52,25 +51,25 @@ exports.profile = function(req, res){
 };
 
 exports.search = function(req, res) {
+	var recipes = req.session.databaseSearch;
+	req.session.databaseSearch=[];
 	res.render('search', {
 		title: "Everything Left", 
 		dietary: req.session.dietary, 
 		cuisines: req.session.cuisines, 
 		flavors: req.session.flavors,
 		yummly: req.session.search,
-		recipes: req.session.databaseSearch
+		recipes: recipes
 	});
 }
 
 exports.prefs = function(req, res) {
 	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
-		console.log(tags);
 		console.log(err);
 		if (err&&tags){
 			res.send(err);
 			return console.log('error', err);
 		}
-		console.log(req.user);
 		req.user.preferences = tags;
 		req.user.save(function(err){
 			if (err){
@@ -92,10 +91,7 @@ exports.username = function(req, res) {
 };
 
 exports.setname = function(req, res) {
-	console.log(req.body);
 	User.findOne({username:req.body.username}).exec(function(err,user){
-		console.log('user');
-		console.log(user);
 		if (user){
 			res.send('This username is taken. Please enter a unique username')
 		}
@@ -111,7 +107,6 @@ exports.setname = function(req, res) {
 };
 
 exports.newtag = function(req, res) {
-	// console.log(req.body);
 	Tag.findOne({name:req.body.name}).exec(function(err,tag){
 		if (err){
 			res.send(err);
@@ -119,7 +114,6 @@ exports.newtag = function(req, res) {
 		}
 		if (!tag){
 			var dbTag = new Tag({name:req.body.name, category:req.body.category});
-			// console.log(dbTag);
 			dbTag.save(function(err){
 				if (err){
 					res.send(err);
@@ -167,13 +161,9 @@ function pullTags(req, res){
 	req.session.flavors=[];
 	req.session.cuisines=[];
 	Tag.find().sort({name:1}).exec(function(err, tags){
-		// console.log(tags);
 		for (var i = 0; i < tags.length; i++) {
-			// console.log(tags[i].category);
 			if (tags[i].category=='Dietary Restriction'){
-				// console.log('in if');	
 				req.session.dietary.push(tags[i]);
-				// console.log(req.session.dietary);
 			}
 			if (tags[i].category=='Favorite Flavor'){	
 				req.session.flavors.push(tags[i]);
@@ -192,28 +182,35 @@ exports.navbarSearch = function(req, res) {
 
 exports.yummly_update = function(req, res) {
 
-	res.render('_yummly', {
-		yummly: req.query.recipes
-	});
+	console.log('query', req.query);
 
-	console.log('recipes')
+	var output = '';
+
+	http.get(req.query.host+req.query.path, function(response) {
+		console.log('response: ', response);
+  		response.setEncoding('utf8');
+		response.on('data', function(chunk) {
+			console.log('chunk', chunk);
+			output += chunk;
+		});
+		response.on('end', function() {
+			var obj = JSON.parse(output);
+			console.log('matches', obj.matches);
+			res.render('_yummly', {
+				yummly: obj.matches
+			});
+		});
+	}).on('error', function(e) {
+		console.log("Dat error: ", e.message)
+	});
 
 }
 
 exports.popover_update = function(req, res) {
-
-	console.log(req.query);
-
-	var recipe = req.query.recipe;
-
-	if (recipe.images !== undefined && recipe.images.length > 0) {
-		var image = recipe.images[0].hostedLargeUrl
-	}
-
 	res.render('_popover', {
-		image: image,
-		name: recipe.name,
-		source: recipe.source,
-		ingredients: recipe.ingredientLines
+		image: req.query.image,
+		name: req.query.name,
+		source: req.query.source,
+		ingredients: req.query.ingredientLines
 	})
 }

@@ -1,3 +1,5 @@
+// Changes username
+
 $(document).ready(function(){
 	if (readyFired) return;
 	console.log('go');

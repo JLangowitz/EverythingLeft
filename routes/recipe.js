@@ -13,8 +13,6 @@ exports.addform = function(req, res){
 
 exports.recipepage = function (req, res){
 	Recipe.find({'_id':req.params.recipe}).sort().exec(function (err, docs){
-		console.log('docs', docs);
-		console.log(req.params);
 		res.render('recipe', 
 			{title: 'Everything Left', 
 			dietary: req.session.dietary, 
@@ -27,7 +25,6 @@ exports.recipepage = function (req, res){
 
 //POST functions
 exports.makenew = function(req, res){
-	console.log(req.body);
 
 	Recipe.findOne({name:req.body.name}).exec(function(err, recipe){
 		if (recipe){
@@ -42,7 +39,6 @@ exports.makenew = function(req, res){
 			, new_url = req.body.url
 			, new_des = req.body.description;
 		Tag.find({"name":{$in:new_tags}}).exec(function (err, tags){
-			console.log(tags);
 
 			var newRecipe = Recipe({
 				name: new_name,
@@ -67,23 +63,45 @@ exports.makenew = function(req, res){
 };
 
 exports.search = function(req, res){
-	console.log(req.query);
 	Tag.find({'name':{$in:req.query.tags}}).exec(function(err,tags){
-		console.log(tags);
 		if (err){
 			res.send(err);
 			return console.log(err);
 		}
-		// Recipe.find({$or:[{'name':req.query.recipeName},{'tags':{$in:tags}}]}).exec(function(err,recipes){
-		Recipe.find().exec(function(err,recipes){
-			console.log(recipes);
-			req.session.databaseSearch=recipes;
-			res.render('_recipes',
-		  		{ title: 'Everything Left', 
-				dietary: req.session.dietary, 
-				cuisines: req.session.cuisines, 
-				flavors: req.session.flavors,
-				recipes: recipes });
+		Recipe.find().populate('tags').exec(function(err,recipes){
+			if (err){
+				res.send(err);
+				return console.log(err);
+			}
+			User.findOne({'username':req.user.username}).populate('preferences').exec(function(err,user){
+				if (err){
+					res.send(err);
+					return console.log(err);
+				}
+				var recipeMatches = [];
+				for (var i = 0; i < recipes.length; i++) {
+					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1) recipeMatches.unshift(recipes[i]);
+					if (recipes[i].tags){
+						for (var j = 0; j < recipes[i].tags.length; j++) {
+							if (user.preferences){
+								for (var k = 0; k < user.preferences.length; k++) {
+									if (user.preferences[k]==recipes[i].tags[j]){
+										recipeMatches.push(recipes[i]);
+									}
+								};
+							}
+						};
+					}
+				};
+				if (recipeMatches.length==0) recipeMatches=recipes;
+				// req.session.databaseSearch=recipeMatches;
+				res.render('_recipes',
+			  		{ title: 'Everything Left', 
+					dietary: req.session.dietary, 
+					cuisines: req.session.cuisines, 
+					flavors: req.session.flavors,
+					recipes: recipeMatches });
+			});
 		});
 	});
 }
@@ -92,7 +110,6 @@ exports.addfav = function (req, res){
 	Recipe.findOne({'_id': req.body.id}).exec(function (err, recipe){
 		var fav_list = req.user.favorites
 				, add = true;
-		console.log(recipe);
 
 			//Sweep through favorite list to confirm object is not already there
 			if (fav_list){
