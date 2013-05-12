@@ -57,6 +57,14 @@ ol li {
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 100px;
+	max-width: 50%;
+	min-width: 250px;
+}
+
+.float-two {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 20px;
 	max-width: 30%;
 	min-width: 250px;
 }

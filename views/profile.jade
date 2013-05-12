@@ -7,28 +7,46 @@ block scripts
 	script(src='javascripts/profile.js')
 
 block content
-	h1(class='text-center') Profile
-			h1 #{name}
-		h3 Dietary Restrictions
-		| #{dietary[0].name}
-		h3 Cuisines
-		each cuis in cuisines
-			|#{cuis.name}
-		h3 Flavors
-		each flav, i in flavors
-			#{flav.name}
-	div(class='text-center hero-unit')
-		form(id='settings', class='form-inline')
-			include _multiselect
-			button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
-			span(class='help-block') Selected tags will become your default search parameters. You can return here to change them at any time or customize individual searches on our search page.
-		form(class='form-inline', id='setuser')
-			div(class="input-append", id='error-append')
-				input(type="text", id="username", placeholder="username", name='username')
-				button(type="submit", class='btn btn-inverse') Change Username
-				//- div(class="form-actions")
-	div(class="favs")
-		h2.text-center Favorites
-			include _recipes
-			script(type='text/javascript')
-				$('.recipe-header').hide();
+	h1(class='text-center page-header') #{name}
+	div(class='container-fluid')
+		div(class='row-fluid')
+			div(class='text-center hero-unit span5')
+				div(class='text-left')
+					h3 Dietary Restrictions
+					if (dietary.length > 0)
+						each diet in dietary
+							| #{diet.name}
+							br
+					else
+						| [none]
+					h3 Cuisines
+					if (cuisines.length > 0)
+						each cuis in cuisines
+							| #{cuis.name}
+							br
+					else
+						| [none]
+					h3 Flavors
+					if (flavors.length > 0)
+						each flav in flavors
+							| #{flav.name}
+							br
+					else
+						| [none]
+				br
+				br
+				form(id='settings', class='form-inline')
+					include _multiselect
+					button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
+					span(class='help-block') Selected tags will become your default search parameters. You can return here to change them at any time or customize individual searches on our search page.
+				form(class='form-inline', id='setuser')
+					div(class="input-append", id='error-append')
+						input(type="text", id="username", placeholder="username", name='username')
+						button(type="submit", class='btn btn-inverse') Change Username
+						//- div(class="form-actions")
+			div(class="favs span5 content-right")
+				h2.text-center Favorites
+					include _recipes
+					script(type='text/javascript')
+						$('.recipe-header').hide();
+

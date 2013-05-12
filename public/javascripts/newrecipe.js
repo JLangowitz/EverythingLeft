@@ -19,7 +19,6 @@ $(document).ready(function(){
 	});
 
 	$('#fav').click(function (){
-		console.log("clicked");
 		var adj = $(this).attr('recipeId')
 		$.post('/addfav', {id: adj}, function(){
 			window.location.reload();

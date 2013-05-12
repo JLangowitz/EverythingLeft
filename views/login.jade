@@ -11,20 +11,15 @@ block content
 				h1(class='text-center') Welcome to Everything Left
 				div(class='text-center') Find the recipes you want for the food you can eat!
 				div(id='introCarousel', class='carousel slide well well-dark')
-					//- ol(class='carousel-indicators')
+					ol(class='carousel-indicators')
+						li(data-target='#introCarousel', data-slide-to=0, class='active')
+						li(data-target='#introCarousel', data-slide-to=1)
+						li(data-target='#introCarousel', data-slide-to=2)
+						li(data-target='#introCarousel', data-slide-to=3)
 					div(class='carousel-inner')
-						if (newest_recipes.length > 0)
-							each recipe in newest_recipes
-								if recipe.image_large
-									div(class='item')
-										img(class='carousel-img', src='#{recipe.image_large}')
-										div(class='carousel-caption')
-											h4 #{recipe.name}
-											a(href='/recipe/#{recipe._id}')
-												button.text-center.btn.btn-info See Recipe
+						//- Images go in here in divs, and you can put text too, or just have it in the image
 					a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
 					a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
-
 				br
 				div(class='text-center')
 					a(href='/auth/google', class='text-center')
