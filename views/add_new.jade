@@ -11,7 +11,7 @@ block content
 		div(class='fluid-row well')
 			form(class='form-horizontal', id='makenew')
 				fieldset
-					legend Create New Recipe
+					//- legend Create New Recipe
 					div.control-group
 						label.control-label Name
 						div(class='controls')
@@ -27,11 +27,11 @@ block content
 					div.control-group
 						label.control-label Ingredients
 						div.controls(style='')
-							textarea(placeholder='Seperate each type with a comma.', rows="5", id='ingred')
+							textarea(placeholder='Seperate each ingredient with a comma. Please include quantities.', rows="5", id='ingred')
 					div.control-group
 						label.control-label Description
 						div.controls(style='')
-							textarea(placeholder='How do you make it?', class='input-xxlarge', rows="5", id='descript')
+							textarea(placeholder='How do you make it? Enter instructions and other information here.', class='input-xxlarge', rows="5", id='descript')
 					div.control-group
 						div.controls
 							button.btn.btn-large.btn-inverse.searchButton Create

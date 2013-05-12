@@ -12,7 +12,7 @@ block content
 					//- h2 or 
 					//- h2 Add Your Own!
 				div(class='row-fluid')
-					div(class='span6') 
+					div(class='span12') 
 						h3 Top Recipes
 						div(id='topCarousel', class='carousel slide well well-dark')
 							//- ol(class='carousel-indicators')
@@ -31,26 +31,26 @@ block content
 							a(class='carousel-control right', href='#topCarousel', data-slide='next') &rsaquo;
 						//- else
 						//- 	p There are no top recipes yet!
-					div(class='span6 content-right')
-						h3 Newest Additions
-						div(id='newCarousel', class='carousel slide well well-dark')
-							//- ol(class='carousel-indicators')
-							div(class='carousel-inner')
-								if (newest_recipes.length > 0)
-									each recipe in newest_recipes
-										if recipe.image_large
-											div(class='item')
-												img(class='carousel-img', src='#{recipe.image_large}')
-												div(class='carousel-caption')
-													badge(class='text-left inline-block badge badge-success pop-counter badge-pop pull-left') +#{recipe.counter}
-													h4 #{recipe.name}
-													a(href='/recipe/#{recipe._id}')
-														button.text-center.btn.btn-info See Recipe
-							a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
-							a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
+					//- div(class='span6 content-right')
+					//- 	h3 Newest Additions
+					//- 	div(id='newCarousel', class='carousel slide well well-dark')
+					//- 		//- ol(class='carousel-indicators')
+					//- 		div(class='carousel-inner')
+					//- 			if (newest_recipes.length > 0)
+					//- 				each recipe in newest_recipes
+					//- 					if recipe.image_large
+					//- 						div(class='item')
+					//- 							img(class='carousel-img', src='#{recipe.image_large}')
+					//- 							div(class='carousel-caption')
+					//- 								badge(class='text-left inline-block badge badge-success pop-counter badge-pop pull-left') +#{recipe.counter}
+					//- 								h4 #{recipe.name}
+					//- 								a(href='/recipe/#{recipe._id}')
+					//- 									button.text-center.btn.btn-info See Recipe
+					//- 		a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
+					//- 		a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
 
 	script(type='text/javascript')
 		$('#topCarousel').carousel('next');
 		$('#topCarousel').carousel('cycle');
-		$('#newCarousel').carousel('next');
-		$('#newCarousel').carousel('cycle');
+		//- $('#newCarousel').carousel('next');
+		//- $('#newCarousel').carousel('cycle');
