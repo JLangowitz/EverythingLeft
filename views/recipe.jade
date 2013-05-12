@@ -2,8 +2,10 @@
 
 extends layout
 
-block content
+block script
 	script(src='/javascripts/newrecipe.js', type="text/javascript")
+
+block content
 	div(class='id-holder', id="container", name=recipe.id)
 		div(class='page-header')
 			h1(style='padding-left: 100px;') #{recipe.name}
@@ -16,7 +18,7 @@ block content
 			div
 				h3 Popularity:
 					span(class='badge badge-large badge-success pop-counter') #{recipe.counter}
-					button(id="fav", class="#{recipe._id} inline-block btn btn-small btn-inverse") Favorite
+					input(id="fav", type="button", name="#{recipe._id}" class="inline-block btn btn-small btn-inverse", value="Favorite")
 		div(class="float-one")
 			.container.row-fluid
 				.container.span8.padded

@@ -7,10 +7,32 @@ block scripts
 	script(src='javascripts/profile.js')
 
 block content
-	h1(class='text-center') Profile
-	//- p Welcome to #{title}
-
-	div(class='text-center hero-unit')
+	h1(style='padding-left: 100px;') #{name}
+	div(class='text-center hero-unit float-two')
+		div(class='text-left')
+			h3 Dietary Restrictions
+			if (dietary.length > 0)
+				each diet in dietary
+					| #{diet.name}
+					br
+			else
+				| [none]
+			h3 Cuisines
+			if (cuisines.length > 0)
+				each cuis in cuisines
+					| #{cuis.name}
+					br
+			else
+				| [none]
+			h3 Flavors
+			if (flavors.length > 0)
+				each flav in flavors
+					| #{flav.name}
+					br
+			else
+				| [none]
+		br
+		br
 		form(id='settings', class='form-inline')
 			include _multiselect
 			button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
@@ -20,7 +42,7 @@ block content
 				input(type="text", id="username", placeholder="username", name='username')
 				button(type="submit", class='btn btn-inverse') Change Username
 				//- div(class="form-actions")
-	div(class="favs")
+	div(class="favs float-one")
 		h2 Favorites
 		if (favorites.length > 0)
 				each recipe in favorites

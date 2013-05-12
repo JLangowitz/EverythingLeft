@@ -109,6 +109,7 @@ exports.search = function(req, res){
 }
 
 exports.addfav = function (req, res){
+	console.log(req.body);
 	Recipe.findOne({'_id': req.body.id}).exec(function (err, recipe){
 		var fav_list = req.user.favorites
 				, add = true;
@@ -126,8 +127,7 @@ exports.addfav = function (req, res){
 				};
 
 				if (add == true){
-					var up_score = recipe.counter + 1
-						, temp = req.user.favorites.push(recipe);
+					var up_score = recipe.counter + 1;
 
 					User.update({'username':req.user.username}, {$push: {'favorites': recipe}}, function(){
 						Recipe.update({'_id': req.body.id}, {counter: up_score}, function() {
