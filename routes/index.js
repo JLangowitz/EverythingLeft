@@ -5,7 +5,6 @@ var Models = require('../models/models')
  */
 
 exports.index = function(req, res){
-	// console.log(req.session);
 	Recipe.find().sort('counter').exec(function (err, top){
 		if (err)
 			console.log("Error in Finding Top Recipe");

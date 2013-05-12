@@ -38,10 +38,7 @@ passport.use(new GoogleStrategy({
 	function(identifier, profile, done) {
 
 		var email = profile.emails[0].value;
-		console.log(email);
 		User.findOne({email:email}).exec(function(err,user){
-			console.log("\nUser info below: \n")
-			console.log(user);
 			if (err){
 				console.log(err);
 				return done(err);
@@ -100,7 +97,6 @@ app.get('/', loginRequired, pullTags, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
-	console.log(req.user.username);
 	if(!req.user.username){
 		console.log('no username found');
 		res.redirect('/username');
@@ -121,15 +117,12 @@ app.get('/addrecipe', loginRequired, pullTags, recipe.addform);
 app.get('/recipe/:recipe', loginRequired, pullTags, recipe.recipepage);
 app.get('/database/search', loginRequired, pullTags, recipe.search);
 
-
 // POST requests.
 app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user preferences
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
 app.post('/addrecipe/new', loginRequired, pullTags, recipe.makenew);
 app.post('/addfav', loginRequired, recipe.addfav);
-
-
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));
@@ -148,8 +141,6 @@ function loginRequired(req, res, next){
 			console.log('no username found');
 			res.redirect('/username');
 		}
-		// console.log("User already logged in.");
-		// console.log(req.user);
 		next();
 	}
 }
@@ -159,13 +150,9 @@ function pullTags(req, res, next){
 	req.session.flavors=[];
 	req.session.cuisines=[];
 	Tag.find().sort({name:1}).exec(function(err, tags){
-		// console.log(tags);
 		for (var i = 0; i < tags.length; i++) {
-			// console.log(tags[i].category);
 			if (tags[i].category=='Dietary Restriction'){
-				// console.log('in if');	
 				req.session.dietary.push(tags[i]);
-				// console.log(req.session.dietary);
 			}
 			if (tags[i].category=='Favorite Flavor'){	
 				req.session.flavors.push(tags[i]);
@@ -174,7 +161,6 @@ function pullTags(req, res, next){
 				req.session.cuisines.push(tags[i]);
 			}
 		};
-		// console.log(req.session);
 		next();
 	});
 }

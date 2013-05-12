@@ -92,87 +92,80 @@ $(document).ready(function() {
 		var tags = $('#searchpage-search .multiselect').val(),
 		    recipeName = $('#searchpage-search input').val().toLowerCase(),
 		    categTags = categorizeTags(tags),
-		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
+		    yummlyBase = 'http://api.yummly.com',
+		    yummlyURL = '/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
 		    yummlyURL = urlForm(yummlyURL, categTags);
-		    console.log(yummlyURL);
-	    //call ajax get @ yummly for recipes
-	    $.ajax({
-	    	url: yummlyURL,
-	    	dataType: 'jsonp',
-	    	success: function(data) {
-	    		console.log('yummly results:', data);
-	    		//call server get that updates yummly div
-	    		$.get('/yummly/update', {recipes: [data.matches[0]]}, function(data) {
-	    			$('.yummly').html(data);
-	    			$('.btn-info').popover({trigger: 'click', html: true});
-	    			console.log(tags);
-	    			console.log(recipeName);
-	    			$.get('/database/search',
-	    				{tags:$('#searchpage-search .multiselect').val(),
-	    				recipeName:recipeName},
-	    			function(data){
-	    				$('#databaseRecipes').html(data);
+		    console.log('base', yummlyBase);
+		    console.log('path', yummlyURL);
+    		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
+    			$('.yummly').html(data);
+    			$('.btn-info').popover({trigger: 'click', html: true});
+    			console.log(tags);
+    			console.log(recipeName);
+    			$.get('/database/search',
+    				{tags:$('#searchpage-search .multiselect').val(),
+    				recipeName:recipeName},
+    			function(data){
+    				$('#databaseRecipes').html(data);
 
-	    				//get recipe object from yummly using recipe id
-	    				$('.btn-info').click(function(){
-	    					$('.btn-info').not(this).popover('hide');
-	    					var name = $(this).parents('.outlined').attr('name');
-							var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
-							$.ajax({
-								url: recipeURL,
-								dataType: 'jsonp',
-								success: function(data) {
-									console.log('recipe data', data);
-									console.log('data type', typeof data);
-									$.get('/yummly/popover/update', {
-										recipe: data
-									}, function(htmlData) {
-										$('.popover-content').html(htmlData);
-										$('.popover-title').text(data.name)
-										$('#saveRecipe').click(function(){
-											$.post('/addrecipe/new',
-												{name:data.name
-												, imageLarge:data.images[0].hostedLargeUrl
-												, imageSmall:data.images[0].hostedSmallUrl
-												, url:data.source.sourceRecipeUrl
-												, description:''
-												, tags:[]
-												, ingredients:data.ingredientLines},
-											function(res){
-												if (res.err){
-													console.log(res.err);
-													$('#errorAppendDiv').append("<div class='alert alert-error'>"+
-																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																			"</button><strong>Try Again </strong>"+ res.err +
-																			"</div>");
+    				//get recipe object from yummly using recipe id
+    				$('.btn-info').click(function(){
+    					$(this).addClass('activeYummly');
+    					$('.btn-info').not(this).popover('hide');
+    					var name = $(this).parents('.outlined').attr('name');
+						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
+						$.ajax({
+							url: recipeURL,
+							dataType: 'jsonp',
+							success: function(data) {
+								console.log('recipe data', data);
+								console.log('data type', typeof data);
+								$.get('/yummly/popover/update', {
+									recipe: data
+								}, function(htmlData) {
+									$('.popover-content').html(htmlData);
+									$('.popover-title').text(data.name)
+									$('#saveRecipe').click(function(){
+										$.post('/addrecipe/new',
+											{name:data.name
+											, imageLarge:data.images[0].hostedLargeUrl
+											, imageSmall:data.images[0].hostedSmallUrl
+											, url:data.source.sourceRecipeUrl
+											, description:''
+											, tags:[]
+											, ingredients:data.ingredientLines},
+										function(res){
+											if (res.err){
+												console.log(res.err);
+												$('#errorAppendDiv').append("<div class='alert alert-error'>"+
+																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																		"</button><strong>Try Again </strong>"+ res.err +
+																		"</div>");
 
-													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+												setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 
-												}
-												else{
-													$('#errorAppendDiv').append("<div class='alert alert-success'>"+
-																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																			"</button><strong>Success </strong>"+
-																			"Recipe saved</div>");
+											}
+											else{
+												$('#errorAppendDiv').append("<div class='alert alert-success'>"+
+																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																		"</button><strong>Success </strong>"+
+																		"Recipe saved</div>");
 
-													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+												setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 
-													window.location='/recipe/'+res.id;
+												window.location='/recipe/'+res.id;
 
-												}
-											});
+											}
 										});
 									});
-								}
-							});
-						})
-	    			});
-	    		});
-	    	}
-	    });
+								});
+							}
+						});
+					})
+    			});
+    		});
 		return false
-	})
-
+    	});
 
 	$('#navbar-search').submit(function() {
 		var tags = $('#navbar-search .multiselect').val(),
@@ -260,5 +253,8 @@ $(document).ready(function() {
 			return ''
 		}
 	}
+
+	$(document).trigger('click').find('.activeYummly').popover('hide').removeClass('activeYummly');
+
 
 });
