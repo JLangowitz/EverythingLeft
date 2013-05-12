@@ -8,6 +8,23 @@ $(document).ready(function() {
 	readyFired = true;
 	// initialize selects
 
+	// initialize description popover
+	$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
+
+	// handle rendering description popover
+	$(document).on('click', '.update-recipe',function() {
+		var recipeID = $('.id-holder').attr('name'),
+			description = $('textarea').val();
+		console.log('recipeID', recipeID);
+		$.post('/recipe/update/desc', {
+			id: recipeID,
+			description: description
+		}, function(HTMLdata) {
+			$('.description').html(HTMLdata).fadeIn('slow');
+			$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
+		});
+	});
+
 
 	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
@@ -27,7 +44,6 @@ $(document).ready(function() {
 		});
 
 		$('div.navbar ul.chzn-choices').attr('id', 'chzn-nav');
-
 
 		//clears new modal
 		$('#modalOpen').click(function() {
@@ -99,7 +115,7 @@ $(document).ready(function() {
 		    console.log('path', yummlyURL);
     		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
     			$('.yummly').html(data);
-    			$('.btn-info').popover({trigger: 'click', html: true});
+    			$('.btn-yummly').popover({trigger: 'click', html: true});
     			console.log(tags);
     			console.log(recipeName);
     			$.get('/database/search',
@@ -109,10 +125,10 @@ $(document).ready(function() {
     				$('#databaseRecipes').html(data);
 
     				//get recipe object from yummly using recipe id
-    				$('.btn-info').click(function(){
+    				$('.btn-yummly').click(function(){
     					$(this).addClass('activeYummly');
-    					$('.btn-info').not(this).popover('hide');
-    					var name = $(this).parents('.outlined').attr('name');
+    					$('.btn-yummly').not(this).popover('hide');
+    					var name = $(this).parents('.well').attr('name');
 						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
 						$.ajax({
 							url: recipeURL,
@@ -178,25 +194,6 @@ $(document).ready(function() {
     		});
 		return false
     	});
-
-	$('#navbar-search').submit(function() {
-		var tags = $('#navbar-search .multiselect').val(),
-		    recipeName = $('#navbar-search input').val().toLowerCase(),
-		    categTags = categorizeTags(tags),
-		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
-		    yummlyURL = urlForm(yummlyURL, categTags);
-	    $.ajax({
-	    	url: yummlyURL,
-	    	dataType: 'jsonp',
-	    	success: function(data) {
-	    		console.log('yummly results:', data);
-	    		$.get('/navbar/search', {recipes: data.matches}, function(data) {
-	    			window.location='/search';
-	    		});
-	    	}
-	    });
-		return false
-	})
 
 	//give tags categories
 	var categorizeTags = function(tags) {
@@ -267,6 +264,5 @@ $(document).ready(function() {
 	}
 
 	$(document).trigger('click').find('.activeYummly').popover('hide').removeClass('activeYummly');
-
 
 });

@@ -3,7 +3,7 @@
 extends layout
 
 block content
-	div(id="container")
+	div(class='id-holder', id="container", name=recipe.id)
 		div(class='page-header')
 			h1(style='padding-left: 100px;') #{recipe.name}
 		div(class="float-one well")
@@ -27,12 +27,8 @@ block content
 							tr
 								td #{ingredient}
 		hr
-		div(class="float-one")
-			h2 Description
-			if (recipe.url)
-				div
-					a(href='#{recipe.url}') See Recipe on Original Website
-			p #{recipe.description}
-
+		div(class="float-one description")
+			include _description.jade
+		
 block scripts
 	script(src='/javascripts/newrecipe.js', type="text/javascript")

@@ -123,6 +123,7 @@ app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
 app.post('/addrecipe/new', loginRequired, pullTags, recipe.makenew);
 app.post('/addfav', loginRequired, pullTags, recipe.addfav);
+app.post('/recipe/update/desc', loginRequired, pullTags, recipe.update_desc);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));

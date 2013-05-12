@@ -19,7 +19,9 @@ exports.recipepage = function (req, res){
 			cuisines: req.session.cuisines, 
 			flavors: req.session.flavors,
 			recipe: docs[0],
-			ingredients: docs[0].ingredients});
+			ingredients: docs[0].ingredients,
+			id: req.params.recipe
+		});
 	});
 };
 
@@ -139,3 +141,18 @@ exports.addfav = function (req, res){
 			};
 	});
 };
+
+//update a recipe's description
+
+exports.update_desc = function(req, res) {
+	// Recipe.findOne({'_id':req.body});
+	console.log(req.body);
+	Recipe.update({'_id':req.body.id}, {description: req.body.description}, function() {
+		Recipe.findOne({'_id':req.body.id}).exec(function(err, found_recipe) {
+			res.render('_description.jade', {
+				recipe: found_recipe,
+				description: req.body.description
+			});
+		})
+	});
+}

@@ -194,6 +194,10 @@ table.table {
 	height: 350px;
 }
 
+textarea {
+	max-width: 95%;
+}
+
 .ingredient-table {
 	background-color: #e3e3e3
 }
