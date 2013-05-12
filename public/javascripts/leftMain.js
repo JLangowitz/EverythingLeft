@@ -8,6 +8,9 @@ $(document).ready(function() {
 	readyFired = true;
 	// initialize selects
 
+	// initialize add-image popover
+	$('.btn-add-image').popover({trigger: 'click', html: true, placement: 'right'});
+
 	// initialize description popover
 	$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
 
@@ -15,7 +18,6 @@ $(document).ready(function() {
 	$(document).on('click', '.update-recipe',function() {
 		var recipeID = $('.id-holder').attr('name'),
 			description = $('textarea').val();
-		console.log('recipeID', recipeID);
 		$.post('/recipe/update/desc', {
 			id: recipeID,
 			description: description
@@ -24,6 +26,19 @@ $(document).ready(function() {
 			$('.btn-primary').popover({trigger: 'click', html: true, placement: 'right'});
 		});
 	});
+
+	// update image on recipe page
+	$(document).on('click', '.image-button', function() {
+		var recipeID = $('.id-holder').attr('name'),
+			imageURL = $('textarea').val();
+			$.post('/recipe/update/image', {
+				id: recipeID,
+				imageURL: imageURL
+			}, function(HTMLdata) {
+				$('.image-div').html(HTMLdata).fadeIn('slow');
+				$('btn-add-image').popover({trigger: 'click', html: true, placement: 'right'});
+			})
+	})
 
 
 	// Goes to user.preselect, selects the user default preferences automatically
