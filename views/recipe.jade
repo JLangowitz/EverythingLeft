@@ -3,7 +3,6 @@
 extends layout
 
 block content
-	script(src='/javascripts/newrecipe.js', type="text/javascript")
 	div(id="container")
 		div(class='page-header')
 			h1(style='padding-left: 100px;') #{recipe.name}
@@ -16,7 +15,7 @@ block content
 			div
 				h2 Popularity:
 					span(class='badge badge-large badge-pop pop-counter') #{recipe.counter}
-					button(id="fav", class="#{recipe._id} inline-block btn btn-large btn-success") Favorite
+					input(id="fav", type='button', class="#{recipe._id} inline-block btn btn-large btn-success", value='Favorite')
 		div(class="float-one content-right")
 			.container.row-fluid
 				.container.span8.padded
@@ -34,3 +33,6 @@ block content
 				div
 					a(href='#{recipe.url}') See Recipe on Original Website
 			p #{recipe.description}
+
+block scripts
+	script(src='/javascripts/newrecipe.js', type="text/javascript")
