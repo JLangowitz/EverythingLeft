@@ -5,26 +5,32 @@ extends layout
 block content
 	script(src='/javascripts/newrecipe.js', type="text/javascript")
 	div(id="container")
-		h1(style='padding-left: 100px;') #{recipe.name}
-		div(class="float-one")
-			image(src="#{recipe.image_large}")
-			p Popularity: #{recipe.counter}
+		div(class='page-header')
+			h1(style='padding-left: 100px;') #{recipe.name}
+		div(class="float-one well")
+			div.well.well-dark
+				if recipe.image_large
+					image(src="#{recipe.image_large}", class='img-rounded')
+				else
+					button(class='btn btn-large btn primary btn-add-image') Add Image
 			div
-				input(type="button", id="fav", class="#{recipe._id}", value="Favorite")
-			if (recipe.url)
-				a(href='#{recipe.url}') Original Website
-			else
-				| This recipe is user made.
+				h3 Popularity:
+					span(class='badge badge-large badge-success pop-counter') #{recipe.counter}
+					button(id="fav", class="#{recipe._id} inline-block btn btn-small btn-inverse") Favorite
 		div(class="float-one")
 			.container.row-fluid
 				.container.span8.padded
-					table.table.table-striped(style='min-width: 300px; overflow: auto')
+					table.table.table-striped(class='ingredient-table', style='min-width: 300px; overflow: auto')
 						tr
+							h4 Ingredients
 							th 
-								h4 Ingredients
 						each ingredient in ingredients
 							tr
 								td #{ingredient}
+		hr
 		div(class="float-one")
 			h2 Description
+			if (recipe.url)
+				div
+					a(href='#{recipe.url}') See Recipe on Original Website
 			p #{recipe.description}

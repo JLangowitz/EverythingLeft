@@ -3,7 +3,7 @@
 h2 Everything Left Recipes
 if (recipes)
 	each recipe in recipes
-		div.row-fluid.outlined(name=recipe._id)
+		div.row-fluid.well(name=recipe._id)
 			div.span3
 				h5 #{recipe.name}
 				if recipe.image_small
