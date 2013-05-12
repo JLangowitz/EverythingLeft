@@ -1,9 +1,9 @@
 //- description for recipe
 
-div.row-fluid
-	div.span4
+div.row
+	div.span6.inline
 		h2 Description
-	div.offset4.span4
+	div.span6.inline
 	if (recipe.url)
 		a.btn.btn-info.pull-right.original-link(href='#{recipe.url}') See Recipe on Original Website
 if (recipe.description.length > 0)

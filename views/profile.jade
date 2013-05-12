@@ -10,12 +10,14 @@ block content
 	h1(class='text-center page-header') #{name}
 	div(class='container-fluid')
 		div(class='row-fluid')
-			div(class='text-center hero-unit span5')
+			div(class='text-center hero-unit span6')
 				include _preferences
 				br
 				br
 				form(id='settings', class='form-inline')
 					include _multiselect
+					br
+					br
 					button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
 					span(class='help-block') Selected tags will become your default search parameters. You can return here to change them at any time or customize individual searches on our search page.
 				form(class='form-inline', id='setuser')

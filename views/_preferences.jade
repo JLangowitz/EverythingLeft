@@ -1,24 +1,26 @@
 //- displays user data
 
 div(class='text-left preference-partial')
-	h3 Dietary Restrictions
+	h3 Current Preferences:
 	if (preferences.length > 0)
-		each preference in preferences
-			if (preference.category=='Dietary Restriction')
-				div #{preference.name}
+		table.table.table-hover
+			tr
+				th Tag Name
+				th Category
+				each preference in preferences
+					if (preference.category=='Dietary Restriction')
+						tr
+							td #{preference.name}
+							td Restriction
+				each preference in preferences
+					if (preference.category=='Preferred Cuisine')
+						tr
+							td #{preference.name}
+							td Cuisine
+				each preference in preferences
+					if (preference.category=='Favorite Flavor')
+						tr
+							td #{preference.name}
+							td Flavor
 	else
-		| [none]
-	h3 Cuisines
-	if (preferences.length > 0)
-		each preference in preferences
-			if (preference.category=='Preferred Cuisine')
-				div #{preference.name}
-	else
-		| [none]
-	h3 Flavors
-	if (preferences.length > 0)
-		each preference in preferences
-			if (preference.category=='Favorite Flavor')
-				div #{preference.name}
-	else
-		| [none]
+		span You have no preferences!

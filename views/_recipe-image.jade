@@ -1,6 +1,6 @@
 //- _recipe-image.jade
 
 if recipe.image_large
-	image(src="#{recipe.image_large}", class='img-rounded')
+	image(src="#{recipe.image_large}")
 else
 	button(class='btn btn-large btn primary btn-add-image', data-toggle='popover', title data-content='<div class="add-image"><textarea placeholder="Add an image URL"></textarea><button class="btn btn-block btn-primary image-button">Upload Image</button></div>', data-original-title="Add An Image") Add Image
