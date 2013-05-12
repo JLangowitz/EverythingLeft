@@ -39,10 +39,11 @@ exports.profile = function(req, res){
 		if (prefs.length == 0){
 			prefs = ["You do not have any preferences yet!"];
 		}
-		console.log(user.favorites);
+		console.log(user.favorites, req.session.dietary);
 		res.render('profile', 
-			{title: "My Profile", 
-			preferences: prefs, 
+			{title: "My Profile",
+			name: user.username,
+			preferences: user.preferences, 
 			favorites: user.favorites, 
 			dietary: req.session.dietary, 
 			cuisines: req.session.cuisines, 

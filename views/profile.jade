@@ -8,8 +8,15 @@ block scripts
 
 block content
 	h1(class='text-center') Profile
-	//- p Welcome to #{title}
-
+			h1 #{name}
+		h3 Dietary Restrictions
+		| #{dietary}
+		h3 Cuisines
+		each cuis, i in cuisines
+			#{cuis.name}
+		h3 Flavors
+		each flav, i in flavors
+			#{flav.name}
 	div(class='text-center hero-unit')
 		form(id='settings', class='form-inline')
 			include _multiselect
