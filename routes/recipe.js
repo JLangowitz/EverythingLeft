@@ -3,6 +3,7 @@ var Models = require('../models/models')
 	, Recipe = Models.recipe
 	, User = Models.user;
 
+// renders recipe adding page from get /addrecipe
 exports.addform = function(req, res){
 	res.render('add_new', 
   		{ title: 'Everything Left', 
@@ -11,6 +12,7 @@ exports.addform = function(req, res){
 		flavors: req.session.flavors });
 };
 
+// renders individual recipe page from get /recipe/:recipe
 exports.recipepage = function (req, res){
 	Recipe.find({'_id':req.params.recipe}).sort().exec(function (err, docs){
 		res.render('recipe', 
@@ -25,7 +27,7 @@ exports.recipepage = function (req, res){
 	});
 };
 
-//POST functions
+// makes new recipe from post /addrecipe/new
 exports.makenew = function(req, res){
 
 	Recipe.findOne({name:req.body.name}).exec(function(err, recipe){
@@ -64,6 +66,7 @@ exports.makenew = function(req, res){
 	});
 };
 
+// searches database from get /database/search
 exports.search = function(req, res){
 	Tag.find({'name':{$in:req.query.tags}}).exec(function(err,tags){
 		if (err){
@@ -108,6 +111,8 @@ exports.search = function(req, res){
 	});
 }
 
+
+// adds favorites from post /addfav
 exports.addfav = function (req, res){
 	console.log(req.body);
 	Recipe.findOne({'_id': req.body.id}).exec(function (err, recipe){
@@ -142,8 +147,7 @@ exports.addfav = function (req, res){
 	});
 };
 
-//update a recipe's description
-
+//update a recipe's description from post /recipe/update/desc
 exports.update_desc = function(req, res) {
 	Recipe.update({'_id':req.body.id}, {description: req.body.description}, function() {
 		Recipe.findOne({'_id':req.body.id}).exec(function(err, found_recipe) {
@@ -155,8 +159,7 @@ exports.update_desc = function(req, res) {
 	});
 }
 
-// update a recipe's image
-
+// update a recipe's image from post /recipe/update/iamge
 exports.update_image = function(req, res) {
 	Recipe.update({'_id':req.body.id}, {image_large: req.body.imageURL}, function() {
 		Recipe.findOne({'_id':req.body.id}).exec(function(err, found_recipe) {

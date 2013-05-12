@@ -188,6 +188,9 @@ table.table {
 	padding-right: 15px;
 	font-size: 16pt;
 	border-radius: 12px;
+	border: solid;
+	border-color: #888888;
+	border-width: 1px;
 }
 
 .btn-pop {

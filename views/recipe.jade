@@ -11,7 +11,7 @@ block content
 				include _recipe-image.jade
 			div
 				h2 Popularity:
-					span(class='badge badge-large badge-pop pop-counter') #{recipe.counter}
+					span(class='badge badge-large badge-pop pop-counter') +#{recipe.counter}
 					input(id="fav", type='button', recipeId='#{recipe._id}', class="inline-block btn btn-large btn-success", value='Favorite')
 		div(class="float-one content-right")
 			.container.row-fluid

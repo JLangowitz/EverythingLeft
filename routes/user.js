@@ -4,10 +4,7 @@ var Models = require('../models/models')
 	, http = require('http');
 	//, request = require('request');
 
-/*
- * GET users listing.
- */
-
+// login page from get /login
 exports.login = function(req, res) {
 	res.render('login', 
 		{title: "Sign In", 
@@ -16,6 +13,7 @@ exports.login = function(req, res) {
 		flavors: req.session.flavors});
 };
 
+// sets up multiselects from get /multiselect
 exports.preselect = function(req, res) {
 	req.session.search=[];
 	req.session.databaseSearch=[];
@@ -32,7 +30,7 @@ exports.preselect = function(req, res) {
 	});
 };
 
-
+// renders profile from get /profile or /settings
 exports.profile = function(req, res){
 	User.findOne({'email': req.user.email}).populate('favorites preferences').exec(function(err, user){
 		console.log(user.preferences)
@@ -47,6 +45,8 @@ exports.profile = function(req, res){
 	});
 };
 
+
+// renders searchpage from get /search
 exports.search = function(req, res) {
 	var recipes = req.session.databaseSearch;
 	req.session.databaseSearch=[];
@@ -60,6 +60,7 @@ exports.search = function(req, res) {
 	});
 }
 
+// saves preference changes from post /user/update
 exports.prefs = function(req, res) {
 	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
 		console.log(err);
@@ -79,6 +80,7 @@ exports.prefs = function(req, res) {
 	})
 };
 
+// Page to create username from get /username
 exports.username = function(req, res) {
 	res.render('username', 
 		{title: '', 
@@ -88,6 +90,7 @@ exports.username = function(req, res) {
 		flavors: req.session.flavors});
 };
 
+// Updates username from post /username
 exports.setname = function(req, res) {
 	User.findOne({username:req.body.username}).exec(function(err,user){
 		if (user){
@@ -104,6 +107,7 @@ exports.setname = function(req, res) {
 	});
 };
 
+// Makes new tag from post /new/tag
 exports.newtag = function(req, res) {
 	Tag.findOne({name:req.body.name}).exec(function(err,tag){
 		if (err){
@@ -147,6 +151,7 @@ exports.newtag = function(req, res) {
 	});
 };
 
+// updates multiselect from get /multiselect/update
 exports.update = function(req, res){
   	res.render('_multiselect', 
   		{ dietary: req.session.dietary, 
@@ -154,6 +159,7 @@ exports.update = function(req, res){
 		flavors: req.session.flavors });
 };
 
+// updates session tags, used when tags are added
 function pullTags(req, res){
 	req.session.dietary=[];
 	req.session.flavors=[];
@@ -173,11 +179,13 @@ function pullTags(req, res){
 	});
 }
 
-exports.navbarSearch = function(req, res) {
-	req.session.search=req.query.recipes
-	res.send();
-}
+// DEPRECATED
+// exports.navbarSearch = function(req, res) {
+// 	req.session.search=req.query.recipes
+// 	res.send();
+// }
 
+// renders yummly search results from get /yummly/update
 exports.yummly_update = function(req, res) {
 
 	var output = '';
@@ -201,6 +209,7 @@ exports.yummly_update = function(req, res) {
 
 }
 
+// renders specific yummly results in popover from /yummly/popover/update
 exports.popover_update = function(req, res) {
 	res.render('_popover', {
 		image: req.query.image,

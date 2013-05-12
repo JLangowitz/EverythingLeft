@@ -104,14 +104,19 @@ app.get('/auth/google/return', passport.authenticate('google', {failureRedirect:
 	}
 	res.redirect(req.session.url);
 });
-app.get('/settings', loginRequired, pullTags, user.profile);
+// DEPRECATED
+// app.get('/settings', loginRequired, pullTags, user.profile);
+
 app.get('/profile', loginRequired, pullTags, user.profile);
 app.get('/search', loginRequired, pullTags, user.search);
 app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
 app.get('/preselect', pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
-app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
+
+// DEPRECATED
+// app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
+
 app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
 app.get('/addrecipe', loginRequired, pullTags, recipe.addform);
 app.get('/recipe/:recipe', loginRequired, pullTags, recipe.recipepage);
