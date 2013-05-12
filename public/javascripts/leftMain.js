@@ -120,8 +120,20 @@ $(document).ready(function() {
 							success: function(data) {
 								console.log('recipe data', data);
 								console.log('data type', typeof data);
+
+								//check that an image exists
+								if (recipe.images !== undefined && recipe.images.length > 0) {
+									var image = recipe.images[0].hostedLargeUrl;
+								}
+								else {
+									var image = '';
+								}
+
 								$.get('/yummly/popover/update', {
-									recipe: data
+									image: image,
+									name: data.name,
+									source: data.source,
+									ingredients: data.ingredientLines
 								}, function(htmlData) {
 									$('.popover-content').html(htmlData);
 									$('.popover-title').text(data.name)

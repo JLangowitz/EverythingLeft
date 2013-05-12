@@ -184,6 +184,7 @@ exports.yummly_update = function(req, res) {
 
 	var output = '';
 
+	//get recipes from yummly
 	http.get(req.query.host+req.query.path, function(response) {
 		console.log('response: ', response);
   		response.setEncoding('utf8');
@@ -193,7 +194,7 @@ exports.yummly_update = function(req, res) {
 		});
 		response.on('end', function() {
 			var obj = JSON.parse(output);
-			console.log('matches', obj.matches);
+			//render partial
 			res.render('_yummly', {
 				yummly: obj.matches
 			});
@@ -213,7 +214,7 @@ exports.popover_update = function(req, res) {
 	}
 
 	res.render('_popover', {
-		image: image,
+		image: reqimage,
 		name: recipe.name,
 		source: recipe.source,
 		ingredients: recipe.ingredientLines
