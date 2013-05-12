@@ -14,10 +14,10 @@ block content
 				else
 					button(class='btn btn-large btn primary btn-add-image') Add Image
 			div
-				h3 Popularity:
-					span(class='badge badge-large badge-success pop-counter') #{recipe.counter}
-					button(id="fav", class="#{recipe._id} inline-block btn btn-small btn-inverse") Favorite
-		div(class="float-one")
+				h2 Popularity:
+					span(class='badge badge-large badge-pop pop-counter') #{recipe.counter}
+					button(id="fav", class="#{recipe._id} inline-block btn btn-large btn-success") Favorite
+		div(class="float-one content-right")
 			.container.row-fluid
 				.container.span8.padded
 					table.table.table-striped(class='ingredient-table', style='min-width: 300px; overflow: auto')

@@ -1,7 +1,7 @@
 //- _recipes.jade- search results from database
 
-h2 User Submitted Recipes
-if (recipes)
+if (recipes != undefined && recipes.length>0)
+	h2 User Submitted Recipes
 	each recipe in recipes
 		div.row-fluid.well(name=recipe._id)
 			div.span3
@@ -10,7 +10,7 @@ if (recipes)
 					img.img-rounded(src=recipe.image_small)
 				else
 					img.img-rounded(src='http://upload.wikimedia.org/wikipedia/en/d/d1/Image_not_available.png',style='width: 150px; height:100px')
-			div.span9.leftBorder
+			div.span9.content-right
 				h6 Ingredients: 
 					if recipe.ingredients
 						each ingredient in recipe.ingredients

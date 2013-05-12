@@ -6,9 +6,8 @@ block content
 	div(id="container", class='container-fluid')
 		div(class='row-fluid')
 			div(class='span12 text-center')
-				div(id='splash', class='hero-unit')
+				div(id='splash', class='page-header')
 					h1 Welcome to Everything Left
-					h3 
 					//- h2 Search for Recipes 
 					//- h2 or 
 					//- h2 Add Your Own!
@@ -31,7 +30,7 @@ block content
 							a(class='carousel-control right', href='#topCarousel', data-slide='next') &rsaquo;
 						//- else
 						//- 	p There are no top recipes yet!
-					div(class='span6')
+					div(class='span6 content-right')
 						h3 Newest Additions
 						div(id='newCarousel', class='carousel slide well well-dark')
 							//- ol(class='carousel-indicators')
@@ -44,7 +43,7 @@ block content
 												div(class='carousel-caption')
 													h4 #{recipe.name}
 													a(href='/recipe/#{recipe._id}')
-														button.text-center.btn.btn-inverse See Recipe
+														button.text-center.btn.btn-info See Recipe
 							a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
 							a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
 

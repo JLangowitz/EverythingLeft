@@ -109,7 +109,7 @@ app.get('/profile', loginRequired, pullTags, user.profile);
 app.get('/search', loginRequired, pullTags, user.search);
 app.get('/username', loginRequired, pullTags, user.username);
 app.get('/multiselect/update', loginRequired, pullTags, user.update);
-app.get('/preselect', loginRequired, pullTags, user.preselect);
+app.get('/preselect', pullTags, user.preselect);
 app.get('/yummly/update', loginRequired, pullTags, user.yummly_update);
 app.get('/navbar/search', loginRequired, pullTags, user.navbarSearch);
 app.get('/yummly/popover/update', loginRequired, pullTags, user.popover_update);
@@ -122,7 +122,7 @@ app.post('/user/update', loginRequired, pullTags, user.prefs);//Set user prefere
 app.post('/username', loginRequired, pullTags, user.setname);
 app.post('/new/tag', loginRequired, pullTags, user.newtag);
 app.post('/addrecipe/new', loginRequired, pullTags, recipe.makenew);
-app.post('/addfav', loginRequired, recipe.addfav);
+app.post('/addfav', loginRequired, pullTags, recipe.addfav);
 
 http.createServer(app).listen(app.get('port'), function(){
 	console.log("Express server listening on port " + app.get('port'));
@@ -134,7 +134,7 @@ function loginRequired(req, res, next){
 		req.session.url = req.url;
 		console.log("User not authenticated.");
 		//Automatically lead the user to the auth page
-		res.redirect('/auth/google');
+		res.redirect('/login');
 	} 
 	else {
 		if(!req.user.username&&req.url!='/username'){
