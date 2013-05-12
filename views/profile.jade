@@ -13,24 +13,24 @@ block content
 			div(class='text-center hero-unit span5')
 				div(class='text-left')
 					h3 Dietary Restrictions
-					if (dietary.length > 0)
-						each diet in dietary
-							| #{diet.name}
-							br
+					if (preferences.length > 0)
+						each preference in preferences
+							if (preference.category=='Dietary Restriction')
+								div #{preference.name}
 					else
 						| [none]
 					h3 Cuisines
-					if (cuisines.length > 0)
-						each cuis in cuisines
-							| #{cuis.name}
-							br
+					if (preferences.length > 0)
+						each preference in preferences
+							if (preference.category=='Preferred Cuisine')
+								div #{preference.name}
 					else
 						| [none]
 					h3 Flavors
-					if (flavors.length > 0)
-						each flav in flavors
-							| #{flav.name}
-							br
+					if (preferences.length > 0)
+						each preference in preferences
+							if (preference.category=='Favorite Flavor')
+								div #{preference.name}
 					else
 						| [none]
 				br

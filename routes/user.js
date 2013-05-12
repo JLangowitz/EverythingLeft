@@ -34,14 +34,11 @@ exports.preselect = function(req, res) {
 
 
 exports.profile = function(req, res){
-	User.findOne({'email': req.user.email}).populate('favorites').exec(function(err, user){
-		var prefs = req.user.preferences;
-		if (prefs.length == 0){
-			prefs = ["You do not have any preferences yet!"];
-		}
+	User.findOne({'email': req.user.email}).populate('favorites preferences').exec(function(err, user){
+		console.log(user.preferences)
 		res.render('profile', 
 			{title: "My Profile",
-			name: req.user.username,
+			name: user.username,
 			preferences: user.preferences, 
 			recipes: user.favorites, 
 			dietary: req.session.dietary, 
