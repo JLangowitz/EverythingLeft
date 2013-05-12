@@ -1,3 +1,5 @@
+// Used to update default preferences of a user
+
 $(document).ready(function(){
 	if (readyFired) return;
 	console.log('go');

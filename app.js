@@ -29,6 +29,8 @@ app.configure('development', function(){
 
 console.log(app.get('host'));
 
+
+// Creates the user on successful auth
 passport.use(new GoogleStrategy({
 		returnURL: app.get('host') + '/auth/google/return',
 		realm: app.get('host')
@@ -36,10 +38,7 @@ passport.use(new GoogleStrategy({
 	function(identifier, profile, done) {
 
 		var email = profile.emails[0].value;
-		console.log(email);
 		User.findOne({email:email}).exec(function(err,user){
-			console.log("\nUser info below: \n")
-			console.log(user);
 			if (err){
 				console.log(err);
 				return done(err);
@@ -68,20 +67,11 @@ app.configure(function () {
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'jade');
 	app.set('secret', process.env.SESSION_SECRET || 'terrible, terrible secret')
-	// app.use(express.favicon(__dirname + '/public/images/favicon.ico'));
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(express.cookieParser(app.get('secret')));
 	app.use(express.session({ secret: 'keyboard cat' }))
-	// app.use(express.session({
-	//   maxAge: new Date(Date.now() + 3600000),
-	//   store: new MongoStore(
-	//     {db:mongoose.connection.db},
-	//     function(err){
-	//         console.log(err || 'connect-mongodb setup ok');
-	//       })
-	// }));
 	app.use(passport.initialize());
 	app.use(passport.session());
 	app.use(app.router);
@@ -90,9 +80,7 @@ app.configure(function () {
 
 // Passport session setup.
 //   To support persistent login sessions, Passport needs to be able to
-//   serialize users into and deserialize users out of the session.  Typically,
-//   this will be as simple as storing the user ID when serializing, and finding
-//   the user by ID when deserializing.
+//   serialize users into and deserialize users out of the session.  We store based on emails
 
 passport.serializeUser(function(user, done) {
 		done(null, user.email);
@@ -109,7 +97,6 @@ app.get('/', loginRequired, pullTags, routes.index);
 app.get('/login', user.login); // Logging in, creating a user.
 app.get('/auth/google', passport.authenticate('google'));
 app.get('/auth/google/return', passport.authenticate('google', {failureRedirect: '/login' }), function(req, res) {
-	console.log(req.user.username);
 	if(!req.user.username){
 		console.log('no username found');
 		res.redirect('/username');
@@ -154,8 +141,6 @@ function loginRequired(req, res, next){
 			console.log('no username found');
 			res.redirect('/username');
 		}
-		// console.log("User already logged in.");
-		// console.log(req.user);
 		next();
 	}
 }
@@ -165,13 +150,9 @@ function pullTags(req, res, next){
 	req.session.flavors=[];
 	req.session.cuisines=[];
 	Tag.find().sort({name:1}).exec(function(err, tags){
-		// console.log(tags);
 		for (var i = 0; i < tags.length; i++) {
-			// console.log(tags[i].category);
 			if (tags[i].category=='Dietary Restriction'){
-				// console.log('in if');	
 				req.session.dietary.push(tags[i]);
-				// console.log(req.session.dietary);
 			}
 			if (tags[i].category=='Favorite Flavor'){	
 				req.session.flavors.push(tags[i]);
@@ -180,7 +161,6 @@ function pullTags(req, res, next){
 				req.session.cuisines.push(tags[i]);
 			}
 		};
-		// console.log(req.session);
 		next();
 	});
 }

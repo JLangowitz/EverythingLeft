@@ -1,4 +1,7 @@
+// Called from recipe add page to create a recipe
+
 $(document).ready(function(){
+	if (readyFired) return;
 
 	$('#makenew').submit(function() {
 		var name = $('#name').val()
@@ -17,7 +20,7 @@ $(document).ready(function(){
 
 	$('#fav').click(function (){
 		$.post('/addfav', {id: $(this).attr('class')}, function(){
-			location.refresh();
+			window.location.refresh();
 		});
 	});
 
