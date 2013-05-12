@@ -1,0 +1,22 @@
+div(class='text-left preference-partial')
+	h3 Dietary Restrictions
+	if (preferences.length > 0)
+		each preference in preferences
+			if (preference.category=='Dietary Restriction')
+				div #{preference.name}
+	else
+		| [none]
+	h3 Cuisines
+	if (preferences.length > 0)
+		each preference in preferences
+			if (preference.category=='Preferred Cuisine')
+				div #{preference.name}
+	else
+		| [none]
+	h3 Flavors
+	if (preferences.length > 0)
+		each preference in preferences
+			if (preference.category=='Favorite Flavor')
+				div #{preference.name}
+	else
+		| [none]

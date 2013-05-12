@@ -150,6 +150,11 @@ ol li {
 	min-height: 300px;	
 }
 
+.popover-image {
+	max-width: 300px !important;
+	max-height: 150px !important;
+}
+
 table.table {
 	overflow: scroll;
 }

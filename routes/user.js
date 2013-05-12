@@ -64,16 +64,17 @@ exports.prefs = function(req, res) {
 	Tag.find({"name":{$in:req.body.tags}}).exec(function(err, tags){
 		console.log(err);
 		if (err&&tags){
-			res.send(err);
+			res.send({'err':'Error saving preferences.'});
 			return console.log('error', err);
 		}
 		req.user.preferences = tags;
 		req.user.save(function(err){
 			if (err){
-				res.send(err);
+				res.send({'err':'Error saving preferences.'});
 				return console.log('error', err);
 			}
-			res.send(err);
+			// res.write(null)
+			res.render('_preferences', {preferences:tags});
 		});
 	})
 };
