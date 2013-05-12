@@ -149,3 +149,13 @@ table.table {
 .hidden {
 	display: none;
 }
+
+.carousel {
+	max-width: 500px;
+	max-height: 350px;
+}
+
+.carousel-img {
+	width: 100%;
+	height: 350px;
+}
