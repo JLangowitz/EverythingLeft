@@ -8,6 +8,7 @@ $(document).ready(function() {
 	readyFired = true;
 	// initialize selects
 
+	$('.btn-primary').popover({trigger: 'click', html: true, placement: 'left'});
 
 	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
@@ -99,7 +100,7 @@ $(document).ready(function() {
 		    console.log('path', yummlyURL);
     		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
     			$('.yummly').html(data);
-    			$('.btn-info').popover({trigger: 'click', html: true});
+    			$('.btn-yummly').popover({trigger: 'click', html: true});
     			console.log(tags);
     			console.log(recipeName);
     			$.get('/database/search',
@@ -109,9 +110,9 @@ $(document).ready(function() {
     				$('#databaseRecipes').html(data);
 
     				//get recipe object from yummly using recipe id
-    				$('.btn-info').click(function(){
+    				$('.btn-yummly').click(function(){
     					$(this).addClass('activeYummly');
-    					$('.btn-info').not(this).popover('hide');
+    					$('.btn-yummly').not(this).popover('hide');
     					var name = $(this).parents('.outlined').attr('name');
 						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
 						$.ajax({
@@ -122,8 +123,8 @@ $(document).ready(function() {
 								console.log('data type', typeof data);
 
 								//check that an image exists
-								if (recipe.images !== undefined && recipe.images.length > 0) {
-									var image = recipe.images[0].hostedLargeUrl;
+								if (data.images !== undefined && data.images.length > 0) {
+									var image = data.images[0].hostedLargeUrl;
 								}
 								else {
 									var image = '';
@@ -178,25 +179,6 @@ $(document).ready(function() {
     		});
 		return false
     	});
-
-	$('#navbar-search').submit(function() {
-		var tags = $('#navbar-search .multiselect').val(),
-		    recipeName = $('#navbar-search input').val().toLowerCase(),
-		    categTags = categorizeTags(tags),
-		    yummlyURL = 'http://api.yummly.com/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
-		    yummlyURL = urlForm(yummlyURL, categTags);
-	    $.ajax({
-	    	url: yummlyURL,
-	    	dataType: 'jsonp',
-	    	success: function(data) {
-	    		console.log('yummly results:', data);
-	    		$.get('/navbar/search', {recipes: data.matches}, function(data) {
-	    			window.location='/search';
-	    		});
-	    	}
-	    });
-		return false
-	})
 
 	//give tags categories
 	var categorizeTags = function(tags) {
@@ -267,6 +249,5 @@ $(document).ready(function() {
 	}
 
 	$(document).trigger('click').find('.activeYummly').popover('hide').removeClass('activeYummly');
-
 
 });

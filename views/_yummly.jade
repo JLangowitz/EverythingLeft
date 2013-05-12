@@ -14,6 +14,6 @@ if (yummly != undefined && yummly.length > 0)
 				h6 Ingredients: 
 						each ingredient in recipe.ingredients
 							p.inline #{ingredient}, 
-				button.pull-right.btn.btn-info(data-toggle='popover', title data-content='<div class="progress progress-striped active"><div class="bar" style="width: 100%></div></div>', data-original-title='Loading Recipe...') See More
+				button.pull-right.btn.btn-info.btn-yummly(data-toggle='popover', title data-content='<div class="progress progress-striped active"><div class="bar" style="width: 100%></div></div>', data-original-title='Loading Recipe...') See More
 else
 	p Yummly recipes go here

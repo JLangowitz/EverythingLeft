@@ -212,6 +212,6 @@ exports.popover_update = function(req, res) {
 		image: req.query.image,
 		name: req.query.name,
 		source: req.query.source,
-		ingredients: req.query.ingredientLines
+		ingredients: req.query.ingredients
 	})
 }

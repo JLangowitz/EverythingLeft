@@ -1,0 +1,7 @@
+//- description for recipe
+
+if (recipe.description.length > 0)
+	p #{recipe.description}
+else
+	p This recipe has no description!
+button.btn.btn-primary(data-toggle='popover', title data-content='<div class="edit-desc"><textarea rows="6"></textarea><button class="btn btn-block btn-primary">Change Description</button></div>', data-original-title="Edit this recipe's description!") Edit Description
