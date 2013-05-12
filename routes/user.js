@@ -35,19 +35,20 @@ exports.preselect = function(req, res) {
 
 
 exports.profile = function(req, res){
-	var prefs = req.user.preferences
-		,favs = req.user.favorites;
-	if (prefs.length == 0){
-		prefs = ["You do not have any preferences yet!"];
-	}
-	console.log(favs);
-	res.render('profile', 
-		{title: "My Profile", 
-		preferences: prefs, 
-		favorites: favs, 
-		dietary: req.session.dietary, 
-		cuisines: req.session.cuisines, 
-		flavors: req.session.flavors});
+	User.findOne({'email': req.user.email}).populate('favorites').exec(function(err, user){
+		var prefs = req.user.preferences;
+		if (prefs.length == 0){
+			prefs = ["You do not have any preferences yet!"];
+		}
+		console.log(user.favorites);
+		res.render('profile', 
+			{title: "My Profile", 
+			preferences: prefs, 
+			favorites: user.favorites, 
+			dietary: req.session.dietary, 
+			cuisines: req.session.cuisines, 
+			flavors: req.session.flavors});
+	});
 };
 
 exports.search = function(req, res) {
