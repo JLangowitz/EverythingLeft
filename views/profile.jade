@@ -12,8 +12,6 @@ block content
 		div(class='row-fluid')
 			div(class='text-center hero-unit span6')
 				include _preferences
-				br
-				br
 				form(id='settings', class='form-inline')
 					include _multiselect
 					br
@@ -28,7 +26,7 @@ block content
 						button(type="submit", class='btn btn-inverse') Change Username
 						//- div(class="form-actions")
 			div(class="favs span5 content-right")
-				h2.text-center Favorites
+				h2.text-center Your Favorites
 					include _recipes
 					script(type='text/javascript')
 						$('.recipe-header').hide();

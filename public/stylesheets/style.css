@@ -215,6 +215,7 @@ table.table {
 }
 
 textarea {
+	width: 95%;
 	max-width: 95%;
 }
 
@@ -236,4 +237,14 @@ textarea {
 
 .help-block {
 	font-size: 0.75em;
+}
+
+.recipe-image {
+	max-width: 360px;
+	max-height: 270px;
+}
+
+#introCarousel {
+	margin-left: auto;
+	margin-right: auto;
 }

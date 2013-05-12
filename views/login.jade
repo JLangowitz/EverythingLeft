@@ -9,23 +9,34 @@ block content
 		div(class='row-fluid')
 			div(class='offset3 span6')
 				h1(class='text-center') Welcome to Everything Left
+				br
 				div(class='text-center') Find the recipes you want for the food you can eat!
+				br
 				div(id='introCarousel', class='carousel slide well well-dark')
 					ol(class='carousel-indicators')
 						li(data-target='#introCarousel', data-slide-to=0, class='active')
 						li(data-target='#introCarousel', data-slide-to=1)
 						li(data-target='#introCarousel', data-slide-to=2)
-						li(data-target='#introCarousel', data-slide-to=3)
 					div(class='carousel-inner')
-						//- Images go in here in divs, and you can put text too, or just have it in the image
-					a(class='carousel-control left', href='#newCarousel', data-slide='prev') &lsaquo;
-					a(class='carousel-control right', href='#newCarousel', data-slide='next') &rsaquo;
+						div(class='item')
+							img(class='carousel-img', src='https://lh4.googleusercontent.com/-OWvHsWdhLYA/AAAAAAAAAAI/AAAAAAAAAAA/EFxMdY6VxU4/photo.jpg')
+							div(class='carousel-caption')
+								h4 Searching Powered by Yummly
+						div(class='item')
+							img(class='carousel-img', src='http://wpmu.org/wp-content/uploads/2012/08/tags.jpg')
+							div(class='carousel-caption')
+								h4 Tag-based Recipe Searching
+						div(class='item')
+							img(class='carousel-img', src='https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQTpbzrp-TQZUpi2pHlGwpIORfKbPdT6xcJ-8i9on6kaUUgJIIu')
+							div(class='carousel-caption')
+								h4 Find delicious, delicious food.
+					a(class='carousel-control left', href='#introCarousel', data-slide='prev') &lsaquo;
+					a(class='carousel-control right', href='#introCarousel', data-slide='next') &rsaquo;
 				br
 				div(class='text-center')
 					a(href='/auth/google', class='text-center')
 						button(class='text-center inline-block btn btn-large btn-google') Sign In With Google
-	//- div.hero-unit.span3.offset5#login(style="text-align: center; max-width: 400px; min-width: 250px;")
-	//-   h1(style="margin-bottom: 10px;") #{title}
-	//-   br
-	//-   a(href='/auth/google')
-	//-     button.btn.btn-success.btn-large() Sign In with Google
+
+	script(type='text/javascript')
+		$('#introCarousel').carousel('next');
+		$('#introCarousel').carousel('cycle');
