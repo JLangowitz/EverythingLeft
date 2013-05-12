@@ -3,24 +3,27 @@
 extends layout
 
 block content
-	div(class='container')
-		div(class='fluid-row')
-			form(class='form-horizontal', id='searchpage-search')
-				fieldset
-					legend Search for Recipes
+	div(class='container-fluid')
+		div(class='row-fluid')
+			div(class='span12')
+				div(class= 'page-header') 
+					h1(class='text-center') Search for Recipes
+				form(class='form-horizontal left-margin well', id='searchpage-search')
+					fieldset
 						div.control-group
 							label.control-label Specific Food
 							div(class='controls')
-									input(type='text', placeholder='What do you want to make?')
+								input(type='text', placeholder='What do you want to make?')
 						div.control-group
 							label.control-label Categories
 							div.controls(style='')
 								include _multiselect
+								div(class='help-block font10') Can't find the tag you want? Add one using the button in the top right corner of your screen!
 						div.control-group
 							div.controls
 								button.btn.btn-inverse.btn-large.searchButton Search
-	div.row-fluid
-		div.container.span5.yummly.padded
-			include _yummly.jade
-		div.container.offset1.span5.content-right(id='databaseRecipes')
-			include _recipes.jade
+		div.row-fluid
+			div.container.span5.yummly.padded
+				include _yummly.jade
+			div.container.offset1.span5.content-right(id='databaseRecipes')
+				include _recipes.jade
