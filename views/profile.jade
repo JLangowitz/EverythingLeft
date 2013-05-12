@@ -8,16 +8,18 @@ block scripts
 
 block content
 	h1(class='text-center') Profile
-			h1 #{name}
-		h3 Dietary Restrictions
-		| #{dietary}
-		h3 Cuisines
-		each cuis, i in cuisines
-			#{cuis.name}
-		h3 Flavors
-		each flav, i in flavors
-			#{flav.name}
 	div(class='text-center hero-unit')
+		div(class='text-left')
+			h1 #{name}
+			h3 Dietary Restrictions
+			each diet in dietary
+				#{diet.name}
+			h3 Cuisines
+			each cuis in cuisines
+				#{cuis.name}
+			h3 Flavors
+			each flav in flavors
+				#{flav.name}
 		form(id='settings', class='form-inline')
 			include _multiselect
 			button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
