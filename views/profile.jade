@@ -24,8 +24,7 @@ block content
 		h2 Favorites
 		if (favorites.length > 0)
 				each recipe in favorites
-					#{recipe}
-					//- include _parrecipe
+					include _parrecipe
 			else
 				p You have no favorites yet!
 

@@ -11,7 +11,10 @@ block content
 			p Popularity: #{recipe.counter}
 			div
 				input(type="button", id="fav", class="#{recipe._id}", value="Favorite")
-			a(href='#{recipe.url}') Original Website
+			if (recipe.url)
+				a(href='#{recipe.url}') Original Website
+			else
+				| This recipe is user made.
 		div(class="float-one")
 			.container.row-fluid
 				.container.span8.padded
