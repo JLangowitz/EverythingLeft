@@ -126,7 +126,8 @@ exports.addfav = function (req, res){
 						if (req.body.id == fav_list[i]){
 							//If it is present, do not add
 							add = false;
-							break;
+							res.send({'err':'You have already favorited this recipe!'});
+							return console.log('already favorited');
 						};
 					};
 				};
@@ -138,7 +139,7 @@ exports.addfav = function (req, res){
 						Recipe.update({'_id': req.body.id}, {counter: up_score}, function() {
 							User.findOne({username:req.user.username}).exec(function (err, newuse){
 								req.user = newuse;
-								res.redirect('/profile');
+								res.render('_fav_badge', {'recipe':recipe});
 							});
 						});
 					});

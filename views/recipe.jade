@@ -6,12 +6,13 @@ block content
 	div(class='id-holder', id="container", name=recipe.id)
 		div(class='page-header')
 			h1(style='padding-left: 100px;') #{recipe.name}
-		div(class="float-one well")
+		div(class="float-one well",id='errorAppendDiv')
 			div.well.well-dark.image-div
 				include _recipe-image.jade
 			div
 				h2 Popularity:
-					span(class='badge badge-large badge-pop pop-counter') +#{recipe.counter}
+					div(class='inline-block', id='favBadge')
+						include _fav_badge
 					input(id="fav", type='button', recipeId='#{recipe._id}', class="inline-block btn btn-large btn-success", value='Favorite')
 		div(class="float-one content-right")
 			.container.row-fluid
