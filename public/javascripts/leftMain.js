@@ -122,8 +122,8 @@ $(document).ready(function() {
 								console.log('data type', typeof data);
 
 								//check that an image exists
-								if (recipe.images !== undefined && recipe.images.length > 0) {
-									var image = recipe.images[0].hostedLargeUrl;
+								if (data.images !== undefined && data.images.length > 0) {
+									var image = data.images[0].hostedLargeUrl;
 								}
 								else {
 									var image = '';
