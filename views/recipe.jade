@@ -16,7 +16,7 @@ block content
 			div
 				h3 Popularity:
 					span(class='badge badge-large badge-success pop-counter') #{recipe.counter}
-					button(id="fav", class="#{recipe._id} inline-block btn btn-small btn-inverse") Favorite
+					input(id="fav", type="button", class="#{recipe._id} inline-block btn btn-small btn-inverse", value="Favorite")
 		div(class="float-one")
 			.container.row-fluid
 				.container.span8.padded

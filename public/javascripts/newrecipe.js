@@ -1,7 +1,7 @@
 // Called from recipe add page to create a recipe
 
 $(document).ready(function(){
-	if (readyFired) return;
+	//if (readyFired) return;
 
 	$('#makenew').submit(function() {
 		var name = $('#name').val()
@@ -19,8 +19,10 @@ $(document).ready(function(){
 	});
 
 	$('#fav').click(function (){
-		$.post('/addfav', {id: $(this).attr('class')}, function(){
-			window.location.refresh();
+		console.log("clicked");
+		var adj = $(this).attr('class').replace(' inline-block btn btn-small btn-inverse', '')
+		$.post('/addfav', {id: adj}, function(){
+			window.location.reload();
 		});
 	});
 
