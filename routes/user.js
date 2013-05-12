@@ -205,17 +205,10 @@ exports.yummly_update = function(req, res) {
 }
 
 exports.popover_update = function(req, res) {
-
-	var recipe = req.query.recipe;
-
-	if (recipe.images !== undefined && recipe.images.length > 0) {
-		var image = recipe.images[0].hostedLargeUrl
-	}
-
 	res.render('_popover', {
-		image: image,
-		name: recipe.name,
-		source: recipe.source,
-		ingredients: recipe.ingredientLines
+		image: req.query.image,
+		name: req.query.name,
+		source: req.query.source,
+		ingredients: req.query.ingredientLines
 	})
 }
