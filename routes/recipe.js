@@ -1,3 +1,6 @@
+// recipe.js
+// handles routes which relate to saving, creating, and altering recipes
+
 var Models = require('../models/models')
 	, Tag = Models.tag
 	, Recipe = Models.recipe
@@ -179,7 +182,7 @@ exports.update_desc = function(req, res) {
 	});
 }
 
-// update a recipe's image from post /recipe/update/iamge
+// update a recipe's image from post /recipe/update/image
 exports.update_image = function(req, res) {
 	Recipe.update({'_id':req.body.id}, {image_large: req.body.imageURL}, function() {
 		Recipe.findOne({'_id':req.body.id}).exec(function(err, found_recipe) {
@@ -188,4 +191,25 @@ exports.update_image = function(req, res) {
 			});
 		})
 	});
+}
+
+// update a recipe's tags from post /recipe/update/tags
+exports.update_tags = function(req, res) {
+	console.log('tags', req.body.tags)
+	Recipe.findOne({'_id':req.body.id}).populate('tags').exec(function(err, found_recipe) {
+		Tag.find({"name":{$in:req.body.tags}}).exec(function(err, found_tags) {
+			found_recipe.tags = found_tags;
+			found_recipe.save(function(err) {
+				if(err) {console.log('error', err)}
+				else {
+					res.render('_recipetags.jade', {
+						recipe: found_recipe,
+						dietary: req.session.dietary, 
+						cuisines: req.session.cuisines, 
+						flavors: req.session.flavors
+					});
+				}
+			})
+		});
+	})
 }
