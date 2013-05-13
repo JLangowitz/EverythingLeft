@@ -40,6 +40,19 @@ $(document).ready(function() {
 			})
 	})
 
+	// update tags on recipe page
+
+	$('.update-tags').click(function() {
+		var recipeID = $('.id-holder').attr('name'),
+			tags = $('.recipeselect').val();
+			$.post('/recipe/update/tags', {
+				id: recipeID,
+				tags: tags
+			}, function(HTMLdata) {
+				// $('#recipeTags').html(HTMLdata).fadeIn('slow');
+				// $('.recipeselect').chosen();
+			});
+	});
 
 	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
@@ -52,9 +65,10 @@ $(document).ready(function() {
 		});
 
 		if (res.recipe) {
+			console.log(res.recipe)
 			$('.recipeselect option').each(function(index,Element){
 				for (var i = 0; i < res.recipe.tags.length; i++) {
-					if (res.recipe.tags[i]==$(this).val()){
+					if (res.recipe.tags[i].name==$(this).val()){
 						$(this).attr('selected', 'selected');
 					}
 				};
@@ -143,8 +157,6 @@ $(document).ready(function() {
 	//handles searchpage searches
 	$('#searchpage-search').submit(function() {
 		if ($('#searchpage-search input').val().length !== 0 || $('#searchpage-search .multiselect').val() !== undefined) {
-			console.log($('#searchpage-search input').val().length);
-			console.log($('.searchpage-search .multiselect').val());
 			var recipeName = $('#searchpage-search input').val().toLowerCase(),
 			    yummlyBase = 'http://api.yummly.com',
 			    yummlyURL = '/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
@@ -250,6 +262,8 @@ $(document).ready(function() {
 			return false
 		}
 		else {
+			// if user entered nothing in recipe name or tags, throw error
+			console.log($('#searchpage-search .multiselect').val());
 			$('.search-alert').append("<div class='alert alert-error'>"+
 										"<button type='button' class='close' data-dismiss='alert'>&times;"+
 										"</button><strong>You need to enter a recipe name or some tags!</strong></div>");

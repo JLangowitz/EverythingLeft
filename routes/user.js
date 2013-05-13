@@ -16,6 +16,7 @@ exports.login = function(req, res) {
 // sets up multiselects from get /multiselect
 exports.preselect = function(req, res) {
 	recipe=req.session.recipe;
+	console.log(recipe)
 	req.session.recipe=null;
 	req.session.search=[];
 	req.session.databaseSearch=[];
