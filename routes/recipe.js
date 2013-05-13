@@ -92,10 +92,10 @@ exports.search = function(req, res){
 				if (!req.query.recipeName) req.query.recipeName='';
 				for (var i = 0; i < recipes.length; i++) {
 					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1){
-						if (!tags||!recipes[i].tags){	
+						if (!tags){	
 							recipeMatches.unshift(recipes[i]);
 						}
-						else {
+						else if(recipes[i].tags){
 							var match = true;
 							for (var j = 0; j < tags.length; j++) {
 								for (var k = 0; k < recipes[i].tags.length; k++) {
