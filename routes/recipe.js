@@ -72,6 +72,7 @@ exports.makenew = function(req, res){
 
 // searches database from get /database/search
 exports.search = function(req, res){
+	console.log('search function')
 	Tag.find({'name':{$in:req.query.tags}}).exec(function(err,tags){
 		if (err && tags){
 			res.send(err);
@@ -91,19 +92,26 @@ exports.search = function(req, res){
 				if (!req.query.recipeName) req.query.recipeName='';
 				for (var i = 0; i < recipes.length; i++) {
 					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1){
-						if (!tags){	
+						if (!tags||!recipes[i].tags){	
 							recipeMatches.unshift(recipes[i]);
 						}
-						else if (recipes[i].tags){
+						else {
 							var match = true;
-							for (var j = 0; j < recipes[i].tags.length; j++) {
-								for (var k = 0; k < tags.length; k++) {
-									if (tags[k]=recipes[i].tags[j]){
+							for (var j = 0; j < tags.length; j++) {
+								for (var k = 0; k < recipes[i].tags.length; k++) {
+									// console.log('recipe tag',recipes[i].tags[k])
+									// console.log('search tag',tags[j])
+									if (tags[j].name===recipes[i].tags[k].name){
+										// console.log('hit a match')
+										match=true;
 										break;
 									}
-									match=false;
+									else{
+										match=false;
+										break;
+									}
 								}
-								if (!match) break;
+								if(!match) break;
 							}
 							if(match) recipeMatches.unshift(recipes[i]);
 						}
