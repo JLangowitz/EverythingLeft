@@ -130,104 +130,118 @@ $(document).ready(function() {
 
 	//handles searchpage searches
 	$('#searchpage-search').submit(function() {
-		var tags = $('#searchpage-search .multiselect').val(),
-		    recipeName = $('#searchpage-search input').val().toLowerCase(),
-		    categTags = categorizeTags(tags),
-		    yummlyBase = 'http://api.yummly.com',
-		    yummlyURL = '/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
-		    yummlyURL = urlForm(yummlyURL, categTags);
-		    console.log('base', yummlyBase);
-		    console.log('path', yummlyURL);
+		if ($('#searchpage-search input').val().length > 0 || $('.searchpage-search .input').val() !== null) {
+			var recipeName = $('#searchpage-search input').val().toLowerCase(),
+			    yummlyBase = 'http://api.yummly.com',
+			    yummlyURL = '/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
+			    
+			    console.log('base', yummlyBase);
+			    console.log('path', yummlyURL);
+			    if($('#searchpage-search .multiselect').val() !== null) {
+			    	var tags = $('#searchpage-search .multiselect').val(),
+			    		categTags = categorizeTags(tags);
+			    	yummlyURL = urlForm(yummlyURL, categTags);
+			    }
 
-		    // search yummly recipes
-    		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
-    			$('.yummly').html(data);
-    			$('.btn-yummly').popover({trigger: 'click', html: true});
+			    // search yummly recipes
+	    		$.get('/yummly/update', {host: yummlyBase, path: yummlyURL}, function(data) {
+	    			$('.yummly').html(data);
+	    			$('.btn-yummly').popover({trigger: 'click', html: true});
 
-    			// search database recipes
-    			$.get('/database/search',
-    				{tags:$('#searchpage-search .multiselect').val(),
-    				recipeName:recipeName},
-    			function(data){
-    				$('#databaseRecipes').html(data);
+	    			// search database recipes
+	    			$.get('/database/search',
+	    				{tags:$('#searchpage-search .multiselect').val(),
+	    				recipeName:recipeName},
+	    			function(data){
+	    				$('#databaseRecipes').html(data);
 
-    				$('.btn-yummly').click(function(){
-    					$(this).addClass('activeYummly');
-    					$('.btn-yummly').not(this).popover('hide');
-    					var name = $(this).parents('.well').attr('name');
-						var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
-						
-						// if user clicks "see more", get recipe object from yummly using recipe id
-						$.ajax({
-							url: recipeURL,
-							dataType: 'jsonp',
-							success: function(data) {
-								console.log('recipe data', data);
-								console.log('data type', typeof data);
+	    				$('.btn-yummly').click(function(){
+	    					$(this).addClass('activeYummly');
+	    					$('.btn-yummly').not(this).popover('hide');
+	    					var name = $(this).parents('.well').attr('name');
+							var recipeURL = 'http://api.yummly.com/v1/api/recipe/'+ name + "?_app_id="+yummlyID+"&_app_key="+yummlyKEY;
+							
+							// if user clicks "see more", get recipe object from yummly using recipe id
+							$.ajax({
+								url: recipeURL,
+								dataType: 'jsonp',
+								success: function(data) {
+									console.log('recipe data', data);
+									console.log('data type', typeof data);
 
-								//check that an image exists
-								if (data.images !== undefined && data.images.length > 0) {
-									var image = data.images[0].hostedLargeUrl;
-								}
-								else {
-									var image = '';
-								}
+									//check that an image exists
+									if (data.images !== undefined && data.images.length > 0) {
+										var image = data.images[0].hostedLargeUrl;
+									}
+									else {
+										var image = '';
+									}
 
-								// get new html for yummly info popover
-								$.get('/yummly/popover/update', {
-									image: image,
-									name: data.name,
-									source: data.source,
-									ingredients: data.ingredientLines
-								}, function(htmlData) {
-									$('.popover-content').html(htmlData);
-									$('.popover-title').text(data.name)
-									$('#saveRecipe').click(function(){
+									// get new html for yummly info popover
+									$.get('/yummly/popover/update', {
+										image: image,
+										name: data.name,
+										source: data.source,
+										ingredients: data.ingredientLines
+									}, function(htmlData) {
+										$('.popover-content').html(htmlData);
+										$('.popover-title').text(data.name)
+										$('#saveRecipe').click(function(){
 
-										// save yummly recipe to database
-										$.post('/addrecipe/new',
-											{name:data.name
-											, imageLarge:data.images[0].hostedLargeUrl
-											, imageSmall:data.images[0].hostedSmallUrl
-											, url:data.source.sourceRecipeUrl
-											, description:''
-											, tags:[]
-											, ingredients:data.ingredientLines},
-										function(res){
-											if (res.err){
-												console.log(res.err);
+											// save yummly recipe to database
+											$.post('/addrecipe/new',
+												{name:data.name
+												, imageLarge:data.images[0].hostedLargeUrl
+												, imageSmall:data.images[0].hostedSmallUrl
+												, url:data.source.sourceRecipeUrl
+												, description:''
+												, tags:[]
+												, ingredients:data.ingredientLines},
+											function(res){
+												if (res.err){
+													console.log(res.err);
 
-												// Send error alert
-												$('#errorAppendDiv').append("<div class='alert alert-error'>"+
-																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																		"</button><strong>Try Again </strong>"+ res.err +
-																		"</div>");
+													// Send error alert
+													$('#errorAppendDiv').append("<div class='alert alert-error'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Try Again </strong>"+ res.err +
+																			"</div>");
 
-												setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 
-											}
-											else{
+												}
+												else{
 
-												// Send success notification
-												$('#errorAppendDiv').append("<div class='alert alert-success'>"+
-																		"<button type='button' class='close' data-dismiss='alert'>&times;"+
-																		"</button><strong>Success </strong>"+
-																		"Recipe saved</div>");
+													// Send success notification
+													$('#errorAppendDiv').append("<div class='alert alert-success'>"+
+																			"<button type='button' class='close' data-dismiss='alert'>&times;"+
+																			"</button><strong>Success </strong>"+
+																			"Recipe saved</div>");
 
-												setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
+													setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 
-												window.location='/recipe/'+res.id;
+													window.location='/recipe/'+res.id;
 
-											}
+												}
+											});
 										});
 									});
-								});
-							}
-						});
-					})
-    			});
-    		});
-		return false
+								}
+							});
+						})
+	    			});
+	    		});
+			return false
+		}
+		else {
+			$('.search-alert').append("<div class='alert alert-error'>"+
+										"<button type='button' class='close' data-dismiss='alert'>&times;"+
+										"</button><strong>You need to enter a recipe name or some tags!</strong></div>");
+
+			setTimeout(function(){$('.alert').fadeOut('slow')}, 2000);
+
+			return false
+		}
     	});
 
 	//give tags categories
