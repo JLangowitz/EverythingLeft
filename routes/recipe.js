@@ -95,7 +95,7 @@ exports.search = function(req, res){
 						if (!tags){	
 							recipeMatches.unshift(recipes[i]);
 						}
-						else if(recipes[i].tags){
+						else if(recipes[i].tags.length>0){
 							var match = true;
 							for (var j = 0; j < tags.length; j++) {
 								for (var k = 0; k < recipes[i].tags.length; k++) {
