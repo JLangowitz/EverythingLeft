@@ -91,17 +91,17 @@ exports.search = function(req, res){
 				if (!req.query.recipeName) req.query.recipeName='';
 				for (var i = 0; i < recipes.length; i++) {
 					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1){
-						if (user.preferences.length==0){	
+						if (!tags){	
 							recipeMatches.unshift(recipes[i]);
 						}
 						else if (recipes[i].tags){
 							var match = true;
 							for (var j = 0; j < recipes[i].tags.length; j++) {
-								for (var k = 0; k < user.preferences.length; k++) {
-									if (user.preferences[k]!=recipes[i].tags[j]){
-										match = false;
+								for (var k = 0; k < tags.length; k++) {
+									if (tags[k]=recipes[i].tags[j]){
 										break;
 									}
+									match=false;
 								}
 								if (!match) break;
 							}
