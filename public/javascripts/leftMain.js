@@ -48,7 +48,10 @@ $(document).ready(function() {
 			$.post('/recipe/update/tags', {
 				id: recipeID,
 				tags: tags
-			}, function(HTMLdata) {});
+			}, function(HTMLdata) {
+				$('#recipeTags').html(HTMLdata).fadeIn('slow');
+				$('.recipeselect').chosen();
+			});
 	});
 
 	// Goes to user.preselect, selects the user default preferences automatically

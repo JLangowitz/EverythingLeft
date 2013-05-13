@@ -14,3 +14,15 @@ select(data-placeholder='Enter your search terms', style='width: 350px', multipl
 		if cuisines
 			each tag in cuisines
 				option(value=tag.name) #{tag.name}
+
+button(class='btn btn-pad btn-inverse update-tags') Change Tags
+
+script(type='text/javascript')
+	var tags = "#{recipe.tags}"
+	$('option').each(function(index,Element){
+		for (var i = 0; i < tags.length; i++) {
+			if (tags[i].name==$(this).val()){
+				$(this).attr('selected', 'selected');
+			}
+		};
+	});
