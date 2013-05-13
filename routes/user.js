@@ -15,6 +15,8 @@ exports.login = function(req, res) {
 
 // sets up multiselects from get /multiselect
 exports.preselect = function(req, res) {
+	recipe=req.session.recipe;
+	req.session.recipe=null;
 	req.session.search=[];
 	req.session.databaseSearch=[];
 	User.findOne({'email':req.user.email}).populate('preferences', 'name').exec(function(err, user){
@@ -26,7 +28,7 @@ exports.preselect = function(req, res) {
 		for (var i = 0; i < user.preferences.length; i++) {
 			preferences.push(user.preferences[i].name);
 		};
-		res.send({'error':'', 'preferences':preferences});
+		res.send({'error':'', 'preferences':preferences, 'recipe':recipe});
 	});
 };
 

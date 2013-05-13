@@ -15,6 +15,7 @@ exports.addform = function(req, res){
 // renders individual recipe page from get /recipe/:recipe
 exports.recipepage = function (req, res){
 	Recipe.find({'_id':req.params.recipe}).sort().exec(function (err, docs){
+		req.session.recipe=docs[0];
 		res.render('recipe', 
 			{title: 'Everything Left', 
 			dietary: req.session.dietary, 

@@ -32,14 +32,7 @@ block content
 		hr
 		div(class="float-one description well")
 			include _description.jade
-		
+	div(class='hidden', recipe=recipe, id='hiddenRecipe')
 block scripts
 	script(src='/javascripts/newrecipe.js', type="text/javascript")
-	script(type='text/javascript')
-		$('option').each(function(index,Element){
-			for (var i = 0; i < recipe.tags.length; i++) {
-				if (recipe.tags[i].name==$(this).val()){
-					$(this).attr('selected', 'selected');
-				}
-			};
-		});
+

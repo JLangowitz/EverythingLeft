@@ -43,7 +43,7 @@ $(document).ready(function() {
 
 	// Goes to user.preselect, selects the user default preferences automatically
 	$.get('/preselect', function(res){
-		$('option').each(function(index,Element){
+		$('.multiselect option').each(function(index,Element){
 			for (var i = 0; i < res.preferences.length; i++) {
 				if (res.preferences[i]==$(this).val()){
 					$(this).attr('selected', 'selected');
@@ -51,6 +51,18 @@ $(document).ready(function() {
 			};
 		});
 
+		if (res.recipe) {
+			$('.recipeselect option').each(function(index,Element){
+				for (var i = 0; i < res.recipe.tags.length; i++) {
+					if (res.recipe.tags[i]==$(this).val()){
+						$(this).attr('selected', 'selected');
+					}
+				};
+			});
+		}
+
+		// console.log($('#hiddenRecipe'))
+		// console.log(JSON.parse($('#hiddenRecipe').attr('recipe')))
 		//initialize chzn
 		$('.chzn-select').each(function(index,Element){
 			$(this).chosen({
@@ -130,7 +142,7 @@ $(document).ready(function() {
 
 	//handles searchpage searches
 	$('#searchpage-search').submit(function() {
-		if ($('#searchpage-search input').val().length !== 0 || $('.searchpage-search .multiselect').val() !== undefined) {
+		if ($('#searchpage-search input').val().length !== 0 || $('#searchpage-search .multiselect').val() !== undefined) {
 			console.log($('#searchpage-search input').val().length);
 			console.log($('.searchpage-search .multiselect').val());
 			var recipeName = $('#searchpage-search input').val().toLowerCase(),
