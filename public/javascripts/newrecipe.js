@@ -30,6 +30,8 @@ $(document).ready(function(){
 				setTimeout(function(){$('.alert').fadeOut('slow')}, 3000);
 			}
 			else {
+				console.log('happy')
+				console.log(res)
 				$('#favBadge').html(res);
 			}
 		});

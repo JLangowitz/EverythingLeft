@@ -191,7 +191,7 @@ $(document).ready(function() {
 											, imageSmall:data.images[0].hostedSmallUrl
 											, url:data.source.sourceRecipeUrl
 											, description:''
-											, tags:[]
+											, tags:tags
 											, ingredients:data.ingredientLines},
 										function(res){
 											if (res.err){

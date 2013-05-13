@@ -14,6 +14,8 @@ block content
 					div(class='inline-block', id='favBadge')
 						include _fav_badge
 					input(id="fav", type='button', recipeId='#{recipe._id}', class="inline-block btn btn-large btn-success", value='Favorite')
+				div
+					include _recipetags
 		div(class="float-one content-right")
 			.container.row-fluid
 				.container.span8.padded
@@ -30,3 +32,11 @@ block content
 		
 block scripts
 	script(src='/javascripts/newrecipe.js', type="text/javascript")
+	script(type='text/javascript')
+		$('option').each(function(index,Element){
+			for (var i = 0; i < recipe.tags.length; i++) {
+				if (recipe.tags[i].name==$(this).val()){
+					$(this).attr('selected', 'selected');
+				}
+			};
+		});

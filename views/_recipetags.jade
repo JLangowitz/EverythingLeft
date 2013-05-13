@@ -1,0 +1,16 @@
+//- recipe tags
+
+select(data-placeholder='Enter your search terms', style='width: 350px', multiple, class='recipeselect chzn-select')
+	option(value="")
+	optgroup(label='Dietary Restrictions')
+		if dietary
+			each tag in dietary
+				option(value=tag.name) #{tag.name}
+	optgroup(label='Favorite Flavors')
+		if flavors
+			each tag in flavors
+				option(value=tag.name) #{tag.name}
+	optgroup(label='Preferred Cuisines')
+		if cuisines
+			each tag in cuisines
+				option(value=tag.name) #{tag.name}

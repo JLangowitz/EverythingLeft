@@ -84,21 +84,28 @@ exports.search = function(req, res){
 					return console.log(err);
 				}
 				var recipeMatches = [];
+				if (!req.query.recipeName) req.query.recipeName='';
 				for (var i = 0; i < recipes.length; i++) {
-					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1) recipeMatches.unshift(recipes[i]);
-					if (recipes[i].tags){
-						for (var j = 0; j < recipes[i].tags.length; j++) {
-							if (user.preferences){
+					if (recipes[i].name.toLowerCase().indexOf(req.query.recipeName.toLowerCase()) != -1){
+						if (user.preferences.length==0){	
+							recipeMatches.unshift(recipes[i]);
+						}
+						else if (recipes[i].tags){
+							var match = true;
+							for (var j = 0; j < recipes[i].tags.length; j++) {
 								for (var k = 0; k < user.preferences.length; k++) {
-									if (user.preferences[k]==recipes[i].tags[j]){
-										recipeMatches.push(recipes[i]);
+									if (user.preferences[k]!=recipes[i].tags[j]){
+										match = false;
+										break;
 									}
-								};
+								}
+								if (!match) break;
 							}
-						};
+							if(match) recipeMatches.unshift(recipes[i]);
+						}
 					}
-				};
-				if (recipeMatches.length==0) recipeMatches=recipes;
+				}
+				// if (recipeMatches.length==0) recipeMatches=recipes;
 				// req.session.databaseSearch=recipeMatches;
 				res.render('_recipes',
 			  		{ title: 'Everything Left', 
