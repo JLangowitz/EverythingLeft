@@ -6,7 +6,7 @@ var Models = require('../models/models')
 
 // handle home page information
 exports.index = function(req, res){
-	Recipe.find().sort({'counter':-1}).limit(5).exec(function (err, top){
+	Recipe.find().sort({'counter':-1}).limit(10).exec(function (err, top){
 		if (err)
 			console.log("Error in Finding Top Recipe");
 

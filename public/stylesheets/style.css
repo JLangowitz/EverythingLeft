@@ -169,9 +169,11 @@ table.table {
 	display: none;
 }
 
-.carousel {
-	max-width: 500px;
-	max-height: 350px;
+.carousel-recipes {
+	margin-left: auto;
+	margin-right: auto;
+	max-width: 750px;
+	height: 500px;
 }
 
 .well-dark{	
@@ -205,13 +207,17 @@ table.table {
 
 .font10 {
 	margin-top: 15px;
-	font-size: 10pt;
+	font-size: 10pt!important;
 	line-height: 1.3!important;
+}
+
+.everything{
+	min-width: 1400px;
 }
 
 .carousel-img {
 	width: 100%;
-	height: 350px;
+	height: 100%
 }
 
 textarea {
@@ -225,6 +231,16 @@ textarea {
 
 .content-right {
 	padding-left: 8%;
+	height: inherit;
+	border-left: solid;
+	border-width: 1px;
+	border-color: #e3e3e3;
+}
+
+.centerline {
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
 	border-left: solid;
 	border-width: 1px;
 	border-color: #e3e3e3;
@@ -239,12 +255,15 @@ textarea {
 	font-size: 0.75em;
 }
 
-.recipe-image {
-	max-width: 360px;
-	max-height: 270px;
-}
 
 #introCarousel {
+	width: 750px;
+	height: 400px;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.introImg {
+	width: 100%;
+	height: 400px;
 }

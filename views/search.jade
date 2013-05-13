@@ -15,7 +15,7 @@ block content
 							div(class='controls')
 								input(type='text', placeholder='What do you want to make?')
 						div.control-group
-							label.control-label Categories
+							label.control-label Search Tags
 							div.controls(style='')
 								include _multiselect
 								div(class='help-block font10') Can't find the tag you want? Add one using the button in the top right corner of your screen!
@@ -25,5 +25,5 @@ block content
 		div.row-fluid
 			div.container.span5.yummly.padded
 				include _yummly.jade
-			div.container.offset1.span5.content-right(id='databaseRecipes')
+			div.container.span5.offset1.content-right(id='databaseRecipes')
 				include _recipes.jade
