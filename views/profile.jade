@@ -12,13 +12,9 @@ block content
 		div(class='row-fluid')
 			div(class='text-center hero-unit span6')
 				include _preferences
-				br
-				br
 				form(id='settings', class='form-inline')
 					include _multiselect
-					br
-					br
-					button(class='btn btn-inverse btn-chosen', type='submit') Save Preferences
+					button(class='btn btn-inverse btn-pad', type='submit') Save Preferences
 					div(class='help-block font10 text-left') Selected tags will become your default search parameters. 
 						|You can return here to change them at any time or customize individual searches on our search page.
 						|Can't find the tag you want? Add one using the button in the top right corner of your screen!
@@ -28,7 +24,7 @@ block content
 						button(type="submit", class='btn btn-inverse') Change Username
 						//- div(class="form-actions")
 			div(class="favs span6 content-right")
-				h2.text-center Favorites
+				h2.text-center Your Favorites
 					include _recipes
 					script(type='text/javascript')
 						$('.recipe-header').hide();

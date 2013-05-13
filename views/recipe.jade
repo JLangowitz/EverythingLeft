@@ -4,18 +4,21 @@ extends layout
 
 block content
 	div(class='id-holder', id="container", name=recipe.id)
-		div(class='page-header')
+		div(class='page-header text-center')
 			h1(style='padding-left: 100px;') #{recipe.name}
 		div(class="float-one well",id='errorAppendDiv')
 			div.well.well-dark.image-div
 				include _recipe-image.jade
 			div
+				h2 Tags:
+					div(class='inline-block', id='recipeTags')
+						include _recipetags
+						button(class='btn btn-pad btn-inverse') Change Tags
+			div
 				h2 Popularity:
 					div(class='inline-block', id='favBadge')
 						include _fav_badge
 					input(id="fav", type='button', recipeId='#{recipe._id}', class="inline-block btn btn-large btn-success", value='Favorite')
-				div
-					include _recipetags
 		div(class="float-one content-right")
 			.container.row-fluid
 				.container.span8.padded

@@ -69,7 +69,7 @@ exports.makenew = function(req, res){
 // searches database from get /database/search
 exports.search = function(req, res){
 	Tag.find({'name':{$in:req.query.tags}}).exec(function(err,tags){
-		if (err){
+		if (err && tags){
 			res.send(err);
 			return console.log(err);
 		}
@@ -140,11 +140,23 @@ exports.addfav = function (req, res){
 				};
 
 				if (add == true){
-					var up_score = recipe.counter + 1;
+					recipe.counter = recipe.counter + 1;
 
-					User.update({'username':req.user.username}, {$push: {'favorites': recipe}}, function(){
-						Recipe.update({'_id': req.body.id}, {counter: up_score}, function() {
+					User.update({'username':req.user.username}, {$push: {'favorites': recipe}}, function (err){
+						if(err){
+							res.send({'err':'We are experiencing some technical difficulties. Please try again.'});
+							return console.log (err);
+						}
+						recipe.save(function (err) {
+							if(err){
+								res.send({'err':'We are experiencing some technical difficulties. Please try again.'});
+								return console.log (err);
+							}
 							User.findOne({username:req.user.username}).exec(function (err, newuse){
+								if(err){
+									res.send({'err':'We are experiencing some technical difficulties. Please try again.'});
+									return console.log (err);
+								}
 								req.user = newuse;
 								res.render('_fav_badge', {'recipe':recipe});
 							});
