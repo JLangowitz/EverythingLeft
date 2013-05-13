@@ -130,7 +130,9 @@ $(document).ready(function() {
 
 	//handles searchpage searches
 	$('#searchpage-search').submit(function() {
-		if ($('#searchpage-search input').val().length > 0 || $('.searchpage-search .input').val() !== null) {
+		if ($('#searchpage-search input').val().length !== 0 || $('.searchpage-search .multiselect').val() !== undefined) {
+			console.log($('#searchpage-search input').val().length);
+			console.log($('.searchpage-search .multiselect').val());
 			var recipeName = $('#searchpage-search input').val().toLowerCase(),
 			    yummlyBase = 'http://api.yummly.com',
 			    yummlyURL = '/v1/api/recipes?_app_id='+yummlyID+'&_app_key='+yummlyKEY+'&q='+encodeURIComponent(recipeName);
@@ -211,6 +213,8 @@ $(document).ready(function() {
 
 												}
 												else{
+
+													$('.alert').fadeOut('fast');
 
 													// Send success notification
 													$('#errorAppendDiv').append("<div class='alert alert-success'>"+
